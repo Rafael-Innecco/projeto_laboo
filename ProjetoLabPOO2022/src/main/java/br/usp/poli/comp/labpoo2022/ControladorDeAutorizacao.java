@@ -5,6 +5,7 @@ import java.net.URI;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.hc.core5.http.ParseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,7 +59,7 @@ public class ControladorDeAutorizacao {
 			spotifyApi.setRefreshToken(credenciaisDeCodigoDeAutorizacao.getRefreshToken());
 			
 			System.out.println("Código de acesso expira em: " + credenciaisDeCodigoDeAutorizacao.getExpiresIn());
-		} catch (IOException | SpotifyWebApiException | org.apache.hc.core5.http.ParseException e)
+		} catch (IOException | SpotifyWebApiException | ParseException e)
 		{
 			System.out.println("Erro ao requisitar código do usuário spotify: " + e.getMessage());
 		}
