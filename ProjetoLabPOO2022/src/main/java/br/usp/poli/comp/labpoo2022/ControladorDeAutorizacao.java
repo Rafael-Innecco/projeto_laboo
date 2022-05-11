@@ -19,18 +19,18 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/autorizacao")
 public class ControladorDeAutorizacao {
 	
-	private static final URI enderecoDeRedirecionamento = SpotifyHttpManager.makeUri("http://localhost:8080/api/resgatar-codigo");
-	private String codigo = "";
+	private static final URI enderecoDeRedirecionamento = SpotifyHttpManager.makeUri("http://localhost:8080/autorizacao/resgatar-codigo");
+	private String codigoDeUsuario = "";
 	
 	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
 			.setClientId(chavesDeSeguranca.idDeCliente.getChave())
 			.setClientSecret(chavesDeSeguranca.segredoDoCliente.getChave())
 			.setRedirectUri(enderecoDeRedirecionamento)
 			.build();
-	
+
 	@GetMapping("login")
 	@ResponseBody
 	public String loginDoSpotify()
@@ -40,17 +40,16 @@ public class ControladorDeAutorizacao {
 				.show_dialog(true)
 				.build();
 		final URI uri = requisicaoDoCodigoDeAutorizacao.execute();
-		System.out.println(uri.toString());
+		
 		return uri.toString();
 	}
-			
+
 	@GetMapping(value = "resgatar-codigo")
 	public String getCodigoDeUsuarioSpotify(@RequestParam("code") String codigoDeUsuario, HttpServletResponse resposta) throws IOException
 	{
-		this.codigo = codigoDeUsuario;
-		AuthorizationCodeRequest requisicaoDeCodigoDeAutorizacao = spotifyApi.authorizationCode(this.codigo)
+		this.codigoDeUsuario = codigoDeUsuario;
+		AuthorizationCodeRequest requisicaoDeCodigoDeAutorizacao = spotifyApi.authorizationCode(this.codigoDeUsuario)
 				.build();
-	
 		try
 		{
 			final AuthorizationCodeCredentials credenciaisDeCodigoDeAutorizacao = requisicaoDeCodigoDeAutorizacao.execute();
@@ -61,10 +60,15 @@ public class ControladorDeAutorizacao {
 			System.out.println("Código de acesso expira em: " + credenciaisDeCodigoDeAutorizacao.getExpiresIn());
 		} catch (IOException | SpotifyWebApiException | org.apache.hc.core5.http.ParseException e)
 		{
-			System.out.println("Erro: " + e.getMessage());
+			System.out.println("Erro ao requisitar código do usuário spotify: " + e.getMessage());
 		}
 		
-		resposta.sendRedirect("http://localhost:3000/playlists");
+		resposta.sendRedirect("http://localhost:8080/playlist/criador-de-playlist");
 		return spotifyApi.getAccessToken();
+	}
+
+	public static SpotifyApi getSpotifyApi()
+	{
+		return ControladorDeAutorizacao.spotifyApi;
 	}
 }
