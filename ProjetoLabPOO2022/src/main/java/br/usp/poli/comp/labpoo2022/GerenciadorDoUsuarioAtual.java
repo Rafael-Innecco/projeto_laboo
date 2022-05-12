@@ -5,7 +5,7 @@ import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
 
-public class PerfilDeUsuario {
+public class GerenciadorDoUsuarioAtual {
 	
 	private final GetCurrentUsersProfileRequest requisicaoDePerfilDeUsuario = ControladorDeAutorizacao.getSpotifyApi().getCurrentUsersProfile()
     		.build();

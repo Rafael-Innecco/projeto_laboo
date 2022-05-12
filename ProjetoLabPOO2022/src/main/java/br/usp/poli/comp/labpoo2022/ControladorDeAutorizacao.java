@@ -27,8 +27,8 @@ public class ControladorDeAutorizacao {
 	private String codigoDeUsuario = "";
 	
 	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-			.setClientId(chavesDeSeguranca.idDeCliente.getChave())
-			.setClientSecret(chavesDeSeguranca.segredoDoCliente.getChave())
+			.setClientId(ChavesDeSeguranca.idDeCliente.getChave())
+			.setClientSecret(ChavesDeSeguranca.segredoDoCliente.getChave())
 			.setRedirectUri(enderecoDeRedirecionamento)
 			.build();
 
