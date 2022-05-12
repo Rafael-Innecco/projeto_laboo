@@ -24,11 +24,11 @@ public class GerenciadorDePlaylist {
 		String nomeDaPlaylist = "placeholder"; //Sera modificada pelo usuário
 		final GerenciadorDoUsuarioAtual usuarioAtual = new GerenciadorDoUsuarioAtual();
 	
-		final CreatePlaylistRequest requisicaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().createPlaylist(usuarioAtual.getIdDeUsuario(), nomeDaPlaylist)
+		final CreatePlaylistRequest requisicaoDeCriacaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().createPlaylist(usuarioAtual.getIdDeUsuario(), nomeDaPlaylist)
 			.build();
 		
 		try {
-			final Playlist playlist = requisicaoDePlaylist.execute();
+			final Playlist playlist = requisicaoDeCriacaoDePlaylist.execute();
 			
 			System.out.println("Name: " + playlist.getName());
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
