@@ -21,7 +21,7 @@ public class GerenciadorDePlaylist {
 	@GetMapping(value = "criador-de-playlist")
 	public static void criaPlaylist()
 	{
-		String nomeDaPlaylist = "placeholder"; //Será modificado a pelo usuário
+		String nomeDaPlaylist = "placeholder"; //Sera modificada pelo usuário
 		final GerenciadorDoUsuarioAtual usuarioAtual = new GerenciadorDoUsuarioAtual();
 	
 		final CreatePlaylistRequest requisicaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().createPlaylist(usuarioAtual.getIdDeUsuario(), nomeDaPlaylist)
@@ -37,18 +37,19 @@ public class GerenciadorDePlaylist {
 	}
 	
 	@GetMapping(value = "adicona-itens")
-	public static void adicionaItens () {
+	public static void adicionaItens () 
+	{
 		String playlistSelecionada = "playlistURI"; // Deve ser substituido pelo uri correto
 		String[] uris = null; //URIs das musicas a serem adicionadas (1 ou mais)
 		// uris pode ser transformado em um JSON array (se for mais simples a transferencia do front-end)
 		
-		final AddItemsToPlaylistRequest requisicaoAdicaoItens = ControladorDeAutorizacao.getSpotifyApi()
+		final AddItemsToPlaylistRequest requisicaoDeAdicaoDeItens = ControladorDeAutorizacao.getSpotifyApi()
 				.addItemsToPlaylist(playlistSelecionada, uris)
 				.build(); //Omite a posicao
 		
-		try {
-			final SnapshotResult snapshotResult = requisicaoAdicaoItens.execute();
-			
+		try 
+		{
+			final SnapshotResult snapshotResult = requisicaoDeAdicaoDeItens.execute();	
 			System.out.println("ID do snapshot: " + snapshotResult.getSnapshotId());
 		} catch (IOException |SpotifyWebApiException | ParseException e) {
 			System.out.println("Erro: " + e.getMessage());
