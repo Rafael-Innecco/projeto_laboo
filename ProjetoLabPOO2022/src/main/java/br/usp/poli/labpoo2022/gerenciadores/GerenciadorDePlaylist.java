@@ -14,11 +14,20 @@ import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 
+/**
+ * Gerencia todas as funcionalidades relacionadas à playlists.
+ * <p>
+ * Exemplos: adição, remoção e listagem de músicas; criação e remoção de playlists.
+ */
 @RestController
 @RequestMapping("/playlist")
 public class GerenciadorDePlaylist {
 	
-	//Cria uma playlist vazia
+	/**
+	 * Cria uma playlist vazia
+	 * 
+	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário.
+	 */
 	@GetMapping(value = "criador-de-playlist")
 	public static void criaPlaylist()
 	{
