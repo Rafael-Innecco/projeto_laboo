@@ -1,6 +1,8 @@
-package br.usp.poli.comp.labpoo2022;
+package br.usp.poli.labpoo2022.gerenciadores;
 
 import java.io.IOException;
+
+import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;

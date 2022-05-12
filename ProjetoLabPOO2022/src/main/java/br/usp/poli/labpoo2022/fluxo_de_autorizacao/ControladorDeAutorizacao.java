@@ -1,4 +1,4 @@
-package br.usp.poli.comp.labpoo2022;
+package br.usp.poli.labpoo2022.fluxo_de_autorizacao;
 
 import java.io.IOException;
 import java.net.URI;

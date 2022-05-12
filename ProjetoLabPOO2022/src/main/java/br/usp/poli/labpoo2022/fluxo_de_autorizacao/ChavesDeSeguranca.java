@@ -1,4 +1,4 @@
-package br.usp.poli.comp.labpoo2022;
+package br.usp.poli.labpoo2022.fluxo_de_autorizacao;
 
 public enum ChavesDeSeguranca {
 	idDeCliente ("031634f04918436395bbb0c8eb4a57e5"),
