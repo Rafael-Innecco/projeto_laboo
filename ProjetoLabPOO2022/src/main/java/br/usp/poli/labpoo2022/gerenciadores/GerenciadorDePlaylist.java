@@ -63,4 +63,21 @@ public class GerenciadorDePlaylist {
 			System.out.println("Erro: " + e.getMessage());
 		}
 	}
+
+	@GetMapping(value = "lista-playlists")
+	public static void listaPlaylists()
+	{
+		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = ControladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
+	          .limit(10)
+	          .offset(0) //damos ja com limite e offset (poderia tirar)
+	          .build();
+				
+		try {
+			final Paging<PlaylistSimplified> listaSimplesDePlaylist = requisicaoDeListarPlaylists.execute(); // traducao correta eh?
+			System.out.println("Total: " + listaSimplesDePlaylist.getTotal());
+		}
+		catch (IOException | SpotifyWebApiException | ParseException e) {
+		      System.out.println("Error: " + e.getMessage());
+		}
+	}
 }
