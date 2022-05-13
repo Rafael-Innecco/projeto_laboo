@@ -1,4 +1,4 @@
-package br.usp.poli.labpoo2022.gerenciadores;
+package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfi
 /**
  * Gerencia funcionalidades do usuário atualmente logado.
  */
-public class GerenciadorDoUsuarioAtual {
+public class ControladorDoUsuarioAtual {
 	
 	private final GetCurrentUsersProfileRequest requisicaoDePerfilDeUsuario = ControladorDeAutorizacao.getSpotifyApi().getCurrentUsersProfile()
     		.build();

@@ -1,38 +1,40 @@
-package br.usp.poli.labpoo2022.gerenciadores;
+package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
 
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.special.SnapshotResult;
+import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
+import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 
 /**
  * Gerencia todas as funcionalidades relacionadas à playlists do usuário atual.
  * <p>
  * Exemplos: adição, remoção e listagem de músicas; criação e remoção de playlists.
  */
-@RestController
-@RequestMapping("/playlist")
-public class GerenciadorDePlaylist {
+@Controller
+public class ControladorDePlaylist {
 	
 	/**
 	 * Cria uma playlist vazia
 	 * 
 	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário atual.
 	 */
-	@GetMapping(value = "criador-de-playlist")
-	public static void criaPlaylist(@RequestParam("nome") String nomeDaPlaylist)
+	@RequestMapping("/cria-playlist")
+	public static void criaPlaylist(
+			@RequestParam(value = "nome-da-playlist", required = false) String nomeDaPlaylist)
 	{
-		final GerenciadorDoUsuarioAtual usuarioAtual = new GerenciadorDoUsuarioAtual();
+		final ControladorDoUsuarioAtual usuarioAtual = new ControladorDoUsuarioAtual();
 	
 		final CreatePlaylistRequest requisicaoDeCriacaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().createPlaylist(usuarioAtual.getIdDeUsuario(), nomeDaPlaylist)
 			.build();
@@ -47,10 +49,15 @@ public class GerenciadorDePlaylist {
 	}
 	
 	/**
-	 * Adiciona itens à playlist do usuário atual.
+	 * Adiciona músicas à playlist selecionada.
+	 * 
+	 * @param playlistSelecionada Playlist selecionada pelo usuário.
+	 * @param uris URIs das músicas selecionadas
 	 */
-	@GetMapping(value = "adicona-itens")
-	public static void adicionaItens (@RequestParam("playlist") String playlistSelecionada, @RequestParam("uris") String[] uris) 
+	@RequestMapping("/adicona-itens")
+	public static void adicionaItens (
+			@RequestParam(value = "playlist-selecionada", required = false) String playlistSelecionada, 
+			@RequestParam(value = "URIs", required = false) String[] uris) 
 	{
 		// uris pode ser transformado em um JSON array (se for mais simples a transferencia do front-end)
 		
@@ -67,11 +74,11 @@ public class GerenciadorDePlaylist {
 		}
 	}
 
-	@GetMapping(value = "lista-playlists")
+	@RequestMapping("/lista-playlists")
 	public static void listaPlaylists()
 	{
 		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = ControladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
-	          .limit(10)
+	          .limit(20)
 	          .offset(0) //damos ja com limite e offset (poderia tirar)
 	          .build();
 				
