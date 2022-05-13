@@ -15,6 +15,10 @@ public class GerenciadorDoUsuarioAtual {
 	private final GetCurrentUsersProfileRequest requisicaoDePerfilDeUsuario = ControladorDeAutorizacao.getSpotifyApi().getCurrentUsersProfile()
     		.build();
 	
+	/**
+	 * Getter do ID do usuário atual.
+	 * @return ID do usuário atual
+	 */
 	public String getIdDeUsuario()
 	{
 		try 

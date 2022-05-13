@@ -15,7 +15,7 @@ import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistReques
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 
 /**
- * Gerencia todas as funcionalidades relacionadas à playlists.
+ * Gerencia todas as funcionalidades relacionadas à playlists do usuário atual.
  * <p>
  * Exemplos: adição, remoção e listagem de músicas; criação e remoção de playlists.
  */
@@ -26,7 +26,7 @@ public class GerenciadorDePlaylist {
 	/**
 	 * Cria uma playlist vazia
 	 * 
-	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário.
+	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário atual.
 	 */
 	@GetMapping(value = "criador-de-playlist")
 	public static void criaPlaylist()
@@ -46,6 +46,9 @@ public class GerenciadorDePlaylist {
 		}
 	}
 	
+	/**
+	 * Adiciona itens à playlist do usuário atual.
+	 */
 	@GetMapping(value = "adicona-itens")
 	public static void adicionaItens () 
 	{
