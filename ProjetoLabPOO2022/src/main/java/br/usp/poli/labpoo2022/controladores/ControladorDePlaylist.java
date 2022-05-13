@@ -1,6 +1,8 @@
 package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
@@ -31,8 +33,8 @@ public class ControladorDePlaylist {
 	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário atual.
 	 */
 	@RequestMapping("/cria-playlist")
-	public static void criaPlaylist(
-			@RequestParam(value = "nome-da-playlist", required = false) String nomeDaPlaylist)
+	public void criaPlaylist(
+			@RequestParam(value = "nome-da-playlist", required = true) String nomeDaPlaylist)
 	{
 		final ControladorDoUsuarioAtual usuarioAtual = new ControladorDoUsuarioAtual();
 	
@@ -55,12 +57,10 @@ public class ControladorDePlaylist {
 	 * @param uris URIs das músicas selecionadas
 	 */
 	@RequestMapping("/adicona-itens")
-	public static void adicionaItens (
-			@RequestParam(value = "playlist-selecionada", required = false) String playlistSelecionada, 
-			@RequestParam(value = "URIs", required = false) String[] uris) 
+	public void adicionaItens (
+			@RequestParam(value = "playlist-selecionada", required = true) String playlistSelecionada, 
+			@RequestParam(value = "uris", required = true) String[] uris) 
 	{
-		// uris pode ser transformado em um JSON array (se for mais simples a transferencia do front-end)
-		
 		final AddItemsToPlaylistRequest requisicaoDeAdicaoDeItens = ControladorDeAutorizacao.getSpotifyApi()
 				.addItemsToPlaylist(playlistSelecionada, uris)
 				.build(); //Omite a posicao
@@ -75,19 +75,30 @@ public class ControladorDePlaylist {
 	}
 
 	@RequestMapping("/lista-playlists")
-	public static void listaPlaylists()
+	public String[] listaPlaylists()
 	{
+		
 		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = ControladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
-	          .limit(20)
-	          .offset(0) //damos ja com limite e offset (poderia tirar)
+	          // .limit(20)
+	          //.offset(0) //damos ja com limite e offset (poderia tirar)
 	          .build();
 				
 		try {
 			final Paging<PlaylistSimplified> listaSimplesDePlaylist = requisicaoDeListarPlaylists.execute(); // traducao correta eh?
 			System.out.println("Total: " + listaSimplesDePlaylist.getTotal());
+			
+			List<String> listaDePlaylists = new ArrayList<>();;
+			for (PlaylistSimplified playlist : listaSimplesDePlaylist.getItems())
+				listaDePlaylists.add(playlist.toString());
+			
+			return (String[]) listaDePlaylists.toArray();
+			 
 		}
 		catch (IOException | SpotifyWebApiException | ParseException e) {
-		      System.out.println("Error: " + e.getMessage());
+		      System.out.println("Erro ao listar playlists: " + e.getMessage());
 		}
+		
 	}
+	
+	public void 
 }
