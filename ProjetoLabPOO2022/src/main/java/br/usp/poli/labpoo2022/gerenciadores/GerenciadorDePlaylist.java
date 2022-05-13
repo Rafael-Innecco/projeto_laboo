@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
@@ -29,9 +30,8 @@ public class GerenciadorDePlaylist {
 	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário atual.
 	 */
 	@GetMapping(value = "criador-de-playlist")
-	public static void criaPlaylist()
+	public static void criaPlaylist(@RequestParam("nome") String nomeDaPlaylist)
 	{
-		String nomeDaPlaylist = "placeholder"; //Sera modificada pelo usuário
 		final GerenciadorDoUsuarioAtual usuarioAtual = new GerenciadorDoUsuarioAtual();
 	
 		final CreatePlaylistRequest requisicaoDeCriacaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().createPlaylist(usuarioAtual.getIdDeUsuario(), nomeDaPlaylist)
@@ -50,10 +50,8 @@ public class GerenciadorDePlaylist {
 	 * Adiciona itens à playlist do usuário atual.
 	 */
 	@GetMapping(value = "adicona-itens")
-	public static void adicionaItens () 
+	public static void adicionaItens (@RequestParam("playlist") String playlistSelecionada, @RequestParam("uris") String[] uris) 
 	{
-		String playlistSelecionada = "playlistURI"; // Deve ser substituido pelo uri correto
-		String[] uris = null; //URIs das musicas a serem adicionadas (1 ou mais)
 		// uris pode ser transformado em um JSON array (se for mais simples a transferencia do front-end)
 		
 		final AddItemsToPlaylistRequest requisicaoDeAdicaoDeItens = ControladorDeAutorizacao.getSpotifyApi()
@@ -66,6 +64,23 @@ public class GerenciadorDePlaylist {
 			System.out.println("ID do snapshot: " + snapshotResult.getSnapshotId());
 		} catch (IOException |SpotifyWebApiException | ParseException e) {
 			System.out.println("Erro: " + e.getMessage());
+		}
+	}
+
+	@GetMapping(value = "lista-playlists")
+	public static void listaPlaylists()
+	{
+		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = ControladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
+	          .limit(10)
+	          .offset(0) //damos ja com limite e offset (poderia tirar)
+	          .build();
+				
+		try {
+			final Paging<PlaylistSimplified> listaSimplesDePlaylist = requisicaoDeListarPlaylists.execute(); // traducao correta eh?
+			System.out.println("Total: " + listaSimplesDePlaylist.getTotal());
+		}
+		catch (IOException | SpotifyWebApiException | ParseException e) {
+		      System.out.println("Error: " + e.getMessage());
 		}
 	}
 }
