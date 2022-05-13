@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Menu </title>
+	
+		<style>
+			body {
+				color: white;
+			}
+		</style>
+	
+	</head>
+	
+	<body style="background-color:#443D45;">
+	
+		<h1 style="color:#8BB174"> LABPOO Projetão 2022 - Menu </h1>
+		<p> ---------------------------------------- </p>
+		
+		<!-- Cria playlist -->
+		<form>
+		    <p> Inserir nome da Playlist: </p>
+		    <input type="text" name="nome-da-playlist"> 
+            <input type="submit" value="criar"/>
+		</form>
+		
+		<!-- apagar Playslist-->
+		<form>
+		    <p> Inserir nome da Playlist: </p>
+		    <input type="text" name="removePlaylist"> 
+            <input type="submit" value="apagar"/>
+		</form>
+		
+		<!-- Listar Playslist-->
+		<form">
+		    <p> Listar Playlists: </p>
+            <button type="submit" name="action" value="in">listar</button>
+		</form>
+		
+		<!-- inserir item Playslist(Item & Playslist)-->
+		<form">
+		    <p> Inserir item na Playlist (Item & Playlist): </p>
+			<input type="text" name="playlist-selecionada"> 
+		    <input type="text" name="Playlist"> 
+            <input type="submit" value="inserir"/>
+		</form>
+		
+		<!-- Remover item Playslist(Item & Playslist)-->
+		<form>
+		    <p> Remover item na Playlist (Item & Playlist): </p>
+			<input type="text" name="Item"> 
+		    <input type="text" name="Playlist"> 
+            <input type="submit" value="remover"/>
+		</form>
+		
+		<!-- buscar musicas -->
+		<form>
+		    <p> Inserir o nome do item: </p>
+		    <input type="text" name="nome-do-item"> 
+            <input type="submit" value="adicionar"/>
+		</form>
+	</body>
+</html>

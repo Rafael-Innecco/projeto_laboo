@@ -93,7 +93,7 @@ public class ControladorDeAutorizacao {
 			System.out.println("Erro ao requisitar código do usuário spotify: " + e.getMessage());
 		}
 		
-		resposta.sendRedirect("http://localhost:8080/playlist/criador-de-playlist");
+		resposta.sendRedirect("http://localhost:8080/menu");
 		return spotifyApi.getAccessToken();
 	}
 
