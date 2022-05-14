@@ -6,18 +6,23 @@ import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.google.gson.JsonArray;
+
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.special.SnapshotResult;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
+import se.michaelthelin.spotify.requests.data.playlists.RemoveItemsFromPlaylistRequest;
 
 /**
  * Gerencia todas as funcionalidades relacionadas à playlists do usuário atual.
@@ -28,7 +33,7 @@ import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPla
 public class ControladorDePlaylist {
 	
 	/**
-	 * Cria uma playlist vazia
+	 * Cria uma playlist vazia.
 	 * 
 	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário atual.
 	 */
@@ -44,9 +49,9 @@ public class ControladorDePlaylist {
 		try {
 			final Playlist playlist = requisicaoDeCriacaoDePlaylist.execute();
 			
-			System.out.println("Name: " + playlist.getName());
+			System.out.println("Nome da playlist: " + playlist.getName());
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
-			System.out.println("Error: "  + e.getMessage());
+			System.out.println("Erro ao criar playlist: "  + e.getMessage());
 		}
 	}
 	
@@ -56,14 +61,14 @@ public class ControladorDePlaylist {
 	 * @param playlistSelecionada Playlist selecionada pelo usuário.
 	 * @param uris URIs das músicas selecionadas
 	 */
-	@RequestMapping("/adicona-itens")
+	@RequestMapping("/adiciona-itens")
 	public void adicionaItens (
 			@RequestParam(value = "playlist-selecionada", required = true) String playlistSelecionada, 
 			@RequestParam(value = "uris", required = true) String[] uris) 
 	{
 		final AddItemsToPlaylistRequest requisicaoDeAdicaoDeItens = ControladorDeAutorizacao.getSpotifyApi()
 				.addItemsToPlaylist(playlistSelecionada, uris)
-				.build(); //Omite a posicao
+				.build(); 
 		
 		try 
 		{
@@ -74,31 +79,81 @@ public class ControladorDePlaylist {
 		}
 	}
 
+	/**
+	 * Captura a lista de playlists do usuário atual.
+	 * 
+	 * @return Array de strings contendo informações sobre as playlists.
+	 */
 	@RequestMapping("/lista-playlists")
 	public String[] listaPlaylists()
 	{
 		
 		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = ControladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
-	          // .limit(20)
-	          //.offset(0) //damos ja com limite e offset (poderia tirar)
 	          .build();
+		List<String> listaDePlaylists = new ArrayList<>();
 				
 		try {
 			final Paging<PlaylistSimplified> listaSimplesDePlaylist = requisicaoDeListarPlaylists.execute(); // traducao correta eh?
 			System.out.println("Total: " + listaSimplesDePlaylist.getTotal());
 			
-			List<String> listaDePlaylists = new ArrayList<>();;
 			for (PlaylistSimplified playlist : listaSimplesDePlaylist.getItems())
 				listaDePlaylists.add(playlist.toString());
 			
-			return (String[]) listaDePlaylists.toArray();
 			 
 		}
 		catch (IOException | SpotifyWebApiException | ParseException e) {
 		      System.out.println("Erro ao listar playlists: " + e.getMessage());
 		}
+
+		return (String[]) listaDePlaylists.toArray();
 		
 	}
 	
-	public void 
+	/**
+	 * Lista os itens de uma playlist do usuário atual.
+	 * 
+	 * @param idDaPlaylist ID da playlist cujos itens serão listados.
+	 */
+	@RequestMapping("/lista-itens-de-playlist")
+	public void listaItensDeUmaPlaylist(
+			@RequestParam(value = "id-da-playlist-selecionada", required = true) String idDaPlaylist)
+	{
+		final GetPlaylistsItemsRequest requisicaoDeListarItensDeUmaPlaylist = ControladorDeAutorizacao.getSpotifyApi().getPlaylistsItems(idDaPlaylist)
+			.build();
+
+		try
+		{
+			final Paging<PlaylistTrack> listaDasMusicasDePlaylist = requisicaoDeListarItensDeUmaPlaylist.execute();	
+					
+			System.out.println("Total de músicas: " + listaDasMusicasDePlaylist.getTotal());
+					
+		} catch (IOException | SpotifyWebApiException | ParseException e) {
+      		System.out.println("Erro com a listagem de músicas de uma playlist: " + e.getMessage());
+		}
+	} 
+
+	/**
+	 * Remove itens de determinada playlist do usuário atual.
+	 * 
+	 * @param idDaPlaylistSelecionada ID da playlist cujas músicas serão removidas.
+	 * @param musicas JSON contendo URIs das músicas a serem removidas.
+	 */
+	@RequestMapping("/remove-itens-de-playlist")
+	public void removeItensDePlaylist(
+			@RequestParam(value = "id-da-playlist-selecionada", required = true) String idDaPlaylistSelecionada,
+			@RequestParam(value = "uris", required = true) JsonArray musicas)
+	{
+		final RemoveItemsFromPlaylistRequest requisicaoDeRemocaoDeItens = ControladorDeAutorizacao.getSpotifyApi().removeItemsFromPlaylist(idDaPlaylistSelecionada, musicas)
+				.build();
+		
+		try
+		{
+			final SnapshotResult resultadoDaRequisicao = requisicaoDeRemocaoDeItens.execute();
+			
+			System.out.println("ID do resultado da requisição: " + resultadoDaRequisicao.getSnapshotId());
+
+		} catch (IOException | SpotifyWebApiException | ParseException e) {
+		  System.out.println("Erro na remoção de música: " + e.getMessage());
+		}
+	}
 }
