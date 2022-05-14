@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,7 +15,6 @@ import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 
-
 /**
  * 
  * Classe responsável por todas as funcionalidades de busca no spotify
@@ -22,6 +22,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
  * Exemplo: Buscar por uma música na base de dados do spotify
  *
  */
+@Controller
 public class ControladorDeBusca {
 	
 	/**
