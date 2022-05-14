@@ -64,7 +64,8 @@ public class ControladorDePlaylist {
 	 * @param playlistSelecionada Playlist selecionada pelo usuário.
 	 * @param uris URIs das músicas selecionadas
 	 */
-	@RequestMapping("/adiciona-itens")
+	@GetMapping("/menu/adiciona-itens")
+	@ResponseBody
 	public void adicionaItens (
 			@RequestParam(value = "playlist-selecionada", required = true) String playlistSelecionada, 
 			@RequestParam(value = "uris", required = true) String[] uris) 
@@ -87,7 +88,8 @@ public class ControladorDePlaylist {
 	 * 
 	 * @return Array de strings contendo informações sobre as playlists.
 	 */
-	@RequestMapping("/lista-playlists")
+	@GetMapping("/menu/lista-playlists")
+	@ResponseBody
 	public String[] listaPlaylists()
 	{
 		
@@ -120,7 +122,8 @@ public class ControladorDePlaylist {
 	 * 
 	 * @param idDaPlaylist ID da playlist cujos itens serão listados.
 	 */
-	@RequestMapping("/lista-itens-de-playlist")
+	@GetMapping("/menu/lista-itens-de-playlist")
+	@ResponseBody
 	public void listaItensDeUmaPlaylist(
 			@RequestParam(value = "id-da-playlist-selecionada", required = true) String idDaPlaylist)
 	{
@@ -144,7 +147,8 @@ public class ControladorDePlaylist {
 	 * @param idDaPlaylistSelecionada ID da playlist cujas músicas serão removidas.
 	 * @param musicas JSON contendo URIs das músicas a serem removidas.
 	 */
-	@RequestMapping("/remove-itens-de-playlist")
+	@GetMapping("/menu/remove-itens-de-playlist")
+	@ResponseBody
 	public void removeItensDePlaylist(
 			@RequestParam(value = "id-da-playlist-selecionada", required = true) String idDaPlaylistSelecionada,
 			@RequestParam(value = "uris", required = true) JsonArray musicas)
