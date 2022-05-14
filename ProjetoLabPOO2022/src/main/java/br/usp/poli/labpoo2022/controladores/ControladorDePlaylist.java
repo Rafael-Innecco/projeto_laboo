@@ -90,14 +90,17 @@ public class ControladorDePlaylist {
 		
 		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = ControladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
 	          .build();
-		List<String> listaDePlaylists = new ArrayList<>();
 				
 		try {
 			final Paging<PlaylistSimplified> listaSimplesDePlaylist = requisicaoDeListarPlaylists.execute(); // traducao correta eh?
+
 			System.out.println("Total: " + listaSimplesDePlaylist.getTotal());
 			
+			List<String> listaDePlaylists = new ArrayList<>();
 			for (PlaylistSimplified playlist : listaSimplesDePlaylist.getItems())
 				listaDePlaylists.add(playlist.toString());
+			
+			return listaDePlaylists.toArray(new String[listaDePlaylists.size()]);
 			
 			 
 		}
@@ -105,7 +108,7 @@ public class ControladorDePlaylist {
 		      System.out.println("Erro ao listar playlists: " + e.getMessage());
 		}
 
-		return (String[]) listaDePlaylists.toArray();
+		return null;
 		
 	}
 	
