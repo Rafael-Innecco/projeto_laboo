@@ -37,7 +37,8 @@ public class ControladorDePlaylist {
 	 * 
 	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário atual.
 	 */
-	@RequestMapping("/cria-playlist")
+	@GetMapping("/menu/cria-playlist")
+	@ResponseBody
 	public void criaPlaylist(
 			@RequestParam(value = "nome-da-playlist", required = true) String nomeDaPlaylist)
 	{

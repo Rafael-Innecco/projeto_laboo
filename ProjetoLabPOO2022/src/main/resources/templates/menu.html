@@ -17,9 +17,9 @@
 		<p> ---------------------------------------- </p>
 		
 		<!-- Cria playlist -->
-		<form>
+		<form th:action="@{/menu/cria-playlist}">
 		    <p> Inserir nome da Playlist: </p>
-		    <input type="text" name="nome-da-playlist"> 
+		    <input type="text" th:name="nome-da-playlist"> 
             <input type="submit" value="criar"/>
 		</form>
 		
