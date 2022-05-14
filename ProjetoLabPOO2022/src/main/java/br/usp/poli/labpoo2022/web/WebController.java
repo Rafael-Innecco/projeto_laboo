@@ -1,4 +1,4 @@
-package br.usp.poli.comp.labpoo2022;
+package br.usp.poli.labpoo2022.web;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
