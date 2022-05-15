@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 		<title> Menu Principal </title>
 
 		<style>
@@ -76,6 +75,7 @@
 
 	<body>
 	    <!-- busca musica -->
+<<<<<<< HEAD:ProjetoLabPOO2022/src/main/resources/templates/buscaMusica.html
 		<form th:action="@{/menu/busca-musica}">
 		    <input class="caixaBusca" type="text" th:name="nome-busca" value="Insira o nome da Musica...">
 			<input class="botao1 animated" type="submit" value="Buscar"/>
@@ -85,6 +85,48 @@
 		<form th:action="@{/menu/cria-playlist}">
 		    <input type="text" th:name="nome-da-playlist" value="Nome Playlist...">
             <input class="botao2" type="submit" value="criar"/>
+=======
+		<form>
+			<input class="caixaBusca" type="text" th:name="nome-busca" value="Digite um item para buscar...">
+			<input class="botao1 animated" type="submit" value="Buscar"/>
+
+			<div id="resultadosDeBusca">
+				<p>RESULTADOS:</p> <br>
+				<!-- <table>
+					<tr th:each="resultado: ${musicasEncontradas}">
+						<td th:text="${resultado.name}"></td>
+					</tr>
+				<table> -->
+			</div>
+		</form>
+
+		<script>
+			fetch('/menu/busca-musica?nome-busca=' + document.querySelector('input[name="nome-busca"]').value)
+				.then(function (response) {
+					return response.json();
+				})
+				.then(function (data) {
+					appendData(data);
+				})
+				.catch(function (err) {
+					console.log('error: ' + err);
+				});
+			function appendData(data) {
+				var mainContainer = document.getElementById("resultadosDeBusca");
+				for (var i = 0; i < data.length; i++) {
+					var h1 = document.createElement("h1");
+					h1.innerHTML = 'Name: ' + data[i].name + ' ;';
+					console.log('Name: ' + data[i].name + ' ;');
+					mainContainer.appendChild(h1);
+				}
+			}
+		</script>
+
+		<!-- cria Playslist -->
+		<form th:action="@{/menu/cria-playlist}">
+			<input type="text" th:name="nome-da-playlist" value="Nome Playlist...">
+			<input class="botao2" type="submit" value="criar"/>
+>>>>>>> dev:ProjetoLabPOO2022/src/main/resources/templates/menu.html
 		</form>
 
 		<!-- remove Playslist -->
