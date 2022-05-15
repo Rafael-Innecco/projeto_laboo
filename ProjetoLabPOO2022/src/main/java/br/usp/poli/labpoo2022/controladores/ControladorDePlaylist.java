@@ -92,10 +92,11 @@ public class ControladorDePlaylist {
 	@ResponseBody
 	public void adicionaItensEmPlaylist (
 			@RequestParam(value = "playlist-selecionada", required = true) String idDaplaylistSelecionada, 
-			@RequestParam(value = "uris", required = true) String[] uris) 
+			@RequestParam(value = "uri", required = true) String uri) 
 	{
+		String uri_em_array[] = {uri};
 		final AddItemsToPlaylistRequest requisicaoDeAdicaoDeItens = ControladorDeAutorizacao.getSpotifyApi()
-				.addItemsToPlaylist(idDaplaylistSelecionada, uris)
+				.addItemsToPlaylist(idDaplaylistSelecionada, uri_em_array)
 				.build(); 
 		
 		try 
@@ -114,7 +115,7 @@ public class ControladorDePlaylist {
 	 */
 	@GetMapping("/menu/lista-playlists")
 	@ResponseBody
-	public String[] listaPlaylists()
+	public PlaylistSimplified[] listaPlaylists()
 	{
 		
 		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = ControladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
@@ -129,7 +130,7 @@ public class ControladorDePlaylist {
 			for (PlaylistSimplified playlist : listaSimplesDePlaylist.getItems())
 				listaDePlaylists.add(playlist.toString());
 			
-			return listaDePlaylists.toArray(new String[listaDePlaylists.size()]);
+			return listaDePlaylists.toArray(new PlaylistSimplified[listaDePlaylists.size()]);
 			
 			 
 		}
@@ -148,7 +149,7 @@ public class ControladorDePlaylist {
 	 */
 	@GetMapping("/menu/lista-itens-de-playlist")
 	@ResponseBody
-	public void listaItensDePlaylist(
+	public PlaylistTrack [] listaItensDePlaylist(
 			@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada)
 	{
 		final GetPlaylistsItemsRequest requisicaoDeListarItensDeUmaPlaylist = ControladorDeAutorizacao.getSpotifyApi().getPlaylistsItems(idDaPlaylistSelecionada)
@@ -159,10 +160,13 @@ public class ControladorDePlaylist {
 			final Paging<PlaylistTrack> listaDasMusicasDePlaylist = requisicaoDeListarItensDeUmaPlaylist.execute();	
 					
 			System.out.println("Total de músicas: " + listaDasMusicasDePlaylist.getTotal());
-					
+			
+			return listaDasMusicasDePlaylist.getItems();
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
       		System.out.println("Erro com a listagem de músicas de uma playlist: " + e.getMessage());
 		}
+		
+		return null;
 	} 
 
 	/**
