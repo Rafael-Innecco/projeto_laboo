@@ -91,11 +91,11 @@ public class ControladorDePlaylist {
 	@GetMapping("/menu/adiciona-itens")
 	@ResponseBody
 	public void adicionaItensEmPlaylist (
-			@RequestParam(value = "playlist-selecionada", required = true) String playlistSelecionada, 
+			@RequestParam(value = "playlist-selecionada", required = true) String idDaplaylistSelecionada, 
 			@RequestParam(value = "uris", required = true) String[] uris) 
 	{
 		final AddItemsToPlaylistRequest requisicaoDeAdicaoDeItens = ControladorDeAutorizacao.getSpotifyApi()
-				.addItemsToPlaylist(playlistSelecionada, uris)
+				.addItemsToPlaylist(idDaplaylistSelecionada, uris)
 				.build(); 
 		
 		try 
@@ -149,9 +149,9 @@ public class ControladorDePlaylist {
 	@GetMapping("/menu/lista-itens-de-playlist")
 	@ResponseBody
 	public void listaItensDePlaylist(
-			@RequestParam(value = "id-da-playlist-selecionada", required = true) String idDaPlaylist)
+			@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada)
 	{
-		final GetPlaylistsItemsRequest requisicaoDeListarItensDeUmaPlaylist = ControladorDeAutorizacao.getSpotifyApi().getPlaylistsItems(idDaPlaylist)
+		final GetPlaylistsItemsRequest requisicaoDeListarItensDeUmaPlaylist = ControladorDeAutorizacao.getSpotifyApi().getPlaylistsItems(idDaPlaylistSelecionada)
 			.build();
 
 		try
@@ -174,7 +174,7 @@ public class ControladorDePlaylist {
 	@GetMapping("/menu/remove-itens-de-playlist")
 	@ResponseBody
 	public void removeItensDePlaylist(
-			@RequestParam(value = "id-da-playlist-selecionada", required = true) String idDaPlaylistSelecionada,
+			@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada,
 			@RequestParam(value = "uris", required = true) JsonArray musicas)
 	{
 		final RemoveItemsFromPlaylistRequest requisicaoDeRemocaoDeItens = ControladorDeAutorizacao.getSpotifyApi().removeItemsFromPlaylist(idDaPlaylistSelecionada, musicas)
