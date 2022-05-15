@@ -6,8 +6,9 @@ import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -30,8 +31,9 @@ public class ControladorDeBusca {
 	 * @param nomeBuscado parâmetro da busca
 	 * @return Se a busca for bem-sucedida, retorna uma array com strings formadas a partir das músicas encontradas, se não retorna null
 	 */
-	@RequestMapping("/busca-musica")
-	public static String [] buscaMusica(
+	@GetMapping("/menu/busca-musica")
+	@ResponseBody
+	public static Track [] buscaMusica(
 			@RequestParam(value = "nome-busca", required = true) String nomeBuscado
 			)
 	{
@@ -43,14 +45,7 @@ public class ControladorDeBusca {
 			// O próximo bloco efetivamente executa a busca e manuseia o resultado para um formato de dados conveniente
 			final Paging<Track> musicasEncontradas = requisicaoBuscaDeMusicas.execute();
 			
-			List<String> listaDeMusicas = new ArrayList<>();
-			
-			for (Track musica: musicasEncontradas.getItems()) {
-				listaDeMusicas.add(musica.toString());
-			}
-			
-			System.out.println("Total: " + musicasEncontradas.getTotal());
-			return listaDeMusicas.toArray(new String[listaDeMusicas.size()]);
+			return musicasEncontradas.getItems();
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
 			System.out.println("Erro na busca por musica: " + e.getMessage());
 		}

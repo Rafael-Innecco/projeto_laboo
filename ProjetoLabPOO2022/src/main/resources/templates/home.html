@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Remover os br-->
 <html>
 	<head>
 		<title> LABPOO 2022 </title>
@@ -13,10 +12,12 @@
               color: MediumSeaGreen;
 			  font: canvas;
               text-align: center;
-			  font-family: "Courier New";	
-               }
+			  font-family: "Courier New";
+			  margin-top: 250px;
+              margin-bottom: 30px;			  
+            }
 			   
-			.botao{
+			.botao {
               padding: 20px;
               text-align: center;
               display: inline-block;
@@ -42,23 +43,10 @@
 			}		
 			
 		</style>
-	
 	</head>
 	
 	<body>
-
-		<br>
-        <br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
 		<h1> Bem-Vindo ao Projetão 2022 </h2>
-		<br>
 		<form th:action="@{/autorizacao/login}">
 			<button class="botao unico" type="submit">Autenticar</button>
 		</form>

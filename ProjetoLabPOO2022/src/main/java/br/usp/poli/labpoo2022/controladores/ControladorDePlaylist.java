@@ -148,7 +148,7 @@ public class ControladorDePlaylist {
 	 */
 	@GetMapping("/menu/lista-itens-de-playlist")
 	@ResponseBody
-	public void listaItensDePlaylist(
+	public PlaylistTrack [] listaItensDePlaylist(
 			@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada)
 	{
 		final GetPlaylistsItemsRequest requisicaoDeListarItensDeUmaPlaylist = ControladorDeAutorizacao.getSpotifyApi().getPlaylistsItems(idDaPlaylistSelecionada)
@@ -159,10 +159,13 @@ public class ControladorDePlaylist {
 			final Paging<PlaylistTrack> listaDasMusicasDePlaylist = requisicaoDeListarItensDeUmaPlaylist.execute();	
 					
 			System.out.println("Total de músicas: " + listaDasMusicasDePlaylist.getTotal());
-					
+			
+			return listaDasMusicasDePlaylist.getItems();
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
       		System.out.println("Erro com a listagem de músicas de uma playlist: " + e.getMessage());
 		}
+		
+		return null;
 	} 
 
 	/**
