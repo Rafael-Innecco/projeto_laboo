@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +34,7 @@ public class ControladorDeBusca {
 	 */
 	@GetMapping("/menu/busca-musica")
 	@ResponseBody
-	public static Track [] buscaMusica(
-			@RequestParam(value = "nome-busca", required = true) String nomeBuscado
-			)
+	public static Track[] buscaMusica(@RequestParam(value = "nome-busca", required = true) String nomeBuscado, Model model)
 	{
 		final SearchTracksRequest requisicaoBuscaDeMusicas = ControladorDeAutorizacao.getSpotifyApi()
 				.searchTracks(nomeBuscado)
@@ -44,9 +43,22 @@ public class ControladorDeBusca {
 		try {
 			// O próximo bloco efetivamente executa a busca e manuseia o resultado para um formato de dados conveniente
 			final Paging<Track> musicasEncontradas = requisicaoBuscaDeMusicas.execute();
+			/*
+			List<String> listaDeMusicas = new ArrayList<>();
 			
+			for (Track musica: musicasEncontradas.getItems()) {
+				listaDeMusicas.add(musica.toString());
+			}
+			
+			System.out.println("Total: " + musicasEncontradas.getTotal());
+			
+			model.addAttribute(listaDeMusicas);
+			return listaDeMusicas;*/
+
+			model.addAttribute(musicasEncontradas.getItems());
 			return musicasEncontradas.getItems();
-		} catch (IOException | SpotifyWebApiException | ParseException e) {
+		} 
+		catch (IOException | SpotifyWebApiException | ParseException e) {
 			System.out.println("Erro na busca por musica: " + e.getMessage());
 		}
 		
