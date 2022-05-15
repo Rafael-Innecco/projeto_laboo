@@ -55,7 +55,7 @@ public class ControladorDeBusca {
 			model.addAttribute(listaDeMusicas);
 			return listaDeMusicas;*/
 
-			model.addAttribute(musicasEncontradas.getItems());
+			model.addAttribute(musicasEncontradas);
 			return musicasEncontradas.getItems();
 		} 
 		catch (IOException | SpotifyWebApiException | ParseException e) {
