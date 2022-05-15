@@ -75,9 +75,16 @@
 	
 	<body>
 		<!-- busca musica -->
-		<form th:action="@{/menu/busca-musica}" onsubmit="busca()">
+		<form th:action="@{/menu/busca-musica}" onsubmit="armazenaInput()">
 			<input class="caixaBusca" type="text" th:name="nome-busca" id="nome-busca-input" value="Digite um item para buscar..."> 
 			<input class="botao1 animated" type="submit" value="Buscar"/>
+
+			<script>
+				function armazenaInput(){
+					let input = document.getElementById("nome-busca-input").value;
+					sessionStorage.setItem("enderecoDeBusca", input);
+				}
+			</script>
 		</form>
 		
 		<!-- cria Playslist -->

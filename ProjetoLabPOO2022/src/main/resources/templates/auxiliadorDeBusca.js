@@ -1,8 +1,6 @@
-
-
-function busca(){
+function busca(endereço){
    console.log("buscando...");
-   fetch('/menu/busca-musica?nome-busca=' + document.getElementById("nome-busca-input").value)
+   fetch('/menu/busca-musica/resultadoDaBusca?nome-busca=' + endereço)
       .then(function (response) {
          return response.json();
       })
