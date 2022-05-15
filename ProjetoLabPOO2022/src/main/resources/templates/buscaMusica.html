@@ -58,5 +58,13 @@
 		    <input type="text" name="nome-do-item"> 
             <input type="submit" value="adicionar"/>
 		</form>
+
+		<div class="resultadosDeBusca">
+			<ul>
+				<th:block th:each="musica: ${listaDeMusicas}">
+					<li th:href="@{/(id=${musica})}"> Resultado [[${musica}]]</li>
+				</th:block>
+			</ul>
+		</div>
 	</body>
 </html>

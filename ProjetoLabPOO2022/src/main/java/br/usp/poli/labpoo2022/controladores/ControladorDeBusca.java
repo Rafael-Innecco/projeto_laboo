@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,13 +30,11 @@ public class ControladorDeBusca {
 	/**
 	 * Método que busca por uma música a partir de uma string (Preferencialmente o nome da música)
 	 * @param nomeBuscado parâmetro da busca
-	 * @return Se a busca for bem-sucedida, retorna uma array com strings formadas a partir das músicas encontradas, se não retorna null
+	 * @return Se a busca for bem-sucedida, retorna uma lista de Strings formada a partir das músicas encontradas, se não retorna null
 	 */
-	@RequestMapping("/busca-musica")
-	public static String [] buscaMusica(
-			@RequestParam(value = "nome-busca", required = true) String nomeBuscado
-			)
-	{
+	@GetMapping("/busca-musica")
+	public static List<String> buscaMusica(@RequestParam(value = "nome-busca", required = true) String nomeBuscado, Model model) {
+		List<String> listaDeMusicas = new ArrayList<>();
 		final SearchTracksRequest requisicaoBuscaDeMusicas = ControladorDeAutorizacao.getSpotifyApi()
 				.searchTracks(nomeBuscado)
 				.limit(50)
@@ -42,20 +42,21 @@ public class ControladorDeBusca {
 		try {
 			// O próximo bloco efetivamente executa a busca e manuseia o resultado para um formato de dados conveniente
 			final Paging<Track> musicasEncontradas = requisicaoBuscaDeMusicas.execute();
-			
-			List<String> listaDeMusicas = new ArrayList<>();
-			
-			for (Track musica: musicasEncontradas.getItems()) {
+
+			for (Track musica : musicasEncontradas.getItems()) {
 				listaDeMusicas.add(musica.toString());
+
+				// Cria um model com os nomes das músicas encontradas
+				model.addAttribute("musica", listaDeMusicas);
 			}
-			
+
 			System.out.println("Total: " + musicasEncontradas.getTotal());
-			return listaDeMusicas.toArray(new String[listaDeMusicas.size()]);
-		} catch (IOException | SpotifyWebApiException | ParseException e) {
+			return listaDeMusicas;
+		} 
+		catch (IOException | SpotifyWebApiException | ParseException e) {
 			System.out.println("Erro na busca por musica: " + e.getMessage());
 		}
 		
 		return null;
-				
 	}
 }
