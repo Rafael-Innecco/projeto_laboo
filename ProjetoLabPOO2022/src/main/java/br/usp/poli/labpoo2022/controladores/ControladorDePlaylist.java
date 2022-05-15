@@ -114,7 +114,7 @@ public class ControladorDePlaylist {
 	 */
 	@GetMapping("/menu/lista-playlists")
 	@ResponseBody
-	public String[] listaPlaylists()
+	public PlaylistSimplified[] listaPlaylists()
 	{
 		
 		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = ControladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
@@ -129,7 +129,7 @@ public class ControladorDePlaylist {
 			for (PlaylistSimplified playlist : listaSimplesDePlaylist.getItems())
 				listaDePlaylists.add(playlist.toString());
 			
-			return listaDePlaylists.toArray(new String[listaDePlaylists.size()]);
+			return listaDePlaylists.toArray(new PlaylistSimplified[listaDePlaylists.size()]);
 			
 			 
 		}
