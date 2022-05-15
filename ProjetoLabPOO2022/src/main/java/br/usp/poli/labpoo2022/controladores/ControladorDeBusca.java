@@ -33,7 +33,7 @@ public class ControladorDeBusca {
 	 */
 	@GetMapping("/menu/busca-musica")
 	@ResponseBody
-	public static String [] buscaMusica(
+	public static Track [] buscaMusica(
 			@RequestParam(value = "nome-busca", required = true) String nomeBuscado
 			)
 	{
@@ -45,14 +45,7 @@ public class ControladorDeBusca {
 			// O próximo bloco efetivamente executa a busca e manuseia o resultado para um formato de dados conveniente
 			final Paging<Track> musicasEncontradas = requisicaoBuscaDeMusicas.execute();
 			
-			List<String> listaDeMusicas = new ArrayList<>();
-			
-			for (Track musica: musicasEncontradas.getItems()) {
-				listaDeMusicas.add(musica.toString());
-			}
-			
-			System.out.println("Total: " + musicasEncontradas.getTotal());
-			return listaDeMusicas.toArray(new String[listaDeMusicas.size()]);
+			return musicasEncontradas.getItems();
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
 			System.out.println("Erro na busca por musica: " + e.getMessage());
 		}
