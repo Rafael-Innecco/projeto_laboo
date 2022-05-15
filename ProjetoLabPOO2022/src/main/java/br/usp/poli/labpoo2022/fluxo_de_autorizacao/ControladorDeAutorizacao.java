@@ -54,7 +54,7 @@ public class ControladorDeAutorizacao {
 	 */
 	@GetMapping("login")
 	@ResponseBody
-	public String loginDoSpotify()
+	public void loginDoSpotify(HttpServletResponse resposta) throws IOException
 	{
 		AuthorizationCodeUriRequest requisicaoDoCodigoDeAutorizacao = spotifyApi.authorizationCodeUri()
 				.scope("playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private")
@@ -62,7 +62,7 @@ public class ControladorDeAutorizacao {
 				.build();
 		final URI uri = requisicaoDoCodigoDeAutorizacao.execute();
 		
-		return uri.toString();
+		resposta.sendRedirect(uri.toString());
 	}
 	
 	/**
