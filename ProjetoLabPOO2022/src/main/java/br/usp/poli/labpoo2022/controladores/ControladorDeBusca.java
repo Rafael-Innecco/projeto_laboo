@@ -8,7 +8,6 @@ import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
@@ -45,12 +44,12 @@ public class ControladorDeBusca {
 
 			for (Track musica : musicasEncontradas.getItems()) {
 				listaDeMusicas.add(musica.toString());
-
-				// Cria um model com os nomes das músicas encontradas
-				model.addAttribute("musica", listaDeMusicas);
 			}
 
 			System.out.println("Total: " + musicasEncontradas.getTotal());
+
+			// Adiciona as músicas encontradas ao modelo
+			model.addAttribute(listaDeMusicas);
 			return listaDeMusicas;
 		} 
 		catch (IOException | SpotifyWebApiException | ParseException e) {
