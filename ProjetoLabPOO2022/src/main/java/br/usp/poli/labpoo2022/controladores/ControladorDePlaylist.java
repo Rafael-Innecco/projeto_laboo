@@ -42,7 +42,7 @@ public class ControladorDePlaylist {
 	@GetMapping("/menu/cria-playlist")
 	@ResponseBody
 	public void criaPlaylist(
-			@RequestParam(value = "nome-da-playlist", required = true) String nomeDaPlaylist)
+			@RequestParam(value = "nome-da-playlist", required = true) String nomeDaPlaylist,HttpServletResponse resposta) throws IOException
 	{
 		final ControladorDoUsuarioAtual usuarioAtual = new ControladorDoUsuarioAtual();
 	
@@ -53,6 +53,7 @@ public class ControladorDePlaylist {
 			final Playlist playlist = requisicaoDeCriacaoDePlaylist.execute();
 			
 			System.out.println("Nome da playlist: " + playlist.getName());
+			resposta.sendRedirect("/menu/cria-Playlist/playlistCriada");
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
 			System.out.println("Erro ao criar playlist: "  + e.getMessage());
 		}

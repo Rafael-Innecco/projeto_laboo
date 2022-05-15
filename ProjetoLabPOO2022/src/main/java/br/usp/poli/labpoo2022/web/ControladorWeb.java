@@ -14,4 +14,14 @@ public class ControladorWeb {
 	public String menu() {
 		return "menu";
 	}
+
+	@GetMapping(value="/menu/cria-Playlist/playlistCriada")
+	public String playlistCriada() {
+		return "playlistCriada";
+	}
+
+	@GetMapping(value="/menu/cria-Playlist/playlistRemovida")
+	public String playlistRemovida() {
+		return "playlistRemovida";
+	}
 }
