@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 		<title> Menu </title>
 	
 		<style>
@@ -54,9 +58,19 @@
 		
 		<!-- buscar musicas -->
 		<form>
-		    <p> Inserir o nome do item: </p>
+		    <p> Digite um item para buscar: </p>
 		    <input type="text" name="nome-do-item"> 
-            <input type="submit" value="adicionar"/>
+            <input type="submit" value="buscar"/>
 		</form>
+
+		<div class="resultadosDeBusca">
+			<p>RESULTADOS:</p> <br>
+			<ul>
+				<tr th:each="resultado : ${listaDeMusicas}">
+					<li th:text="${resultado}"></li>
+				</tr>
+			</ul>
+			
+		</div>
 	</body>
 </html>
