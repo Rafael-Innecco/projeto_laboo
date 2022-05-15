@@ -1,38 +1,66 @@
 <!DOCTYPE html>
-<!-- REMOVER TODOS OS BR's -->
-<!-- CONCERTAR PADRAO -->
-<!-- TROCAR ICON DA PAGINA -->
-<!-- MUDAR OS RESOURCES PATH -->
-
+<!-- Remover os br-->
 <html>
 	<head>
 		<title> LABPOO 2022 </title>
 	
 		<style>
-			body {
-				color: white;
+		    body{
+              background-color:#28272c;			  
 			}
+			
+            h1 {
+              color: MediumSeaGreen;
+			  font: canvas;
+              text-align: center;
+			  font-family: "Courier New";	
+               }
+			   
+			.botao{
+              padding: 20px;
+              text-align: center;
+              display: inline-block;
+			  font-family: "Courier New";	
+              font-size: 20px;
+              margin: 4px 2px;
+              cursor: pointer;
+			  border-radius: 8px;
+			  transition-duration: 0.4s;
+              margin: 0 auto;
+			  display: block;
+			}
+			
+			.unico{
+			  background-color: #28272c;
+              color: MediumSeaGreen;
+			  border: 1px solid MediumSeaGreen;
+			}
+			
+			.unico:hover{
+			  background-color: MediumSeaGreen;
+              color: #28272c;
+			}		
+			
 		</style>
 	
 	</head>
 	
-	<body style="background-color:#443D45;">
-	
-		<h1 style="color:#8BB174"> LABPOO Projetão 2022 - Primeira Entrega </h1>
-        <h2> Requisitos: </h2>
-		<p> 1.fazer protocolos de autenticação.  [x] </p>
-		<p> 2.criar playlist dentro do Spotify.  [ ] </p>
-		<p> 3.adicionar músicas em uma playlist. [ ] </p>
-		<p> 4.ferramenta de busca e listagem.    [ ] </p>
-		<p> 5.listar as playlists criadas.       [ ] </p>
-		<p> 6.remover música de uma playlist.    [ ] </p>
-		<p> ---------------------------------------- </p>
-		
-		<h2>Funcionalidades:</h2>
+	<body>
+
+		<br>
+        <br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<h1> Bem-Vindo ao Projetão 2022 </h2>
+		<br>
 		<form th:action="@{/autorizacao/login}">
-			<button type="submit" th:name="action" th:value="in">login</button>
-			<p> ---------------------------------------- </p>
-		<form>
-		
+			<button class="botao unico" type="submit">Autenticar</button>
+		</form>
 	</body>
 </html>

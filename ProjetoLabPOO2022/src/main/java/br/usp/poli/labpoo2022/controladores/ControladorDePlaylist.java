@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,6 +19,7 @@ import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
+import se.michaelthelin.spotify.requests.data.follow.UnfollowPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
@@ -59,6 +59,30 @@ public class ControladorDePlaylist {
 	}
 	
 	/**
+	* Remove playlist de usuário.
+	*
+	* @param idDaPlaylistSelecionada ID da playlist a ser removida.
+	*/
+	@GetMapping("/menu/remove-playlist")
+	@ResponseBody
+	public void removePlaylist(
+		@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada)
+	{
+		final UnfollowPlaylistRequest requisicaoDeRemocaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().unfollowPlaylist(idDaPlaylistSelecionada)
+			.build();
+		
+		try 
+		{
+			final String stringDeResposta = requisicaoDeRemocaoDePlaylist.execute();
+
+			System.out.println("String nula: " + stringDeResposta);
+		} catch (IOException | SpotifyWebApiException | ParseException e)
+		{
+			System.out.println("Erro na remoção de playlist: " + e.getMessage());
+		}
+	}
+	
+	/**
 	 * Adiciona músicas à playlist selecionada.
 	 * 
 	 * @param playlistSelecionada Playlist selecionada pelo usuário.
@@ -66,12 +90,12 @@ public class ControladorDePlaylist {
 	 */
 	@GetMapping("/menu/adiciona-itens")
 	@ResponseBody
-	public void adicionaItens (
-			@RequestParam(value = "playlist-selecionada", required = true) String playlistSelecionada, 
+	public void adicionaItensEmPlaylist (
+			@RequestParam(value = "playlist-selecionada", required = true) String idDaplaylistSelecionada, 
 			@RequestParam(value = "uris", required = true) String[] uris) 
 	{
 		final AddItemsToPlaylistRequest requisicaoDeAdicaoDeItens = ControladorDeAutorizacao.getSpotifyApi()
-				.addItemsToPlaylist(playlistSelecionada, uris)
+				.addItemsToPlaylist(idDaplaylistSelecionada, uris)
 				.build(); 
 		
 		try 
@@ -124,10 +148,10 @@ public class ControladorDePlaylist {
 	 */
 	@GetMapping("/menu/lista-itens-de-playlist")
 	@ResponseBody
-	public void listaItensDeUmaPlaylist(
-			@RequestParam(value = "id-da-playlist-selecionada", required = true) String idDaPlaylist)
+	public void listaItensDePlaylist(
+			@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada)
 	{
-		final GetPlaylistsItemsRequest requisicaoDeListarItensDeUmaPlaylist = ControladorDeAutorizacao.getSpotifyApi().getPlaylistsItems(idDaPlaylist)
+		final GetPlaylistsItemsRequest requisicaoDeListarItensDeUmaPlaylist = ControladorDeAutorizacao.getSpotifyApi().getPlaylistsItems(idDaPlaylistSelecionada)
 			.build();
 
 		try
@@ -150,7 +174,7 @@ public class ControladorDePlaylist {
 	@GetMapping("/menu/remove-itens-de-playlist")
 	@ResponseBody
 	public void removeItensDePlaylist(
-			@RequestParam(value = "id-da-playlist-selecionada", required = true) String idDaPlaylistSelecionada,
+			@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada,
 			@RequestParam(value = "uris", required = true) JsonArray musicas)
 	{
 		final RemoveItemsFromPlaylistRequest requisicaoDeRemocaoDeItens = ControladorDeAutorizacao.getSpotifyApi().removeItemsFromPlaylist(idDaPlaylistSelecionada, musicas)
