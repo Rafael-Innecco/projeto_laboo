@@ -92,10 +92,11 @@ public class ControladorDePlaylist {
 	@ResponseBody
 	public void adicionaItensEmPlaylist (
 			@RequestParam(value = "playlist-selecionada", required = true) String idDaplaylistSelecionada, 
-			@RequestParam(value = "uris", required = true) String[] uris) 
+			@RequestParam(value = "uri", required = true) String uri) 
 	{
+		String uri_em_array[] = {uri};
 		final AddItemsToPlaylistRequest requisicaoDeAdicaoDeItens = ControladorDeAutorizacao.getSpotifyApi()
-				.addItemsToPlaylist(idDaplaylistSelecionada, uris)
+				.addItemsToPlaylist(idDaplaylistSelecionada, uri_em_array)
 				.build(); 
 		
 		try 
