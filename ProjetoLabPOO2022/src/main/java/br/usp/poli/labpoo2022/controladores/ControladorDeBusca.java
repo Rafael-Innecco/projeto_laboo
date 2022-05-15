@@ -8,6 +8,7 @@ import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
