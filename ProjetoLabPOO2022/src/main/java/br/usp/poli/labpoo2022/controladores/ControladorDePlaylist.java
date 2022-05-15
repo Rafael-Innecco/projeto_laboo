@@ -111,7 +111,7 @@ public class ControladorDePlaylist {
 	/**
 	 * Captura a lista de playlists do usuário atual.
 	 * 
-	 * @return Array de strings contendo informações sobre as playlists.
+	 * @return Array de playlists contendo informações sobre as playlists.
 	 */
 	@GetMapping("/menu/lista-playlists")
 	@ResponseBody
@@ -126,13 +126,7 @@ public class ControladorDePlaylist {
 
 			System.out.println("Total: " + listaSimplesDePlaylist.getTotal());
 			
-			List<String> listaDePlaylists = new ArrayList<>();
-			for (PlaylistSimplified playlist : listaSimplesDePlaylist.getItems())
-				listaDePlaylists.add(playlist.toString());
-			
-			return listaDePlaylists.toArray(new PlaylistSimplified[listaDePlaylists.size()]);
-			
-			 
+			return listaSimplesDePlaylist.getItems();
 		}
 		catch (IOException | SpotifyWebApiException | ParseException e) {
 		      System.out.println("Erro ao listar playlists: " + e.getMessage());
