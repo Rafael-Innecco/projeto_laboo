@@ -1,8 +1,7 @@
 package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
@@ -30,6 +29,7 @@ import se.michaelthelin.spotify.requests.data.playlists.RemoveItemsFromPlaylistR
  * Gerencia todas as funcionalidades relacionadas à playlists do usuário atual.
  * <p>
  * Exemplos: adição, remoção e listagem de músicas; criação e remoção de playlists.
+ * </p>
  */
 @Controller
 public class ControladorDePlaylist {
@@ -42,7 +42,7 @@ public class ControladorDePlaylist {
 	@GetMapping("/menu/cria-playlist")
 	@ResponseBody
 	public void criaPlaylist(
-			@RequestParam(value = "nome-da-playlist", required = true) String nomeDaPlaylist,HttpServletResponse resposta) throws IOException
+			@RequestParam(value = "nome-da-playlist", required = true) String nomeDaPlaylist, HttpServletResponse resposta) throws IOException
 	{
 		final ControladorDoUsuarioAtual usuarioAtual = new ControladorDoUsuarioAtual();
 	

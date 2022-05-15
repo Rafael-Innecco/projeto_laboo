@@ -24,4 +24,9 @@ public class ControladorWeb {
 	public String playlistRemovida() {
 		return "playlistRemovida";
 	}
+
+	@GetMapping(value="/menu/busca-musica/resultadoDaBusca")
+	public String resultadoDaBusca() {
+		return "resultadoDaBusca";
+	}
 }
