@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -30,7 +30,8 @@ public class ControladorDeBusca {
 	 * @param nomeBuscado parâmetro da busca
 	 * @return Se a busca for bem-sucedida, retorna uma array com strings formadas a partir das músicas encontradas, se não retorna null
 	 */
-	@RequestMapping("/busca-musica")
+	@GetMapping("/menu/busca-musica")
+	@ResponseBody
 	public static String [] buscaMusica(
 			@RequestParam(value = "nome-busca", required = true) String nomeBuscado
 			)
