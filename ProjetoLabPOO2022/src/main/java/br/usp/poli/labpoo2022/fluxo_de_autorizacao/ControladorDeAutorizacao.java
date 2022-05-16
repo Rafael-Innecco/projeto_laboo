@@ -58,7 +58,7 @@ public class ControladorDeAutorizacao {
 	{
 		AuthorizationCodeUriRequest requisicaoDoCodigoDeAutorizacao = spotifyApi.authorizationCodeUri()
 				.scope("playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private")
-				.show_dialog(true)
+				//.show_dialog(true)
 				.build();
 		final URI uri = requisicaoDoCodigoDeAutorizacao.execute();
 		
