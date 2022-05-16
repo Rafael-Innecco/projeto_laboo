@@ -9,7 +9,9 @@
 		<style>
 		    body{
               background-color:#28272c;	
-              color: yellow;		  
+              color: yellow;
+			  font-family: "Courier New";
+			  font-size: 14px;		  
 			}
 			
 			.caixaBusca{
@@ -81,15 +83,6 @@
 			<input class="botao1 animated" type="submit" value="Buscar"/>
 		</form>
 
-		<div id="resultadosDeBusca">
-			<p>RESULTADOS:</p> <br>
-			<!-- <table>
-				<tr th:each="resultado: ${musicasEncontradas}">
-					<td th:text="${resultado.name}"></td>
-				</tr>
-			<table> -->
-		</div>
-
 		<script>
 			
 		</script>
@@ -129,9 +122,15 @@
 		<form>
             <button class="botao2" type="button" onclick="listaPlaylists()">listar Playlists</button>
 		</form>
+
+		<div id="resultadosDeBusca">
+			<p>---------------------------------</p>
+			<h3>Musicas:</h3> <br>
+		</div>
 		
 		<div id="lista-de-playlists">
-			
+			<p>---------------------------------</p>
+			<h3>Playlists:</h3> <br>
 		</div>
 		
 		<script>
