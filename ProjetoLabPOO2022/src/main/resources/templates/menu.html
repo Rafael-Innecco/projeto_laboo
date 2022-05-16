@@ -166,10 +166,10 @@
 				function appendData(data) {
 					var mainContainer = document.getElementById("resultadosDeBusca");
 					for (var i = 0; i < data.length; i++) {
-						var h1 = document.createElement("h1");
-						h1.innerHTML = 'Name: ' + data[i].name + ' ;';
+						var h4 = document.createElement("h4");
+						h4.innerHTML = 'Name: ' + data[i].name + ' ;';
 						console.log('Name: ' + data[i].name + ' ;');
-						mainContainer.appendChild(h1);
+						mainContainer.appendChild(h4);
 					}
 				}
 			}
@@ -191,11 +191,30 @@
 				function appendData_playlist(data) {
 					var mainContainer = document.getElementById("lista-de-playlists");
 					for (var i = 0; i < data.length; i++) {
-						var h1 = document.createElement("h1");
-						h1.innerHTML = 'Name: ' + data[i].name + ' ;';
+						var div = document.createElement('div');
+						var h4 = document.createElement('h4');
+						var button = document.createElement('button');
+
+						h4.innerHTML = 'Name: ' + data[i].name + ' ;';
+						
+						button.class = "botao2";
+						button.type = "button";
+						button.onclick = "deletaPlaylist(" + data[i].id + ")";
+						button.innerHTML = 'Remover';
+						
+						div.appendChild(h4);
+						div.appendChild(button);
+
 						console.log('Name: ' + data[i].name + ' ;');
-						mainContainer.appendChild(h1);
+						mainContainer.appendChild(div);
 					}
+				}
+				
+				function deletaPlaylist(idDaPlaylist){
+					fetch('/menu/remove-playlist?playlist-selecionada=' + idDaPlaylist)
+						.catch(function(err){
+							console.log ('Erro na remoção da playlist ' + err);
+						});
 				}
 			}
 		</script>

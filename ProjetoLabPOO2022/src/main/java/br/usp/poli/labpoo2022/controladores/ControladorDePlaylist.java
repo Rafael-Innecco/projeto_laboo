@@ -133,9 +133,6 @@ public class ControladorDePlaylist {
 
 			System.out.println("Total: " + listaSimplesDePlaylist.getTotal());
 			
-			for(PlaylistSimplified playlist : listaSimplesDePlaylist.getItems())
-				System.out.println(playlist.getName());
-			
 			return new ResponseEntity<>(listaSimplesDePlaylist.getItems(), HttpStatus.CREATED);
 		}
 		catch (IOException | SpotifyWebApiException | ParseException e) {
