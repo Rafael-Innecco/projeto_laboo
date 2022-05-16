@@ -1,11 +1,16 @@
 package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
+import java.rmi.ServerException;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -113,10 +118,11 @@ public class ControladorDePlaylist {
 	 * Captura a lista de playlists do usuário atual.
 	 * 
 	 * @return Array de playlists contendo informações sobre as playlists.
+	 * @throws ServerException 
 	 */
-	@GetMapping("/menu/lista-playlists")
-	@ResponseBody
-	public PlaylistSimplified[] listaPlaylists()
+	@RequestMapping("/menu/lista-playlists")
+	//@ResponseBody
+	public static ResponseEntity<PlaylistSimplified[]> listaPlaylists() throws ServerException
 	{
 		
 		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = ControladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
@@ -127,13 +133,16 @@ public class ControladorDePlaylist {
 
 			System.out.println("Total: " + listaSimplesDePlaylist.getTotal());
 			
-			return listaSimplesDePlaylist.getItems();
+			for(PlaylistSimplified playlist : listaSimplesDePlaylist.getItems())
+				System.out.println(playlist.getName());
+			
+			return new ResponseEntity<>(listaSimplesDePlaylist.getItems(), HttpStatus.CREATED);
 		}
 		catch (IOException | SpotifyWebApiException | ParseException e) {
 		      System.out.println("Erro ao listar playlists: " + e.getMessage());
 		}
 
-		return null;
+		 throw new ServerException("lista");
 		
 	}
 	

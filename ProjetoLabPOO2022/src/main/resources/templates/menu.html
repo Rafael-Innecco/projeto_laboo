@@ -8,7 +8,8 @@
 	
 		<style>
 		    body{
-              background-color:#28272c;			  
+              background-color:#28272c;	
+              color: yellow;		  
 			}
 			
 			.caixaBusca{
@@ -90,6 +91,50 @@
 		</div>
 
 		<script>
+			
+		</script>
+		
+		<!-- cria Playslist -->
+		<form th:action="@{/menu/cria-playlist}">
+			<input type="text" th:name="nome-da-playlist" value="Nome Playlist..."> 
+			<input class="botao2" type="submit" value="criar"/>
+		</form>
+		
+		<!-- remove Playslist -->
+		<form th:action="@{/menu/remove-playlist}">
+		    <input type="text" th:name="playlist-selecionada" value="Nome Playlist..."> 
+            <input class="botao2" type="submit" value="apagar"/>
+		</form>
+
+		<!-- insere musica na Playlist -->
+		<form th:action="@{/menu/adiciona-itens}">
+		    <input type="text" th:name="playlist-selecionada" value="Playlist..."> 
+		    <input type="text" th:name="uris" value="Item..."> 
+            <input class="botao2" type="submit" value="inserir"/>
+		</form>
+		
+		<!-- Remove musica da Playlist -->
+		<form th:action="@{/menu/remove-itens-de-playlist}">
+		    <input type="text" th:name="playlist-selecionada" value="Playlist..."> 
+			<input type="text" th:name="uris" value="Item..."> 
+            <input class="botao2" type="submit" value="remover"/>
+		</form>
+
+        <form th:action="@{lista-itens-de-playlist}">
+		    <input type="text" th:name="playlist-selecionada" value="Nome Playlist..."> 
+            <input class="botao2" type="submit" value="listar Musicas"/>
+		</form>
+		
+		<!-- Lista Playlists -->
+		<form>
+            <button class="botao2" type="button" onclick="listaPlaylists()">listar Playlists</button>
+		</form>
+		
+		<div id="lista-de-playlists">
+			
+		</div>
+		
+		<script>
 			function getQueryVariable(variable)
 			{
 			       var query = window.location.search.substring(1);
@@ -130,42 +175,30 @@
 				}
 			}
 			
+			function listaPlaylists(){
+				console.log("buscando...");
+				fetch('/menu/lista-playlists?')
+					.then(function (response) {
+						console.log("222");
+						return response.json();
+					})
+					.then(function (data) {
+						console.log("111");
+						appendData_playlist(data);
+					})
+					.catch(function (err) {
+						console.log('error: ' + err);
+					});
+				function appendData_playlist(data) {
+					var mainContainer = document.getElementById("lista-de-playlists");
+					for (var i = 0; i < data.length; i++) {
+						var h1 = document.createElement("h1");
+						h1.innerHTML = 'Name: ' + data[i].name + ' ;';
+						console.log('Name: ' + data[i].name + ' ;');
+						mainContainer.appendChild(h1);
+					}
+				}
+			}
 		</script>
-		
-		<!-- cria Playslist -->
-		<form th:action="@{/menu/cria-playlist}">
-			<input type="text" th:name="nome-da-playlist" value="Nome Playlist..."> 
-			<input class="botao2" type="submit" value="criar"/>
-		</form>
-		
-		<!-- remove Playslist -->
-		<form th:action="@{/menu/remove-playlist}">
-		    <input type="text" th:name="playlist-selecionada" value="Nome Playlist..."> 
-            <input class="botao2" type="submit" value="apagar"/>
-		</form>
-
-		<!-- insere musica na Playlist -->
-		<form th:action="@{/menu/adiciona-itens}">
-		    <input type="text" th:name="playlist-selecionada" value="Playlist..."> 
-		    <input type="text" th:name="uris" value="Item..."> 
-            <input class="botao2" type="submit" value="inserir"/>
-		</form>
-		
-		<!-- Remove musica da Playlist -->
-		<form th:action="@{/menu/remove-itens-de-playlist}">
-		    <input type="text" th:name="playlist-selecionada" value="Playlist..."> 
-			<input type="text" th:name="uris" value="Item..."> 
-            <input class="botao2" type="submit" value="remover"/>
-		</form>
-
-        <form th:action="@{lista-itens-de-playlist}">
-		    <input type="text" th:name="playlist-selecionada" value="Nome Playlist..."> 
-            <input class="botao2" type="submit" value="listar Musicas"/>
-		</form>
-		
-		<!-- Lista Playlists -->
-		<form th:action="@{/menu/lista-playlists}">
-            <button class="botao2" type="submit">listar Playlists</button>
-		</form>
 	</body>
 </html>
