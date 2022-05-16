@@ -125,12 +125,12 @@
 
 		<div id="resultadosDeBusca">
 			<p>---------------------------------</p>
-			<h3>Musicas:</h3> <br>
+			<h2>Musicas:</h2> <br>
 		</div>
 		
 		<div id="lista-de-playlists">
 			<p>---------------------------------</p>
-			<h3>Playlists:</h3> <br>
+			<h2>Playlists:</h2> <br>
 		</div>
 		
 		<script>
@@ -166,10 +166,10 @@
 				function appendData(data) {
 					var mainContainer = document.getElementById("resultadosDeBusca");
 					for (var i = 0; i < data.length; i++) {
-						var h1 = document.createElement("h1");
-						h1.innerHTML = 'Name: ' + data[i].name + ' ;';
+						var h3 = document.createElement("h3");
+						h3.innerHTML = 'Name: ' + data[i].name + ' ;';
 						console.log('Name: ' + data[i].name + ' ;');
-						mainContainer.appendChild(h1);
+						mainContainer.appendChild(h3);
 					}
 				}
 			}
@@ -191,10 +191,10 @@
 				function appendData_playlist(data) {
 					var mainContainer = document.getElementById("lista-de-playlists");
 					for (var i = 0; i < data.length; i++) {
-						var h1 = document.createElement("h1");
-						h1.innerHTML = 'Name: ' + data[i].name + ' ;';
+						var h3 = document.createElement("h3");
+						h3.innerHTML = 'Name: ' + data[i].name + ' ;';
 						console.log('Name: ' + data[i].name + ' ;');
-						mainContainer.appendChild(h1);
+						mainContainer.appendChild(h3);
 					}
 				}
 			}
