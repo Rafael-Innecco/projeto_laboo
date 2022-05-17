@@ -93,31 +93,13 @@
 			<input class="botao2" type="submit" value="criar"/>
 		</form>
 		
-		<!-- remove Playslist -->
-		<form th:action="@{/menu/remove-playlist}">
-		    <input type="text" th:name="playlist-selecionada" value="Nome Playlist..."> 
-            <input class="botao2" type="submit" value="apagar"/>
-		</form>
-
 		<!-- insere musica na Playlist -->
 		<form th:action="@{/menu/adiciona-itens}">
 		    <input type="text" th:name="playlist-selecionada" value="Playlist..."> 
 		    <input type="text" th:name="uris" value="Item..."> 
             <input class="botao2" type="submit" value="inserir"/>
 		</form>
-		
-		<!-- Remove musica da Playlist -->
-		<form th:action="@{/menu/remove-itens-de-playlist}">
-		    <input type="text" th:name="playlist-selecionada" value="Playlist..."> 
-			<input type="text" th:name="uris" value="Item..."> 
-            <input class="botao2" type="submit" value="remover"/>
-		</form>
 
-        <form th:action="@{lista-itens-de-playlist}">
-		    <input type="text" th:name="playlist-selecionada" value="Nome Playlist..."> 
-            <input class="botao2" type="submit" value="listar Musicas"/>
-		</form>
-		
 		<!-- Lista Playlists -->
 		<form>
             <button class="botao2" type="button" onclick="listaPlaylists()">listar Playlists</button>
@@ -199,6 +181,8 @@
 				var mainContainer = document.getElementById("lista-de-playlists");
 				for (var i = 0; i < data.length; i++) {
 					var div = document.createElement('div');
+					div.id = "playlist-numero-" + i;
+					
 					var h4 = document.createElement('h4');
 					var button_remover = document.createElement('button');
 					var button_listar = document.createElement('button');
@@ -207,7 +191,7 @@
 					
 					button_remover.setAttribute('class', 'botao2');
 					button_remover.type = 'button';
-					button_remover.setAttribute('onclick', 'deletaPlaylist("' + data[i].id + '")');
+					button_remover.setAttribute('onclick', 'deletaPlaylist("' + data[i].id + '", "' + div.id + '")');
 					button_remover.innerHTML = 'Remover';
 					
 					button_listar.setAttribute('class', 'botao2');
@@ -225,12 +209,18 @@
 				}
 			}
 
-			function deletaPlaylist(idDaPlaylist) {
+			function deletaPlaylist(idDaPlaylist, idDaDiv) {
 				console.log(idDaPlaylist);
 				fetch('/menu/remove-playlist?playlist-selecionada=' + idDaPlaylist)
 					.then(function (response) {
 						console.log("Playlist removida?");
 						console.log(response);
+						
+						var div = document.getElementById(idDaDiv);
+						console.log(idDaDiv);
+						console.log(div);
+						div.remove();
+						
 						return response.json();
 					})
 					.then(function (data) {
@@ -259,13 +249,14 @@
 				var mainContainer = document.getElementById(elementId);
 				for (var i = 0; i < data.length; i++) {
 					var div = document.createElement("div");
+					div.id = "item-playlist-" + i;
 					var h4 = document.createElement("h4");
 					var button_remove = document.createElement("button");
 					
 					button_remove.setAttribute('class', 'botao2');
 					button_remove.type = 'button';
-					button_remove.setAttribute('onclick', 'removeMusica("' + data[i].track.uri + '", "' + idDaPlaylist + '")');
-					button_remove.innerHTML = 'Remover da playlsit';
+					
+					button_remove.innerHTML = 'Remover da playlist';
 					
 					
 					h4.innerHTML = 'Name: ' + data[i].track.name + ' ;';
@@ -274,19 +265,19 @@
 					div.appendChild(button_remove);
 
 					mainContainer.appendChild(div);
+					
+					button_remove.setAttribute('onclick', 'removeMusica("' + data[i].track.uri + '", "' + idDaPlaylist + '", "' + div.id + '")');	
 				}
 			}
 			
-			function removeMusica (uriDaMusica, idDaPlaylist){
+			function removeMusica (uriDaMusica, idDaPlaylist, idDaDiv){
 				console.log(idDaPlaylist);
 				fetch('/menu/remove-itens-de-playlist?playlist-selecionada=' + idDaPlaylist + '&uris=' + uriDaMusica)
 					.then(function (response) {
-						console.log("Musica removida?");
+						var div = document.getElementById(idDaDiv);
+						div.remove();
 						console.log(response);
 						return response.json();
-					})
-					.then(function (data) {
-						console.log(">:(");
 					})
 					.catch(function (err) {
 						console.log('erro ao remover playlist: ' + err);

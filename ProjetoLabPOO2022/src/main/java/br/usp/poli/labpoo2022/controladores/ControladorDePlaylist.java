@@ -165,7 +165,6 @@ public class ControladorDePlaylist {
 			final Paging<PlaylistTrack> listaDasMusicasDePlaylist = requisicaoDeListarItensDeUmaPlaylist.execute();	
 					
 			System.out.println("Total de músicas: " + listaDasMusicasDePlaylist.getTotal());
-			System.out.println(listaDasMusicasDePlaylist.getItems()[0].getTrack().getName());
 			
 			return new ResponseEntity<>(listaDasMusicasDePlaylist.getItems(), HttpStatus.CREATED);
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
