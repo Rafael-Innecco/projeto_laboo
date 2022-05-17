@@ -125,7 +125,12 @@
 
 		<div id="resultadosDeBusca">
 			<p>---------------------------------</p>
-			<h2>Musicas:</h2> <br>
+			<h2>Musicas Buscadas:</h2> <br>
+		</div>
+		
+		<div id="itens-de-playlist">
+			<p>---------------------------------</p>
+			<h2>Musicas da Playlist:</h2><br>
 		</div>
 		
 		<div id="lista-de-playlists">
@@ -157,20 +162,21 @@
 					})
 					.then(function (data) {
 						console.log('Segundo then');
-						appendData(data);
+						appendData_busca(data, "resultadosDeBusca");
 					})
 					.catch(function (err) {
 						console.log('Terceiro then');
 						console.log('error: ' + err);
 					});
-				function appendData(data) {
-					var mainContainer = document.getElementById("resultadosDeBusca");
-					for (var i = 0; i < data.length; i++) {
-						var h4 = document.createElement("h4");
-						h4.innerHTML = 'Name: ' + data[i].name + ' ;';
-						console.log('Name: ' + data[i].name + ' ;');
-						mainContainer.appendChild(h4);
-					}
+			}
+			
+			function appendData_busca(data, elementId) {
+				var mainContainer = document.getElementById(elementId);
+				for (var i = 0; i < data.length; i++) {
+					var h4 = document.createElement("h4");
+					h4.innerHTML = 'Name: ' + data[i].name + ' ;';
+					console.log('Name: ' + data[i].name + ' ;');
+					mainContainer.appendChild(h4);
 				}
 			}
 			
@@ -178,37 +184,44 @@
 				console.log("buscando...");
 				fetch('/menu/lista-playlists?')
 					.then(function (response) {
-						console.log("222");
 						return response.json();
 					})
 					.then(function (data) {
-						console.log("111");
 						appendData_playlist(data);
 					})
 					.catch(function (err) {
 						console.log('error: ' + err);
 					});
-				function appendData_playlist(data) {
-					var mainContainer = document.getElementById("lista-de-playlists");
-					for (var i = 0; i < data.length; i++) {
-						var div = document.createElement('div');
-						var h4 = document.createElement('h4');
-						var button = document.createElement('button');
+				
+			}
+			
+			function appendData_playlist(data) {
+				var mainContainer = document.getElementById("lista-de-playlists");
+				for (var i = 0; i < data.length; i++) {
+					var div = document.createElement('div');
+					var h4 = document.createElement('h4');
+					var button_remover = document.createElement('button');
+					var button_listar = document.createElement('button');
 
-						h4.innerHTML = 'Name: ' + data[i].name + ' ;';
-						
-						button.setAttribute('class', 'botao2');
-						button.type = 'button';
-						button.setAttribute('onclick', 'deletaPlaylist("' + data[i].id + '")');
-						button.innerHTML = 'Remover';
-						
-						div.appendChild(h4);
-						div.appendChild(button);
+					h4.innerHTML = 'Name: ' + data[i].name + ' ;';
+					
+					button_remover.setAttribute('class', 'botao2');
+					button_remover.type = 'button';
+					button_remover.setAttribute('onclick', 'deletaPlaylist("' + data[i].id + '")');
+					button_remover.innerHTML = 'Remover';
+					
+					button_listar.setAttribute('class', 'botao2');
+					button_listar.type = 'button';
+					button_listar.setAttribute('onclick', 'listaItens("' + data[i].id + '")');
+					button_listar.innerHTML = 'Listar músicas';
+					
+					div.appendChild(h4);
+					div.appendChild(button_remover);
+					div.appendChild(button_listar);
 
-						console.log('Name: ' + data[i].name + ' ;');
-						console.log('Id: ' + data[i].id + ' ;');
-						mainContainer.appendChild(div);
-					}
+					console.log('Name: ' + data[i].name + ' ;');
+					console.log('Id: ' + data[i].id + ' ;');
+					mainContainer.appendChild(div);
 				}
 			}
 
@@ -226,6 +239,30 @@
 					.catch(function (err) {
 						console.log('erro ao remover playlist: ' + err);
 					});
+			}
+			
+			function listaItens(idDaPlaylist) {
+				console.log("Playlist listada: " + idDaPlaylist);
+				fetch('/menu/lista-itens-de-playlist?playlist-selecionada=' + idDaPlaylist)
+					.then(function (response) {
+						return response.json();
+					})
+					.then(function (data) {
+						appendData_itens(data, "itens-de-playlist");
+					})
+					.catch(function (err) {
+						console.log("Erro ao listar playlist: " + err);
+					}); 
+			}
+			
+			function appendData_itens(data, elementId) {
+				var mainContainer = document.getElementById(elementId);
+				for (var i = 0; i < data.length; i++) {
+					var h4 = document.createElement("h4");
+					h4.innerHTML = 'Name: ' + data[i].track.name + ' ;';
+					console.log('Name: ' + data[i].track.name + ' ;');
+					mainContainer.appendChild(h4);
+				}
 			}
 		</script>
 	</body>
