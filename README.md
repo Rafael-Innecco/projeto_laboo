@@ -30,7 +30,7 @@ Para instalar o Super Gerenciador Musical, siga estas etapas:
 - Abra o respositório como um novo projeto na sua IDE (na Eclipse IDE: File -> Open Projects from File System);
 - Atualize as dependências Maven (na Eclipse IDE: Project -> Update Maven Project);
 
-## Usando o Super Gerenciador Musical
+## ☕ Usando o Super Gerenciador Musical
 
 Para utilizar o projeto, siga essas etapas:
 
