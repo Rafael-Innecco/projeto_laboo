@@ -70,21 +70,25 @@ public class ControladorDePlaylist {
 	* @param idDaPlaylistSelecionada ID da playlist a ser removida.
 	*/
 	@GetMapping("/menu/remove-playlist")
-	@ResponseBody
-	public void removePlaylist(
-		@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada)
-	{
-		final UnfollowPlaylistRequest requisicaoDeRemocaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().unfollowPlaylist(idDaPlaylistSelecionada)
+	//@ResponseBody
+	public ResponseEntity<String> removePlaylist(@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada) throws ServerException
+	{	
+		ControladorDoUsuarioAtual usuarioAtual = new ControladorDoUsuarioAtual();
+		String idDoUsuario = usuarioAtual.getIdDeUsuario();
+		final se.michaelthelin.spotify.requests.data.follow.legacy.UnfollowPlaylistRequest requisicaoDeRemocaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().unfollowPlaylist(idDoUsuario, idDaPlaylistSelecionada)
 			.build();
 		
-		try 
+		try
 		{
 			final String stringDeResposta = requisicaoDeRemocaoDePlaylist.execute();
 
 			System.out.println("String nula: " + stringDeResposta);
+
+			return new ResponseEntity<>(new String ("[{\"status\": \"success\"}]"), HttpStatus.CREATED);
 		} catch (IOException | SpotifyWebApiException | ParseException e)
 		{
 			System.out.println("Erro na remoção de playlist: " + e.getMessage());
+			throw new ServerException(e.getMessage());
 		}
 	}
 	

@@ -197,25 +197,35 @@
 
 						h4.innerHTML = 'Name: ' + data[i].name + ' ;';
 						
-						button.class = "botao2";
-						button.type = "button";
-						button.onclick = "deletaPlaylist(" + data[i].id + ")";
+						button.setAttribute('class', 'botao2');
+						button.type = 'button';
+						button.setAttribute('onclick', 'deletaPlaylist("' + data[i].id + '")');
 						button.innerHTML = 'Remover';
 						
 						div.appendChild(h4);
 						div.appendChild(button);
 
 						console.log('Name: ' + data[i].name + ' ;');
+						console.log('Id: ' + data[i].id + ' ;');
 						mainContainer.appendChild(div);
 					}
 				}
-				
-				function deletaPlaylist(idDaPlaylist){
-					fetch('/menu/remove-playlist?playlist-selecionada=' + idDaPlaylist)
-						.catch(function(err){
-							console.log ('Erro na remoção da playlist ' + err);
-						});
-				}
+			}
+
+			function deletaPlaylist(idDaPlaylist) {
+				console.log(idDaPlaylist);
+				fetch('/menu/remove-playlist?playlist-selecionada=' + idDaPlaylist)
+					.then(function (response) {
+						console.log("Playlist removida?");
+						console.log(response);
+						return response.json();
+					})
+					.then(function (data) {
+						console.log(">:(");
+					})
+					.catch(function (err) {
+						console.log('erro ao remover playlist: ' + err);
+					});
 			}
 		</script>
 	</body>
