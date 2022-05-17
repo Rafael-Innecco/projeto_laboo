@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -153,7 +154,6 @@ public class ControladorDePlaylist {
 	 * @param idDaPlaylist ID da playlist cujos itens serão listados.
 	 */
 	@GetMapping("/menu/lista-itens-de-playlist")
-	@ResponseBody
 	public ResponseEntity<PlaylistTrack[]> listaItensDePlaylist(
 			@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada)
 	{
@@ -179,14 +179,17 @@ public class ControladorDePlaylist {
 	 * Remove itens de determinada playlist do usuário atual.
 	 * 
 	 * @param idDaPlaylistSelecionada ID da playlist cujas músicas serão removidas.
-	 * @param musicas JSON contendo URIs das músicas a serem removidas.
+	 * @param musica String contendo URI da música a ser removida.
+	 * @return 
+	 * @throws ServerException 
 	 */
 	@GetMapping("/menu/remove-itens-de-playlist")
-	@ResponseBody
-	public void removeItensDePlaylist(
+	public ResponseEntity<String> removeItensDePlaylist(
 			@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada,
-			@RequestParam(value = "uris", required = true) JsonArray musicas)
+			@RequestParam(value = "uris", required = true) String musica) throws ServerException
 	{
+		final JsonArray musicas = JsonParser.parseString("[{\"uri\":\"" + musica + "\"}]").getAsJsonArray();
+		
 		final RemoveItemsFromPlaylistRequest requisicaoDeRemocaoDeItens = ControladorDeAutorizacao.getSpotifyApi().removeItemsFromPlaylist(idDaPlaylistSelecionada, musicas)
 				.build();
 		
@@ -195,9 +198,12 @@ public class ControladorDePlaylist {
 			final SnapshotResult resultadoDaRequisicao = requisicaoDeRemocaoDeItens.execute();
 			
 			System.out.println("ID do resultado da requisição: " + resultadoDaRequisicao.getSnapshotId());
-
+			
+			return new ResponseEntity<>(new String ("[{\"status\": \"success\"}]"), HttpStatus.CREATED);
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
 		  System.out.println("Erro na remoção de música: " + e.getMessage());
+		  
+		  throw new ServerException(e.getMessage());
 		}
 	}
 }

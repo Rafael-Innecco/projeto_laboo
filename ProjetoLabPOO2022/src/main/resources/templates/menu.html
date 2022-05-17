@@ -248,21 +248,49 @@
 						return response.json();
 					})
 					.then(function (data) {
-						appendData_itens(data, "itens-de-playlist");
+						appendData_itens(data, "itens-de-playlist", idDaPlaylist);
 					})
 					.catch(function (err) {
 						console.log("Erro ao listar playlist: " + err);
 					}); 
 			}
 			
-			function appendData_itens(data, elementId) {
+			function appendData_itens(data, elementId, idDaPlaylist) {
 				var mainContainer = document.getElementById(elementId);
 				for (var i = 0; i < data.length; i++) {
+					var div = document.createElement("div");
 					var h4 = document.createElement("h4");
+					var button_remove = document.createElement("button");
+					
+					button_remove.setAttribute('class', 'botao2');
+					button_remove.type = 'button';
+					button_remove.setAttribute('onclick', 'removeMusica("' + data[i].track.uri + '", "' + idDaPlaylist + '")');
+					button_remove.innerHTML = 'Remover da playlsit';
+					
+					
 					h4.innerHTML = 'Name: ' + data[i].track.name + ' ;';
-					console.log('Name: ' + data[i].track.name + ' ;');
-					mainContainer.appendChild(h4);
+					
+					div.appendChild(h4);
+					div.appendChild(button_remove);
+
+					mainContainer.appendChild(div);
 				}
+			}
+			
+			function removeMusica (uriDaMusica, idDaPlaylist){
+				console.log(idDaPlaylist);
+				fetch('/menu/remove-itens-de-playlist?playlist-selecionada=' + idDaPlaylist + '&uris=' + uriDaMusica)
+					.then(function (response) {
+						console.log("Musica removida?");
+						console.log(response);
+						return response.json();
+					})
+					.then(function (data) {
+						console.log(">:(");
+					})
+					.catch(function (err) {
+						console.log('erro ao remover playlist: ' + err);
+					});
 			}
 		</script>
 	</body>
