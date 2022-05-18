@@ -70,8 +70,8 @@ public class ControladorDeAutorizacao {
 	 * 
 	 * @param codigoDeUsuario Código indicando aceitação ou recusa do pedido de acesso
 	 * 		  à funcionalidades da conta do usuário. Usado para resgatar código de acesso.
-	 * @param resposta Resposta do servlet java ao acesso web
-	 * @return Código de acesso.
+	 * @param resposta Resposta do Servlet Sava ao acesso Web.
+	 * @return Código de acesso em String.
 	 * @throws IOException Caso haja erro durante a requisição do código de autorização.
 	 */
 	@GetMapping(value = "resgatar-codigo")

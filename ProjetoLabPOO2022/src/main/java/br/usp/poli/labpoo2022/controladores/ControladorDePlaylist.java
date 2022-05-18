@@ -1,16 +1,21 @@
 package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.rmi.ServerException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -30,6 +35,7 @@ import se.michaelthelin.spotify.requests.data.playlists.RemoveItemsFromPlaylistR
  * Gerencia todas as funcionalidades relacionadas à playlists do usuário atual.
  * <p>
  * Exemplos: adição, remoção e listagem de músicas; criação e remoção de playlists.
+ * </p>
  */
 @Controller
 public class ControladorDePlaylist {
@@ -38,11 +44,11 @@ public class ControladorDePlaylist {
 	 * Cria uma playlist vazia.
 	 * 
 	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário atual.
+	 * @param resposta resposta do servlet à requisição de criação de playlist.
 	 */
 	@GetMapping("/menu/cria-playlist")
-	@ResponseBody
 	public void criaPlaylist(
-			@RequestParam(value = "nome-da-playlist", required = true) String nomeDaPlaylist)
+			@RequestParam(value = "nome-da-playlist", required = true) String nomeDaPlaylist, HttpServletResponse resposta) throws IOException
 	{
 		final ControladorDoUsuarioAtual usuarioAtual = new ControladorDoUsuarioAtual();
 	
@@ -53,6 +59,7 @@ public class ControladorDePlaylist {
 			final Playlist playlist = requisicaoDeCriacaoDePlaylist.execute();
 			
 			System.out.println("Nome da playlist: " + playlist.getName());
+			resposta.sendRedirect("/menu/cria-Playlist/playlistCriada");
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
 			System.out.println("Erro ao criar playlist: "  + e.getMessage());
 		}
@@ -62,23 +69,28 @@ public class ControladorDePlaylist {
 	* Remove playlist de usuário.
 	*
 	* @param idDaPlaylistSelecionada ID da playlist a ser removida.
+	* @return String JSON indicando sucesso na requisição de remoção.
+	* @throws ServerException
 	*/
 	@GetMapping("/menu/remove-playlist")
-	@ResponseBody
-	public void removePlaylist(
-		@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada)
-	{
-		final UnfollowPlaylistRequest requisicaoDeRemocaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().unfollowPlaylist(idDaPlaylistSelecionada)
+	public ResponseEntity<String> removePlaylist(@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada) throws ServerException
+	{	
+		ControladorDoUsuarioAtual usuarioAtual = new ControladorDoUsuarioAtual();
+		String idDoUsuario = usuarioAtual.getIdDeUsuario();
+		final se.michaelthelin.spotify.requests.data.follow.legacy.UnfollowPlaylistRequest requisicaoDeRemocaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().unfollowPlaylist(idDoUsuario, idDaPlaylistSelecionada)
 			.build();
 		
-		try 
+		try
 		{
 			final String stringDeResposta = requisicaoDeRemocaoDePlaylist.execute();
 
 			System.out.println("String nula: " + stringDeResposta);
+
+			return new ResponseEntity<>(new String ("{\"status\": \"success\"}"), HttpStatus.CREATED);
 		} catch (IOException | SpotifyWebApiException | ParseException e)
 		{
 			System.out.println("Erro na remoção de playlist: " + e.getMessage());
+			throw new ServerException(e.getMessage());
 		}
 	}
 	
@@ -89,7 +101,6 @@ public class ControladorDePlaylist {
 	 * @param uris URIs das músicas selecionadas
 	 */
 	@GetMapping("/menu/adiciona-itens")
-	@ResponseBody
 	public void adicionaItensEmPlaylist (
 			@RequestParam(value = "playlist-selecionada", required = true) String idDaplaylistSelecionada, 
 			@RequestParam(value = "uri", required = true) String uri) 
@@ -112,10 +123,10 @@ public class ControladorDePlaylist {
 	 * Captura a lista de playlists do usuário atual.
 	 * 
 	 * @return Array de playlists contendo informações sobre as playlists.
+	 * @throws ServerException 
 	 */
 	@GetMapping("/menu/lista-playlists")
-	@ResponseBody
-	public PlaylistSimplified[] listaPlaylists()
+	public static ResponseEntity<PlaylistSimplified[]> listaPlaylists() throws ServerException
 	{
 		
 		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = ControladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
@@ -126,13 +137,13 @@ public class ControladorDePlaylist {
 
 			System.out.println("Total: " + listaSimplesDePlaylist.getTotal());
 			
-			return listaSimplesDePlaylist.getItems();
+			return new ResponseEntity<>(listaSimplesDePlaylist.getItems(), HttpStatus.CREATED);
 		}
 		catch (IOException | SpotifyWebApiException | ParseException e) {
 		      System.out.println("Erro ao listar playlists: " + e.getMessage());
 		}
 
-		return null;
+		 throw new ServerException("lista");
 		
 	}
 	
@@ -140,10 +151,10 @@ public class ControladorDePlaylist {
 	 * Lista os itens de uma playlist do usuário atual.
 	 * 
 	 * @param idDaPlaylist ID da playlist cujos itens serão listados.
+	 * @return Array de músicas de playlists
 	 */
 	@GetMapping("/menu/lista-itens-de-playlist")
-	@ResponseBody
-	public PlaylistTrack [] listaItensDePlaylist(
+	public ResponseEntity<PlaylistTrack[]> listaItensDePlaylist(
 			@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada)
 	{
 		final GetPlaylistsItemsRequest requisicaoDeListarItensDeUmaPlaylist = ControladorDeAutorizacao.getSpotifyApi().getPlaylistsItems(idDaPlaylistSelecionada)
@@ -155,7 +166,7 @@ public class ControladorDePlaylist {
 					
 			System.out.println("Total de músicas: " + listaDasMusicasDePlaylist.getTotal());
 			
-			return listaDasMusicasDePlaylist.getItems();
+			return new ResponseEntity<>(listaDasMusicasDePlaylist.getItems(), HttpStatus.CREATED);
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
       		System.out.println("Erro com a listagem de músicas de uma playlist: " + e.getMessage());
 		}
@@ -166,15 +177,18 @@ public class ControladorDePlaylist {
 	/**
 	 * Remove itens de determinada playlist do usuário atual.
 	 * 
-	 * @param idDaPlaylistSelecionada ID da playlist cujas músicas serão removidas.
-	 * @param musicas JSON contendo URIs das músicas a serem removidas.
+	 * @param idDaPlaylistSelecionada ID da playlist cuja música será removidas.
+	 * @param musica String contendo URI da música a ser removida.
+	 * @return String JSON confirmando a remoção do item
+	 * @throws ServerException
 	 */
 	@GetMapping("/menu/remove-itens-de-playlist")
-	@ResponseBody
-	public void removeItensDePlaylist(
+	public ResponseEntity<String> removeItensDePlaylist(
 			@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada,
-			@RequestParam(value = "uris", required = true) JsonArray musicas)
+			@RequestParam(value = "uris", required = true) String musica) throws ServerException
 	{
+		final JsonArray musicas = JsonParser.parseString("[{\"uri\":\"" + musica + "\"}]").getAsJsonArray();
+		
 		final RemoveItemsFromPlaylistRequest requisicaoDeRemocaoDeItens = ControladorDeAutorizacao.getSpotifyApi().removeItemsFromPlaylist(idDaPlaylistSelecionada, musicas)
 				.build();
 		
@@ -183,9 +197,12 @@ public class ControladorDePlaylist {
 			final SnapshotResult resultadoDaRequisicao = requisicaoDeRemocaoDeItens.execute();
 			
 			System.out.println("ID do resultado da requisição: " + resultadoDaRequisicao.getSnapshotId());
-
+			
+			return new ResponseEntity<>(new String ("{\"status\": \"success\"}"), HttpStatus.CREATED);
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
 		  System.out.println("Erro na remoção de música: " + e.getMessage());
+		  
+		  throw new ServerException(e.getMessage());
 		}
 	}
 }
