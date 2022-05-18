@@ -28,12 +28,10 @@ public class ControladorDeBusca {
 	/**
 	 * Método que busca por uma música a partir de uma string (Preferencialmente o nome da música)
 	 * @param nomeBuscado parâmetro da busca
-	 * @return Se a busca for bem-sucedida, retorna uma array com strings formadas a partir das músicas encontradas, se não retorna null
+	 * @return Se a busca for bem-sucedida, retorna uma array das músicas encontradas, se não retorna, null
 	 * @throws ServerException 
 	 */
 	@RequestMapping("/menu/busca-musica")
-	//@PostMapping(path = "/menu/busca", produces = MediaType.APPLICATION_JSON_VALUE)
-	//@ResponseBody
 	public static ResponseEntity<Track[]> buscaMusica(@RequestParam(value = "nome-busca", required = true) String nomeBuscado) throws ServerException
 	{
 		final SearchTracksRequest requisicaoBuscaDeMusicas = ControladorDeAutorizacao.getSpotifyApi()

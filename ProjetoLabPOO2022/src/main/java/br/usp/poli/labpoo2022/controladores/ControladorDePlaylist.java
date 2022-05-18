@@ -44,9 +44,9 @@ public class ControladorDePlaylist {
 	 * Cria uma playlist vazia.
 	 * 
 	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário atual.
+	 * @param resposta resposta do servlet à requisição de criação de playlist.
 	 */
 	@GetMapping("/menu/cria-playlist")
-	@ResponseBody
 	public void criaPlaylist(
 			@RequestParam(value = "nome-da-playlist", required = true) String nomeDaPlaylist, HttpServletResponse resposta) throws IOException
 	{
@@ -69,9 +69,10 @@ public class ControladorDePlaylist {
 	* Remove playlist de usuário.
 	*
 	* @param idDaPlaylistSelecionada ID da playlist a ser removida.
+	* @return String JSON indicando sucesso na requisição de remoção.
+	* @throws ServerException
 	*/
 	@GetMapping("/menu/remove-playlist")
-	//@ResponseBody
 	public ResponseEntity<String> removePlaylist(@RequestParam(value = "playlist-selecionada", required = true) String idDaPlaylistSelecionada) throws ServerException
 	{	
 		ControladorDoUsuarioAtual usuarioAtual = new ControladorDoUsuarioAtual();
@@ -85,7 +86,7 @@ public class ControladorDePlaylist {
 
 			System.out.println("String nula: " + stringDeResposta);
 
-			return new ResponseEntity<>(new String ("[{\"status\": \"success\"}]"), HttpStatus.CREATED);
+			return new ResponseEntity<>(new String ("{\"status\": \"success\"}"), HttpStatus.CREATED);
 		} catch (IOException | SpotifyWebApiException | ParseException e)
 		{
 			System.out.println("Erro na remoção de playlist: " + e.getMessage());
@@ -100,7 +101,6 @@ public class ControladorDePlaylist {
 	 * @param uris URIs das músicas selecionadas
 	 */
 	@GetMapping("/menu/adiciona-itens")
-	@ResponseBody
 	public void adicionaItensEmPlaylist (
 			@RequestParam(value = "playlist-selecionada", required = true) String idDaplaylistSelecionada, 
 			@RequestParam(value = "uri", required = true) String uri) 
@@ -125,8 +125,7 @@ public class ControladorDePlaylist {
 	 * @return Array de playlists contendo informações sobre as playlists.
 	 * @throws ServerException 
 	 */
-	@RequestMapping("/menu/lista-playlists")
-	//@ResponseBody
+	@GetMapping("/menu/lista-playlists")
 	public static ResponseEntity<PlaylistSimplified[]> listaPlaylists() throws ServerException
 	{
 		
@@ -152,6 +151,7 @@ public class ControladorDePlaylist {
 	 * Lista os itens de uma playlist do usuário atual.
 	 * 
 	 * @param idDaPlaylist ID da playlist cujos itens serão listados.
+	 * @return Array de músicas de playlists
 	 */
 	@GetMapping("/menu/lista-itens-de-playlist")
 	public ResponseEntity<PlaylistTrack[]> listaItensDePlaylist(
@@ -177,10 +177,10 @@ public class ControladorDePlaylist {
 	/**
 	 * Remove itens de determinada playlist do usuário atual.
 	 * 
-	 * @param idDaPlaylistSelecionada ID da playlist cujas músicas serão removidas.
+	 * @param idDaPlaylistSelecionada ID da playlist cuja música será removidas.
 	 * @param musica String contendo URI da música a ser removida.
-	 * @return 
-	 * @throws ServerException 
+	 * @return String JSON confirmando a remoção do item
+	 * @throws ServerException
 	 */
 	@GetMapping("/menu/remove-itens-de-playlist")
 	public ResponseEntity<String> removeItensDePlaylist(
@@ -198,7 +198,7 @@ public class ControladorDePlaylist {
 			
 			System.out.println("ID do resultado da requisição: " + resultadoDaRequisicao.getSnapshotId());
 			
-			return new ResponseEntity<>(new String ("[{\"status\": \"success\"}]"), HttpStatus.CREATED);
+			return new ResponseEntity<>(new String ("{\"status\": \"success\"}"), HttpStatus.CREATED);
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
 		  System.out.println("Erro na remoção de música: " + e.getMessage());
 		  

@@ -3,8 +3,14 @@ package br.usp.poli.labpoo2022.web;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
 
+/**
+ * 
+ * Classe que controla o acesso às páginas HTML web do projeto.
+ *
+ */
 @Controller
 public class ControladorWeb {
+	
 	@GetMapping(value="/")
 	public String home() {
 		return "home";
@@ -24,9 +30,4 @@ public class ControladorWeb {
 	public String playlistRemovida() {
 		return "playlistRemovida";
 	}
-
-	// @GetMapping(value="/menu/busca-musica/resultadoDaBusca")
-	// public String resultadoDaBusca() {
-	// 	return "resultadoDaBusca";
-	// }
 }
