@@ -46,6 +46,6 @@ Por esse motivo, um usuário teste foi criado para que qualquer pessoa possa tes
 Email: labpoo.test.user@gmail.com <br> Senha: LabPOO#2022
 
 Após o login, as funcionalidades implementadas até então se encontrarão na página.
-[Clique aqui para descobrir como utilizá-las](./docs/ComoUsar.md)
+[Clique aqui para descobrir como utilizá-las.](./docs/ComoUsar.md)
 
 [⬆ Voltar ao topo](#super-gerenciador-musical)<br>
