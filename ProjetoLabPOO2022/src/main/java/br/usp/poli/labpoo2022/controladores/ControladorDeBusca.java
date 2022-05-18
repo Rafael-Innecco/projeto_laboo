@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
@@ -15,7 +16,7 @@ import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 
 /**
- *
+ * 
  * Classe responsável por todas as funcionalidades de busca no spotify
  * <p>
  * Exemplo: Buscar por uma música na base de dados do spotify
@@ -23,12 +24,12 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
  */
 @Controller
 public class ControladorDeBusca {
-
+	
 	/**
 	 * Método que busca por uma música a partir de uma string (Preferencialmente o nome da música)
 	 * @param nomeBuscado parâmetro da busca
 	 * @return Se a busca for bem-sucedida, retorna uma array das músicas encontradas, se não retorna, null
-	 * @throws ServerException
+	 * @throws ServerException 
 	 */
 	@RequestMapping("/menu/busca-musica")
 	public static ResponseEntity<Track[]> buscaMusica(@RequestParam(value = "nome-busca", required = true) String nomeBuscado) throws ServerException
@@ -44,12 +45,12 @@ public class ControladorDeBusca {
 			System.out.println("buscando...");
 			//return musicasEncontradas.getItems();
 			return new ResponseEntity<>(musicasEncontradas.getItems(), HttpStatus.CREATED);
-		}
+		} 
 		catch (IOException | SpotifyWebApiException | ParseException e) {
 			System.out.println("Erro na busca por musica: " + e.getMessage());
 		}
-
+		
 		//return null;
-		throw new ServerException(nomeBuscado);
+		throw new ServerException(nomeBuscado);	
 	}
 }
