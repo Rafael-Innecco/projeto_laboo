@@ -1,0 +1,114 @@
+/*Fontes*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Hind');
+ 
+ /*Corpo principal*/
+ body {
+		height: 100%;
+		background: linear-gradient(180deg, #48637E 0%, #00B3C2 99.99%, #1E2732 100%);	
+		color: white;
+ }
+ 
+ /*Formatação de textos*/
+ h1 {
+	 font-family: "Open Sans";
+	 font-size: 10.4vh;
+	 }
+	 
+ h3 {
+	 font-family: "Raleway";
+	 font-size: 3.4vh;
+	 }
+ 
+ p  {
+	 font-family: "Hind";
+	 font-size: 2.3vh;
+	   }
+ 
+ /*Botao de autenticação*/
+ .unico {
+			display: inline-block;
+			border-radius: 4px;
+			background-color: black;
+			border: none;
+			color: white;
+			text-align: center;
+			padding: 14px;
+			width: 150px;
+			transition: all 0.5s;
+			cursor: pointer;
+			margin: 5px;
+			}
+			
+ .unico span {
+			cursor: pointer;
+			display: inline-block;
+			position: relative;
+			transition: 0.5s;
+			}
+			
+.unico span:after{
+			content: '\00bb';
+			position: absolute;
+			opacity: 0;
+			top: 0;
+			right: -20px;
+			transition: 0.5s;
+			}
+			
+.unico:hover span {
+  padding-right: 25px;
+}
+
+.unico:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+ 
+ /*Informações adicionais*/
+ .conteudo {
+	   padding: 18px;
+       display: none;
+       overflow: hidden;
+	 
+ }
+
+ .expansor {
+  background-color: transparent;
+  color: yellow;
+  cursor: pointer;
+  padding: 18px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 2.1vh;
+}
+
+.ativador, .expansor:hover {
+  background-color: transparent;
+}
+
+img {
+	  margin-top: 10%;
+	  padding: 1vh;
+}
+
+/*Diagramatação*/
+.flex-container-geral {
+  display: flex;
+}
+
+.flex-container-geral > div {
+  margin: 60px;
+  padding: 5px;
+}
+
+.flex-container-sub {
+  display: flex;
+}
+
+.flex-container-sub > div {
+  margin: 1px;
+  padding: 1px;
+}
