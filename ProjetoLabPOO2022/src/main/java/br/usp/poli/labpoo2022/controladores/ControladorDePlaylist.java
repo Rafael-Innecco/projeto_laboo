@@ -10,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
@@ -24,7 +21,7 @@ import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.model_objects.specification.Playlist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
-import se.michaelthelin.spotify.requests.data.follow.UnfollowPlaylistRequest;
+import se.michaelthelin.spotify.requests.data.follow.legacy.UnfollowPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.AddItemsToPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
@@ -77,7 +74,7 @@ public class ControladorDePlaylist {
 	{	
 		ControladorDoUsuarioAtual usuarioAtual = new ControladorDoUsuarioAtual();
 		String idDoUsuario = usuarioAtual.getIdDeUsuario();
-		final se.michaelthelin.spotify.requests.data.follow.legacy.UnfollowPlaylistRequest requisicaoDeRemocaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().unfollowPlaylist(idDoUsuario, idDaPlaylistSelecionada)
+		final UnfollowPlaylistRequest requisicaoDeRemocaoDePlaylist = ControladorDeAutorizacao.getSpotifyApi().unfollowPlaylist(idDoUsuario, idDaPlaylistSelecionada)
 			.build();
 		
 		try
