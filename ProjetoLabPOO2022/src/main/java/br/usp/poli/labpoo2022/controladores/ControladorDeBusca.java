@@ -2,29 +2,20 @@ package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
 import java.rmi.ServerException;
-import org.apache.hc.core5.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
 import br.usp.poli.labpoo2022.servicos.ServicoDeBusca;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
-import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsRequest;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 
 /**
  * 

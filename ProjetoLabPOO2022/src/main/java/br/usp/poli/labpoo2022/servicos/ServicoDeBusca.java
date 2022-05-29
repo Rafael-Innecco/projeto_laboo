@@ -2,10 +2,8 @@ package br.usp.poli.labpoo2022.servicos;
 
 import java.io.IOException;
 import java.rmi.ServerException;
-import java.util.ArrayList;
-
 import org.apache.hc.core5.http.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.special.SearchResult;
@@ -24,6 +22,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
  * Classe que realiza as interações com a api do spotify relacionadas com as funções de busca
  *
  */
+@Service
 public class ServicoDeBusca extends ServicoBase {
 	
 	/**
