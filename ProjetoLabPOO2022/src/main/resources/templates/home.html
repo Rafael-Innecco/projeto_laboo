@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title> LABPOO 2022 </title>
+		<link rel="stylesheet" href="styles.css">
+		
+	</head>
+	
+	<div class="flex-container-geral">
+		<div>
+			<body>
+	
+				<!-- Textos -->
+				<h1> Super Gerenciador Musical </h1>
+				<h3> A melhor ferramenta para organizar suas playlists e músicas favoritas! </h3>
+				<p> O Gerenciador Musical vai te ajudar a criar novas playlists, adicionar músicas incríveis e gerenciar tudo isto de forma simples com uma integração com a sua conta no Spotify! </p>
+		
+				<!-- Autenticação -->
+				<form th:action="@{/autorizacao/login}">
+					<button class="unico" type="submit"><span>Experimentar</span></button>
+				</form>
+			
+				<!-- Informações adicionais-->
+				<div class="flex-container-sub">
+					<button class="expansor" type="submit">>> Veja como funciona</button>
+					<div class="conteudo">
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					</div>
+			
+					<button class="expansor" type="submit">>> Contribuições</button>
+					<div class="conteudo">
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					</div>
+				</div>
+				
+			<!-- Logo -->	
+			</div>
+				<img src="file:///C:/Users/sicha/Downloads/new%20home/pic_logo.png" alt="logo" width="300" height="300">
+		<div>
+		
+		<!-- Função para informações adicionais -->
+		<script>
+			var coll = document.getElementsByClassName("expansor");
+			var i;
+
+			for (i = 0; i < coll.length; i++) {
+				coll[i].addEventListener("click", function() {
+					this.classList.toggle("ativador");
+					var content = this.nextElementSibling;
+					if (content.style.display === "block") {
+						content.style.display = "none";
+					} else {
+						content.style.display = "block";
+					}
+				});
+			}
+		</script>
+	</body>
+</html>
