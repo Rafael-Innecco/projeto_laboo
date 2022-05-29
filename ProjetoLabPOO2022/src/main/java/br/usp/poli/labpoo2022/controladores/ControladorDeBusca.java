@@ -34,6 +34,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
 @Controller
 public class ControladorDeBusca {
 	
+	/*
 	private Track[] buscaMusicaInterno(String nomeBuscado, int offset) {
 		final SearchTracksRequest requisicaoBuscaDeMusicas = ControladorDeAutorizacao.getSpotifyApi()
 				.searchTracks(nomeBuscado)
@@ -54,7 +55,7 @@ public class ControladorDeBusca {
 		
 		return null;
 	}
-/*
+
 	public ResponseEntity<Track[]> buscaMusicaPorParametro(String nomeBuscado, String[] filtros) throws ServerException{
 		
 		String tipos = "track"; // Variável inicializada dessa forma para evitar que sjam feitas buscas seu uma categoria definida, caso não seja informado o tipo de elemento que deve ser retornado será considerado apenas músicas

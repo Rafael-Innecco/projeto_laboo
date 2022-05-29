@@ -17,7 +17,7 @@ public class ServicoDeMusicas {
     @Autowired
     private ControladorDeAutorizacao controladorDeAutorizacao;
 
-    public AudioFeatures getCaracteristicasDeMusica(String idDaMusica) throws Exception
+    public AudioFeatures requisitaCaracteristicasDeMusica(String idDaMusica) throws Exception
     {
         final GetAudioFeaturesForTrackRequest requisicaoDeCaracteristicasDeMusica = ControladorDeAutorizacao.getSpotifyApi()
             .getAudioFeaturesForTrack(idDaMusica)
