@@ -30,7 +30,7 @@ public class ControladorDeAutorizacao {
 	 * Endereço para o qual o usuário será redirecionado após aceitar ou recusar a 
 	 * permissão de acesso à funcionalidades de sua conta, por parte da aplicação web.
 	 */
-	private static final URI enderecoDeRedirecionamento = SpotifyHttpManager.makeUri("http://localhost:8080/autorizacao/resgatar-codigo");
+	private final URI enderecoDeRedirecionamento = SpotifyHttpManager.makeUri("http://localhost:8080/autorizacao/resgatar-codigo");
 	
 	/**
 	 * Usado no resgate de um token de acesso para
@@ -41,7 +41,7 @@ public class ControladorDeAutorizacao {
 	/**
 	 * Facilita utilização da API do Spotify.
 	 */
-	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
+	private final SpotifyApi spotifyApi = new SpotifyApi.Builder()
 			.setClientId(ChavesDeSeguranca.idDeCliente.getChave())
 			.setClientSecret(ChavesDeSeguranca.segredoDoCliente.getChave())
 			.setRedirectUri(enderecoDeRedirecionamento)
@@ -102,8 +102,8 @@ public class ControladorDeAutorizacao {
 	 * 
 	 * @return Atributo estático que facilita o acesso à API do Spotify.
 	 */
-	public static SpotifyApi getSpotifyApi()
+	public SpotifyApi getSpotifyApi()
 	{
-		return ControladorDeAutorizacao.spotifyApi;
+		return this.spotifyApi;
 	}
 }

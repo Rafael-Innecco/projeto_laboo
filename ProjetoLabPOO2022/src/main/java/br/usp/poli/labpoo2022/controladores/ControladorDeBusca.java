@@ -3,22 +3,21 @@ package br.usp.poli.labpoo2022.controladores;
 import java.io.IOException;
 import java.rmi.ServerException;
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
-import se.michaelthelin.spotify.model_objects.special.SearchResult;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
-import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
-import se.michaelthelin.spotify.requests.data.search.SearchItemRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchArtistsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsRequest;
@@ -32,11 +31,15 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
  *
  */
 @Controller
-public class ControladorDeBusca {
+public class ControladorDeBusca{
+	
+	/*REMOVER quando refatorar esta classe para serviço. atributo já está contido na classe abstrata ServicoBase*/
+	@Autowired
+    protected ControladorDeAutorizacao controladorDeAutorizacao;
 	
 	/*
 	private Track[] buscaMusicaInterno(String nomeBuscado, int offset) {
-		final SearchTracksRequest requisicaoBuscaDeMusicas = ControladorDeAutorizacao.getSpotifyApi()
+		final SearchTracksRequest requisicaoBuscaDeMusicas = controladorDeAutorizacao.getSpotifyApi()
 				.searchTracks(nomeBuscado)
 				.limit(50)
 				.offset(offset)
@@ -64,7 +67,7 @@ public class ControladorDeBusca {
 			if(requisito != "track")
 				tipos += "," + requisito;
 		
-		SearchItemRequest requisicaoDeBusca = ControladorDeAutorizacao.getSpotifyApi()
+		SearchItemRequest requisicaoDeBusca = controladorDeAutorizacao.getSpotifyApi()
 				.searchItem(nomeBuscado, tipos)
 				.limit(50)
 				.build();
@@ -120,7 +123,7 @@ public class ControladorDeBusca {
 	@RequestMapping("/menu/busca-musica")
 	public ResponseEntity<Track[]> buscaMusicaPorNome(@RequestParam(value = "nome-busca", required = true) String nomeBuscado) throws ServerException
 	{
-		final SearchTracksRequest requisicaoBuscaDeMusicas = ControladorDeAutorizacao.getSpotifyApi()
+		final SearchTracksRequest requisicaoBuscaDeMusicas = controladorDeAutorizacao.getSpotifyApi()
 				.searchTracks(nomeBuscado)
 				.limit(50)
 				.build();
@@ -143,7 +146,7 @@ public class ControladorDeBusca {
 	@RequestMapping("/menu/busca-artista")
 	public ResponseEntity<Artist[]> buscaArtista(@RequestParam(value  ="nome-artista", required = true) String nomeArtista) throws ServerException
 	{
-		final SearchArtistsRequest requisicaDeBuscaArtista = ControladorDeAutorizacao.getSpotifyApi()
+		final SearchArtistsRequest requisicaDeBuscaArtista = controladorDeAutorizacao.getSpotifyApi()
 				.searchArtists(nomeArtista)
 				.limit(50)
 				.build();
@@ -165,7 +168,7 @@ public class ControladorDeBusca {
 	@RequestMapping("/menu/busca-playlist")
 	public ResponseEntity<PlaylistSimplified[]> buscaPlaylist(@RequestParam(value = "nome-playlist", required = true) String nomePlaylist) throws ServerException
 	{
-		final SearchPlaylistsRequest requisicaoDeBuscaPlaylist = ControladorDeAutorizacao.getSpotifyApi()
+		final SearchPlaylistsRequest requisicaoDeBuscaPlaylist = controladorDeAutorizacao.getSpotifyApi()
 				.searchPlaylists(nomePlaylist)
 				.limit(50)
 				.build();
@@ -187,7 +190,7 @@ public class ControladorDeBusca {
 	@RequestMapping("/menu/busca-albums")
 	public ResponseEntity<AlbumSimplified[]> buscaAlbum(@RequestParam(value = "nome-album", required = true) String nomeAlbum) throws ServerException
 	{
-		final SearchAlbumsRequest requisicaoDeBuscaAlbum = ControladorDeAutorizacao.getSpotifyApi()
+		final SearchAlbumsRequest requisicaoDeBuscaAlbum = controladorDeAutorizacao.getSpotifyApi()
 				.searchAlbums(nomeAlbum)
 				.limit(50)
 				.build();
