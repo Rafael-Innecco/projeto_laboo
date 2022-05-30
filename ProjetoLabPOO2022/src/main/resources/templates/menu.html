@@ -14,7 +14,7 @@
 			<h2 id="projeto-text">Projetão LabOO - 2022</h2>
 			<button class="logout-button">
 				<p>Sair</p> 
-				<img class="logout-img" src="./arrow_icon.png" alt="Sair">
+				<img class="logout-img" src="./logout_icon.png" alt="Sair">
 			</button>
 		</div>
 		<h1 class="title-header">Super Gerenciador Musical</h1>
@@ -28,30 +28,63 @@
 			</form>
 		</div>
 		
+		<div class="section-container">
+			<h2 class="title-h2">Minhas playlists</h2>
+			<p class="text-p">Clique para ver as playlists que você criou.</p>
+		</div>
 		
 		<!-- Lista Playlists -->
 		<form>
-            <button class="botao1 animated2" type="button" onclick="listaPlaylists('semBotão'); scrolldiv('lista-de-playlists')">Listar Playlists</button>
+            <button class="botao1 animated2" id="unico" type="button" onclick="listaPlaylists('semBotão'); scrolldiv('lista-de-playlists')">Listar Playlists</button>
 		</form>
+
+
 		
 	    <!-- cria Playslist -->
 		<form th:action="@{/menu/cria-playlist}">
 			<input type="text" th:name="nome-da-playlist" value="Nome Playlist..."> 
-			<input class="botao2" type="submit" value="criar"/>
+
+			<div class="playlist-buttons-container">
+				<input class="botao2" id="create-playlist-button" type="submit" value="+ Criar nova playlist"/>
+				<button id="remove-playlist-button">Remover playlist</button>
+				
+				<!-- TO-DO: verificar porque o remove está adicionando uma música! -->
+			</div>
 		</form>
 
-		<div id="resultadosDeBusca">
-            <br>
-			<h2>Musicas Buscadas:</h2> <br>
+
+
+
+
+		<div class="section-container">
+			<p>Template de um botão: </p>
+			<!-- Template de um botão "REMOVE" -->
+			<button class="remove-button">
+				⨉ Remover
+			</button>
+			<!-- Fim do template de um botão -->
+		</div>
+
+
+
+
+		<div class="section-container">
+			<div id="resultadosDeBusca">
+			</div>
+
+			<h2 class="title-h2">Resultados de busca</h2>
+			<p class="text-p">Clique em uma música para ver detalhes ou adicionar a uma playlist.</p>
 		</div>
 		
-		<p>---------------------------------</p>
-		<h2>Musicas da Playlist:</h2><br>
-		<div id="itens-de-playlist"></div>
+		<div class="section-container">
+			<h2 class="title-h2">Músicas da playlist</h2>
+			<div id="itens-de-playlist"></div>
+		</div>
 
-		<p>---------------------------------</p>
-		<h2>Playlists:</h2> <br>
-		<div id="lista-de-playlists"></div>
+		<div class="section-container">
+			<h2 class="title-h2">Playlists</h2>
+			<div id="lista-de-playlists"></div>
+		</div>
 		
 		<script>
 			function getQueryVariable(variable)

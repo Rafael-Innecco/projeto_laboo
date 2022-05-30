@@ -10,6 +10,8 @@ body {
    font-family: "Open Sans";
    color: white;
    margin: 0;
+
+   overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
 .search-form-container {
@@ -28,7 +30,6 @@ body {
    font-weight: 700;
    font-size: 16px;
    line-height: 19px;
-   margin: 0.4rem;
    color: #FFFFFF;
 }
 
@@ -113,11 +114,11 @@ body {
 			border: none;
 			color: white;
 			text-align: center;
-			padding: 14px;
+			padding: 1.2rem;
 			width: 150px;
 			transition: all 0.5s;
 			cursor: pointer;
-			margin: 5px;
+			margin-top: 0.4rem;
 			}
 			
  #unico span {
@@ -144,3 +145,143 @@ body {
   opacity: 1;
   right: 0;
 }
+
+.section-container {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   margin-left: 4.8vw;
+   margin-right: 4.8vw;
+   padding-top: 4.8vw;
+   padding-bottom: 1.6vw;
+   width: 100%;
+}
+
+.title-h2 {
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 2.4rem;
+   margin: 0;
+   color: #FFFFFF;
+}
+
+.text-p {
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 500;
+   font-size: 1.2rem;
+   margin: 0;
+   color: #FFFFFF;
+}
+
+form {
+   margin-left: 4.8vw;
+   margin-right: 4.8vw;
+}
+
+#create-playlist-button {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;
+   padding: 1.6rem;
+
+   height: 2.4rem;
+   background: #2C2C2C;
+   /* 04 dp */
+
+   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);
+   border-radius: 50px;
+   border-style: none;
+
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 0.8rem;
+
+   display: flex;
+   align-items: center;
+   letter-spacing: 1.25px;
+   text-transform: uppercase;
+
+   color: #FFFFFF;
+}
+
+#remove-playlist-button {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;
+   padding: 1.6rem;
+
+   height: 2.4rem;
+   background: none;
+   /* 04 dp */
+
+   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);
+   border-radius: 50px;
+   border: 2px solid #1E2732;
+   border-radius: 50px;
+
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 0.8rem;
+
+   display: flex;
+   align-items: center;
+   letter-spacing: 1.25px;
+   text-transform: uppercase;
+
+   color: #2C2C2C;
+}
+
+.playlist-buttons-container {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   padding: 2.4rem;
+   gap: 3.2rem;
+
+   width: 100%;
+}
+
+
+
+
+
+
+
+/* TEMPLATE DE UM BOTÃO "REMOVE" */
+
+.remove-button {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;
+   padding: 0.8rem;
+   
+
+   height: 2.4rem;
+   background: none;
+
+   border-radius: 50px;
+   border: 1px solid #E6EAED;
+   border-radius: 4px;
+
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 0.8rem;
+
+   display: flex;
+   align-items: center;
+   letter-spacing: 1.25px;
+   text-transform: uppercase;
+
+   color: #FAFAFA;
+}
+
+/* FIM DO TEMPLATE DE UM BOTÃO "REMOVE" */
