@@ -6,91 +6,28 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title> Menu Principal </title>
 	
-		<style>
-		    body{
-              background-color:#28272c;	
-              color: yellow;
-			  font-family: "Courier New";
-			  font-size: 14px;		  
-			}
-			
-			.caixaBusca{
-			  padding: 20px;
-              text-align: center;
-              display: inline-block;
-			  font-family: "Courier New";	
-              font-size: 14px;
-			  display: block;
-			  margin-top: 180px;
-              margin-left: auto;
-              margin-right: auto;
-			  width: 50%;
-              cursor: pointer;
-			  border-radius: 26px;
-			  background-color: #28272c;
-			  border: 1px solid MediumSeaGreen;
-			  color: MediumSeaGreen;
-			}
-			   
-			.botao1{
-              padding: 18px;
-              text-align: center;
-              display: inline-block;
-			  font-family: "Courier New";	
-              font-size: 20px;
-              cursor: pointer;
-			  border-radius: 8px;
-			  transition-duration: 0.4s;
-			  display: block;
-			  margin-top: 10px;
-			  margin-left: auto;
-              margin-right: auto;
-			  
-			}
-			
-			.animated1{
-			  background-color: #28272c;
-              color: MediumSeaGreen;
-			  border: 1px solid MediumSeaGreen;
-			}
-			
-			.animated1:hover{
-			  background-color: MediumSeaGreen;
-              color: #28272c;
-			}	
-			
-			.animated2{
-			  background-color: #28272c;
-              color: Tomato;
-			  border: 1px solid Tomato;
-			}
-			
-			.animated2:hover{
-			  background-color: Tomato;
-              color: #28272c;
-			}	
-			.botao2{
-              padding: 10px;
-              text-align: center;
-              display: inline-block;
-			  font-family: "Courier New";	
-              font-size: 13px;
-              margin: 2px 1px;
-              cursor: pointer;
-			  border-radius: 26px;
-			  background-color: Tomato;
-			  color: #28272c;			  
-			}	
-			
-		</style>
+		<link rel="stylesheet" href="./menu.css">
 	</head>
 	
 	<body onload="busca()">
+		<div class="nav-bar-container">
+			<h2 id="projeto-text">Projetão LabOO - 2022</h2>
+			<button class="logout-button">
+				<p>Sair</p> 
+				<img class="logout-img" src="./arrow_icon.png" alt="Sair">
+			</button>
+		</div>
+		<h1 class="title-header">Super Gerenciador Musical</h1>
+		
 	    <!-- busca musica -->
-		<form>
-			<input class="caixaBusca" type="text" th:name="nome-busca" id="nome-busca-input" value="Digite um item para buscar..."> 
-			<input class="botao1 animated1" type="submit" value="Buscar"/>
-		</form>
+		<div class="search-form-container">
+			<form>
+				<p id="search-tag">Pesquisar</p>
+				<input class="caixaBusca" type="text" th:name="nome-busca" id="nome-busca-input" value="Digite um item para buscar..."> 
+				<input class="botao1 animated1" id="unico" type="submit" value="Buscar"/>
+			</form>
+		</div>
+		
 		
 		<!-- Lista Playlists -->
 		<form>
