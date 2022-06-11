@@ -14,12 +14,16 @@ import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
+import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRefreshRequest;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRequest;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 
 @Service
 @Scope("singleton")
 public class ServicoDeAutorizacao {
+	
+	private  long tempoDaUltimaRenovacao;
+	
 	/**
 	 * Endereço para o qual o usuário será redirecionado após aceitar ou recusar a 
 	 * permissão de acesso à funcionalidades de sua conta, por parte da aplicação web.
@@ -78,6 +82,8 @@ public class ServicoDeAutorizacao {
 			spotifyApi.setAccessToken(credenciaisDeCodigoDeAutorizacao.getAccessToken());
 			spotifyApi.setRefreshToken(credenciaisDeCodigoDeAutorizacao.getRefreshToken());
 			
+			tempoDaUltimaRenovacao = System.nanoTime();
+			
 			System.out.println("Código de acesso expira em: " + credenciaisDeCodigoDeAutorizacao.getExpiresIn());
 		} catch (IOException | SpotifyWebApiException | ParseException e)
 		{
@@ -86,8 +92,31 @@ public class ServicoDeAutorizacao {
 		
 		return spotifyApi.getAccessToken();
 	}
+	
+	/**
+	 * Método que renova o código de acesso à API
+	 */
+	private void renovaAcesso() {
+		final AuthorizationCodeRefreshRequest requisicaoDeRenovacaoDeAcesso = spotifyApi.authorizationCodeRefresh()
+			    .build();
+		
+		 try {
+			 final AuthorizationCodeCredentials credenciaisDoCodigoDeAutorizacao = requisicaoDeRenovacaoDeAcesso.execute();
+
+			 // Set access and refresh token for further "spotifyApi" object usage
+			 spotifyApi.setAccessToken(credenciaisDoCodigoDeAutorizacao.getAccessToken());
+			 
+			 tempoDaUltimaRenovacao = System.nanoTime();
+
+			 System.out.println("Expira em: " + credenciaisDoCodigoDeAutorizacao.getExpiresIn());
+		 } catch (IOException | SpotifyWebApiException | ParseException e) {
+			 System.out.println("Erro: " + e.getMessage());
+		 }
+	}
 
 	public SpotifyApi getSpotifyApi() {
+		if ((System.nanoTime() - tempoDaUltimaRenovacao) * 0.000000001 >= 1800)
+			renovaAcesso();
 		return spotifyApi;
 	}
 
