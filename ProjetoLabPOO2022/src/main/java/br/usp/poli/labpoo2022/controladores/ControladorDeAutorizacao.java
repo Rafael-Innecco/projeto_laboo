@@ -6,6 +6,7 @@ import java.net.URI;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,8 +24,10 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 /**
  * Controla o fluxo de autorização para permitir o
  * requisições de acesso à conta do usuário.
+ * 
  */
 @RestController
+@Scope("singleton")
 @RequestMapping("/autorizacao")
 public class ControladorDeAutorizacao {
 	/**
