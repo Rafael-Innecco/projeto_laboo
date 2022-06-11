@@ -1,11 +1,9 @@
 package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
-import java.net.URI;
-
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.hc.core5.http.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,13 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.usp.poli.labpoo2022.credenciais.ChavesDeSeguranca;
-import se.michaelthelin.spotify.SpotifyApi;
-import se.michaelthelin.spotify.SpotifyHttpManager;
-import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
-import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
-import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRequest;
-import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
+import br.usp.poli.labpoo2022.servicos.ServicoDeAutorizacao;
 
 /**
  * Controla o fluxo de autorização para permitir o
@@ -30,27 +22,10 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 @Scope("singleton")
 @RequestMapping("/autorizacao")
 public class ControladorDeAutorizacao {
-	/**
-	 * Endereço para o qual o usuário será redirecionado após aceitar ou recusar a 
-	 * permissão de acesso à funcionalidades de sua conta, por parte da aplicação web.
-	 */
-	private final URI enderecoDeRedirecionamento = SpotifyHttpManager.makeUri("http://localhost:8080/autorizacao/resgatar-codigo");
 	
-	/**
-	 * Usado no resgate de um token de acesso para
-	 * modificação/leitura dos dados da conta de um usuário spotify.
-	 */
-	private String codigoDeUsuario = "";
+	@Autowired
+	private ServicoDeAutorizacao servicoDeAutorizacao;
 	
-	/**
-	 * Facilita utilização da API do Spotify.
-	 */
-	private final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-			.setClientId(ChavesDeSeguranca.idDeCliente.getChave())
-			.setClientSecret(ChavesDeSeguranca.segredoDoCliente.getChave())
-			.setRedirectUri(enderecoDeRedirecionamento)
-			.build();
-
 	/**
 	 * Cria pedido de permissão de acesso à funcionalidades da conta do usuário.
 	 * 
@@ -59,14 +34,10 @@ public class ControladorDeAutorizacao {
 	@GetMapping("login")
 	@ResponseBody
 	public void loginDoSpotify(HttpServletResponse resposta) throws IOException
-	{
-		AuthorizationCodeUriRequest requisicaoDoCodigoDeAutorizacao = spotifyApi.authorizationCodeUri()
-				.scope("playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private")
-				.show_dialog(true)
-				.build();
-		final URI uri = requisicaoDoCodigoDeAutorizacao.execute();
+	{	
+		final String uri = servicoDeAutorizacao.loginDoSpotify(resposta);
 		
-		resposta.sendRedirect(uri.toString());
+		resposta.sendRedirect(uri);
 	}
 	
 	/**
@@ -81,33 +52,9 @@ public class ControladorDeAutorizacao {
 	@GetMapping(value = "resgatar-codigo")
 	public String getCodigoDeUsuarioSpotify(@RequestParam("code") String codigoDeUsuario, HttpServletResponse resposta) throws IOException
 	{
-		this.codigoDeUsuario = codigoDeUsuario;
-		AuthorizationCodeRequest requisicaoDeCodigoDeAutorizacao = spotifyApi.authorizationCode(this.codigoDeUsuario)
-				.build();
-		try
-		{
-			final AuthorizationCodeCredentials credenciaisDeCodigoDeAutorizacao = requisicaoDeCodigoDeAutorizacao.execute();
-			
-			spotifyApi.setAccessToken(credenciaisDeCodigoDeAutorizacao.getAccessToken());
-			spotifyApi.setRefreshToken(credenciaisDeCodigoDeAutorizacao.getRefreshToken());
-			
-			System.out.println("Código de acesso expira em: " + credenciaisDeCodigoDeAutorizacao.getExpiresIn());
-		} catch (IOException | SpotifyWebApiException | ParseException e)
-		{
-			System.out.println("Erro ao requisitar código do usuário spotify: " + e.getMessage());
-		}
+		String codigoDeUsuarioRecebido = servicoDeAutorizacao.getCodigoDeUsuarioSpotify(codigoDeUsuario, resposta);
 		
 		resposta.sendRedirect("http://localhost:8080/menu");
-		return spotifyApi.getAccessToken();
-	}
-
-	/**
-	 * Getter do atributo que facilita o acesso à API do Spotify.
-	 * 
-	 * @return Atributo estático que facilita o acesso à API do Spotify.
-	 */
-	public SpotifyApi getSpotifyApi()
-	{
-		return this.spotifyApi;
+		return codigoDeUsuarioRecebido;
 	}
 }

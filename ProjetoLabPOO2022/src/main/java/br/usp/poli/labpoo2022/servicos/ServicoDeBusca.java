@@ -35,7 +35,7 @@ public class ServicoDeBusca extends ServicoBase {
 	 */
 	public Track[] buscaMusicaPadrao (String nomeBuscado) throws ServerException
 	{
-		final SearchTracksRequest requisicaoDeBuscaMusica = controladorDeAutorizacao.getSpotifyApi()
+		final SearchTracksRequest requisicaoDeBuscaMusica = servicoDeAutorizacao.getSpotifyApi()
 				.searchTracks(nomeBuscado)
 				.limit(50)
 				.build();
@@ -61,7 +61,7 @@ public class ServicoDeBusca extends ServicoBase {
 	 */
 	public Artist[] buscaArtista(String nomeArtista) throws ServerException
 	{
-		final SearchArtistsRequest requisicaoDeBuscaArtista = controladorDeAutorizacao.getSpotifyApi()
+		final SearchArtistsRequest requisicaoDeBuscaArtista = servicoDeAutorizacao.getSpotifyApi()
 				.searchArtists(nomeArtista)
 				.limit(50)
 				.build();
@@ -86,7 +86,7 @@ public class ServicoDeBusca extends ServicoBase {
 	 */
 	public PlaylistSimplified[] buscaPlaylist(String nomePlaylist) throws ServerException
 	{
-		final SearchPlaylistsRequest requisicaoDeBuscaPlaylist = controladorDeAutorizacao.getSpotifyApi()
+		final SearchPlaylistsRequest requisicaoDeBuscaPlaylist = servicoDeAutorizacao.getSpotifyApi()
 				.searchPlaylists(nomePlaylist)
 				.limit(50)
 				.build();
@@ -112,7 +112,7 @@ public class ServicoDeBusca extends ServicoBase {
 	 */
 	public AlbumSimplified[] buscaAlbum(String nomeAlbum) throws ServerException
 	{
-		final SearchAlbumsRequest requisicaoDeBuscaAlbum = controladorDeAutorizacao.getSpotifyApi()
+		final SearchAlbumsRequest requisicaoDeBuscaAlbum = servicoDeAutorizacao.getSpotifyApi()
 				.searchAlbums(nomeAlbum)
 				.limit(50)
 				.build();
@@ -138,7 +138,7 @@ public class ServicoDeBusca extends ServicoBase {
 	 */
 	public Track[] buscaMusicaPorParametro (String q) throws ServerException
 	{
-		final SearchItemRequest requisicaoDeBusca = controladorDeAutorizacao.getSpotifyApi()
+		final SearchItemRequest requisicaoDeBusca = servicoDeAutorizacao.getSpotifyApi()
 				.searchItem(q, "track")
 				.limit(50)
 				.build();

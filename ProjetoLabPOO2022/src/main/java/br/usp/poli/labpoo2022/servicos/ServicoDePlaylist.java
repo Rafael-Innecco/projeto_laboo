@@ -47,7 +47,7 @@ public class ServicoDePlaylist extends ServicoBase{
 	public boolean criaPlaylist(String nomeDaPlaylist, HttpServletResponse resposta) throws ServerException
 	{
 	
-		final CreatePlaylistRequest requisicaoDeCriacaoDePlaylist = controladorDeAutorizacao.getSpotifyApi().createPlaylist(usuarioAtual.getIdDeUsuario(), nomeDaPlaylist)
+		final CreatePlaylistRequest requisicaoDeCriacaoDePlaylist = servicoDeAutorizacao.getSpotifyApi().createPlaylist(usuarioAtual.getIdDeUsuario(), nomeDaPlaylist)
 			.build();
 		
 		try {
@@ -72,7 +72,7 @@ public class ServicoDePlaylist extends ServicoBase{
 	public boolean removePlaylist(String idDaPlaylistSelecionada) throws ServerException
 	{	
 		String idDoUsuario = usuarioAtual.getIdDeUsuario();
-		final UnfollowPlaylistRequest requisicaoDeRemocaoDePlaylist = controladorDeAutorizacao.getSpotifyApi().unfollowPlaylist(idDoUsuario, idDaPlaylistSelecionada)
+		final UnfollowPlaylistRequest requisicaoDeRemocaoDePlaylist = servicoDeAutorizacao.getSpotifyApi().unfollowPlaylist(idDoUsuario, idDaPlaylistSelecionada)
 			.build();
 		
 		try
@@ -97,7 +97,7 @@ public class ServicoDePlaylist extends ServicoBase{
 	public boolean adicionaItensEmPlaylist (String idDaplaylistSelecionada, String uri) throws ServerException
 	{
 		String uri_em_array[] = {uri};
-		final AddItemsToPlaylistRequest requisicaoDeAdicaoDeItens = controladorDeAutorizacao.getSpotifyApi()
+		final AddItemsToPlaylistRequest requisicaoDeAdicaoDeItens = servicoDeAutorizacao.getSpotifyApi()
 				.addItemsToPlaylist(idDaplaylistSelecionada, uri_em_array)
 				.build(); 
 		
@@ -120,7 +120,7 @@ public class ServicoDePlaylist extends ServicoBase{
 	public PlaylistSimplified[] listaPlaylists() throws ServerException
 	{
 		
-		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = controladorDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
+		final GetListOfCurrentUsersPlaylistsRequest requisicaoDeListarPlaylists = servicoDeAutorizacao.getSpotifyApi().getListOfCurrentUsersPlaylists()
 	          .build();
 				
 		try {
@@ -143,7 +143,7 @@ public class ServicoDePlaylist extends ServicoBase{
 	 */
 	public PlaylistTrack[] listaItensDePlaylist(String idDaPlaylistSelecionada) throws ServerException
 	{
-		final GetPlaylistsItemsRequest requisicaoDeListarItensDeUmaPlaylist = controladorDeAutorizacao.getSpotifyApi().getPlaylistsItems(idDaPlaylistSelecionada)
+		final GetPlaylistsItemsRequest requisicaoDeListarItensDeUmaPlaylist = servicoDeAutorizacao.getSpotifyApi().getPlaylistsItems(idDaPlaylistSelecionada)
 			.build();
 
 		try
@@ -170,7 +170,7 @@ public class ServicoDePlaylist extends ServicoBase{
 	{
 		final JsonArray musicas = JsonParser.parseString("[{\"uri\":\"" + musica + "\"}]").getAsJsonArray();
 		
-		final RemoveItemsFromPlaylistRequest requisicaoDeRemocaoDeItens = controladorDeAutorizacao.getSpotifyApi().removeItemsFromPlaylist(idDaPlaylistSelecionada, musicas)
+		final RemoveItemsFromPlaylistRequest requisicaoDeRemocaoDeItens = servicoDeAutorizacao.getSpotifyApi().removeItemsFromPlaylist(idDaPlaylistSelecionada, musicas)
 				.build();
 		
 		try

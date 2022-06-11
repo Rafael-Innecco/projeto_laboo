@@ -16,7 +16,7 @@ public class ServicoDeMusicas extends ServicoBase{
 
     public AudioFeatures requisitaCaracteristicasDeMusica(String idDaMusica) throws Exception
     {
-        final GetAudioFeaturesForTrackRequest requisicaoDeCaracteristicasDeMusica = controladorDeAutorizacao.getSpotifyApi()
+        final GetAudioFeaturesForTrackRequest requisicaoDeCaracteristicasDeMusica = servicoDeAutorizacao.getSpotifyApi()
             .getAudioFeaturesForTrack(idDaMusica)
             .build();
 

@@ -24,7 +24,7 @@ public class ServicoDoUsuarioAtual extends ServicoBase{
 	 */
 	public String getIdDeUsuario()
 	{
-		this.requisicaoDePerfilDeUsuario = controladorDeAutorizacao.getSpotifyApi().getCurrentUsersProfile()
+		this.requisicaoDePerfilDeUsuario = servicoDeAutorizacao.getSpotifyApi().getCurrentUsersProfile()
 	    		.build();
 		try 
 		{
