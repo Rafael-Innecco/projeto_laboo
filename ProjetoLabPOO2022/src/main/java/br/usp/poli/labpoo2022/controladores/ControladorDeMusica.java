@@ -1,6 +1,7 @@
 package br.usp.poli.labpoo2022.controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import br.usp.poli.labpoo2022.servicos.ServicoDeMusicas;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
 
 @RestController
+@Scope("singleton")
 @RequestMapping("/menu")
 public class ControladorDeMusica {
 

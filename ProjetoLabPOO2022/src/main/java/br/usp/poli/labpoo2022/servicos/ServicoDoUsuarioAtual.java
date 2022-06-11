@@ -2,6 +2,7 @@ package br.usp.poli.labpoo2022.servicos;
 
 import java.io.IOException;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -12,6 +13,7 @@ import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfi
  * Gerencia funcionalidades do usuário atualmente logado.
  */
 @Service
+@Scope("singleton")
 public class ServicoDoUsuarioAtual extends ServicoBase{
 	
 	private GetCurrentUsersProfileRequest requisicaoDePerfilDeUsuario;

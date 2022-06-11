@@ -3,6 +3,7 @@ package br.usp.poli.labpoo2022.servicos;
 import java.io.IOException;
 import java.rmi.ServerException;
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -23,6 +24,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
  *
  */
 @Service
+@Scope("singleton")
 public class ServicoDeBusca extends ServicoBase {
 	
 	/**

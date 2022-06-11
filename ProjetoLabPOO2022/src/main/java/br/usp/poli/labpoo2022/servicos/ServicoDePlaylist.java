@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -31,6 +32,7 @@ import se.michaelthelin.spotify.requests.data.playlists.RemoveItemsFromPlaylistR
  * </p>
  */
 @Service
+@Scope("singleton")
 public class ServicoDePlaylist extends ServicoBase{
 	
 	@Autowired

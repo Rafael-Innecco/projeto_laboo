@@ -3,6 +3,7 @@ package br.usp.poli.labpoo2022.controladores;
 import java.io.IOException;
 import java.rmi.ServerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ import se.michaelthelin.spotify.model_objects.specification.Track;
  *
  */
 @RestController
+@Scope("singleton")
 @RequestMapping("/menu")
 public class ControladorDeBusca{
 	
