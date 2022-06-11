@@ -1,4 +1,4 @@
-package br.usp.poli.labpoo2022.fluxo_de_autorizacao;
+package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
 import java.net.URI;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ChavesDeSeguranca;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;

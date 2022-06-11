@@ -51,7 +51,6 @@ public class ControladorDeBusca{
 			System.out.println("Erro na busca por musica: " + e.getMessage());
 		}
 		
-		//return null;
 		throw new ServerException(nomeBuscado);	
 	}
 	
