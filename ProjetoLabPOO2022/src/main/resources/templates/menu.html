@@ -38,26 +38,13 @@
 		<form>
             <button class="botao1 animated2" id="unico" type="button" onclick="listaPlaylists('semBotão'); scrolldiv('lista-de-playlists')">Listar Playlists</button>
 		</form>
-
-
 		
 	   <!-- cria Playslist -->
 		<form th:action="@{/menu/cria-playlist}">
 			<div class="playlist-buttons-container">
 				<input class="botao2" id="create-playlist-button" type="submit" value="+ Criar nova playlist"/>
-				<button id="remove-playlist-button">Remover playlist</button>
 			</div>
 		</form>
-
-		<!-- Template de um botão "REMOVE" -->
-		<!-- <div class="section-container">
-			<p>Template de um botão: </p>
-
-			<button class="remove-button">
-				⨉ Remover
-			</button>
-
-		</div> -->
 
 		<div class="section-container">
 			<h2 class="title-h2">Resultados de busca</h2>
@@ -84,7 +71,7 @@
            		<button type="button" class="btn cancel" onclick="fechaForm()">Sair</button>
          	</form>
         </div>
-		
+
 		<script>
 			function selecionarPlaylistParaAdicionar(){					
 				let select = document.getElementById('dropdownPlaylists');
@@ -132,25 +119,11 @@
 				mainContainer.innerHTML = "";
 
 				for (let i = 0; i < data.length; i++) {
+					let div = `<div><h4>Nome: ${data[i].name} — Artista: ${data[i].artists[0].name}</h4><button class="open-button" onclick="abreForm('${data[i].id}');listaPlaylists();">+ Adicionar a uma Playlist</button></div>`;
+					mainContainer.innerHTML += div;
 					
-					let h4 = document.createElement("h4");
-					let div = document.createElement('div');
-					let button_listar = document.createElement('button');
-					
-					h4.innerHTML = 'Nome: ' + data[i].name + ' — Artista: ' + data[i].artists[0].name;
-					
-					button_listar.setAttribute('class', 'open-button');
-					button_listar.type = 'button';
-					button_listar.setAttribute('onclick', 'abreForm("'+data[i].id+'");listaPlaylists();');
-
-					button_listar.innerHTML = '+ Adicionar a uma Playlist';
-
-					div.appendChild(h4);
-					div.appendChild(button_listar);
-					mainContainer.appendChild(div);
-
-					console.log('Name: ' + data[i].name + ' ;');
-					console.log('Id: ' + data[i].id + ' ;');
+					// console.log('Name: ' + data[i].name + ' ;');
+					// console.log('Id: ' + data[i].id + ' ;');
 				}
 			}
 			
@@ -179,6 +152,7 @@
 						console.log('error: ' + err);
 					});
 			}
+
 			
 			function appendData_playlist(data, uriDaMusica) {
 				let mainContainer = document.getElementById("lista-de-playlists");
@@ -190,32 +164,9 @@
 					// Cria o elemento <option> para cada playlist, para mostrar no dropdown de escolhas
 					dropdownDePlaylists.innerHTML += `<option value= "${data[i].id}">` + data[i].name + "</option>";
 
-					let div = document.createElement('div');
-					div.id = "playlist-numero-" + i;
+					let div = `<div id="playlist-numero-${i}"><h4>Nome: ${data[i].name};</h4><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button><button class="remove-button" onclick="deletaPlaylist('${data[i].id}', 'playlist-numero-${i}')";>⨉ Remover</button></div>`;			
 
-					let h4 = document.createElement('h4');
-					let button_remover = document.createElement('button');
-					let button_listar = document.createElement('button');
-
-					h4.innerHTML = 'Name: ' + data[i].name + ' ;';
-					
-					button_remover.setAttribute('class', 'botao2');
-					button_remover.type = 'button';
-					button_remover.setAttribute('onclick', 'deletaPlaylist("' + data[i].id + '", "' + div.id + '")');
-					button_remover.innerHTML = 'Remover';
-					
-					button_listar.setAttribute('class', 'botao2');
-					button_listar.type = 'button';
-					button_listar.setAttribute('onclick', 'listaItens("' + data[i].id + '")');
-					button_listar.innerHTML = 'Listar músicas';
-
-					div.appendChild(h4);
-					div.appendChild(button_remover);
-					div.appendChild(button_listar);
-					
-					console.log('Name: ' + data[i].name + ' ;');
-					console.log('Id: ' + data[i].id + ' ;');
-					mainContainer.appendChild(div);
+					mainContainer.innerHTML += div;
 				}
 			}
 
@@ -279,8 +230,6 @@
 					});
 			}
 			
-			
-			// TODO
 			function adicionaMusica (uriDaMusica, idDaPlaylist){
 				console.log("ID da playlist para add a música: " + idDaPlaylist);
 

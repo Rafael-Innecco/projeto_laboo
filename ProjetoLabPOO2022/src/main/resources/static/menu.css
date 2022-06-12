@@ -208,35 +208,6 @@ form {
    color: #FFFFFF;
 }
 
-#remove-playlist-button {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: flex-start;
-   padding: 1.6rem;
-
-   height: 2.4rem;
-   background: none;
-   /* 04 dp */
-
-   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);
-   border-radius: 50px;
-   border: 2px solid #1E2732;
-   border-radius: 50px;
-
-   font-family: 'Open Sans';
-   font-style: normal;
-   font-weight: 700;
-   font-size: 0.8rem;
-
-   display: flex;
-   align-items: center;
-   letter-spacing: 1.25px;
-   text-transform: uppercase;
-
-   color: #2C2C2C;
-}
-
 .playlist-buttons-container {
    display: flex;
    flex-direction: row;
@@ -248,30 +219,21 @@ form {
    width: 100%;
 }
 
-
-
-
-
-
-
-/* TEMPLATE DE UM BOTÃO "REMOVE" */
-
-.remove-button {
+.list-musics-button {
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: flex-start;
-   padding: 0.8rem;
+   padding: 1rem;
    
 
    height: 2.4rem;
-   background: none;
+   background: #00B3C2;
 
-   border-radius: 50px;
-   border: 1px solid #E6EAED;
+   border-style: none;
    border-radius: 4px;
 
-   font-family: 'Open Sans';
+   font-family: 'Raleway';
    font-style: normal;
    font-weight: 700;
    font-size: 0.8rem;
@@ -284,7 +246,28 @@ form {
    color: #FAFAFA;
 }
 
-/* FIM DO TEMPLATE DE UM BOTÃO "REMOVE" */
+.remove-button {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;   
+   padding: 0.4rem;
+
+   background: none;
+   border-style: none;
+
+   font-family: 'Open Sans';
+   font-style: bold;
+   font-weight: 700;
+   font-size: 0.72rem;
+
+   display: flex;
+   align-items: center;
+   letter-spacing: 0.6px;
+   text-transform: uppercase;
+
+   color: #FAFAFA;
+}
 
 .open-button {
   background-color: #000000;
