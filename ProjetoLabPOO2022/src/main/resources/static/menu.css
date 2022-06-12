@@ -1,0 +1,350 @@
+/*Fontes*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Hind');
+
+/*Corpo principal*/
+body {
+   height: 100%;
+   background: linear-gradient(180deg, #48637E 0%, #00B3C2 99.99%, #1E2732 100%);
+   font-family: "Open Sans";
+   color: white;
+   margin: 0;
+
+   overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+.search-form-container {
+   width: 100%;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   z-index: 1;
+}
+
+#search-tag {
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 16px;
+   line-height: 19px;
+   color: #FFFFFF;
+}
+
+#nome-busca-input {
+   width: 86vw;
+   height: 1.2rem;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   
+   background: #fff;
+   border-radius: 0.8rem;
+   border-style: none;
+   padding: 1.6rem;
+
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 1rem;
+   text-decoration: rgba(0, 0, 0, 0.6);
+}
+
+.nav-bar-container {
+   width: 100%;
+   height: 10vh;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-direction: row;
+   background: #FAFAFA;
+}
+
+#projeto-text {
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 600;
+   font-size: 1.2rem;
+   margin-left: 8vw;
+   color: #1E2732;
+}
+
+.logout-button {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   padding: 0px;
+   gap: 16px;
+
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 1.2rem;
+   border-style: none;
+   background-color: #FAFAFA;
+
+   color: #1E2732;
+   margin-right: 8vw;
+}
+
+.logout-img {
+   width: 1.6rem;
+}
+
+.title-header {
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 3.2rem;
+   margin-left: 4.8vw;
+   margin-right: 4.8vw;
+
+   color: #FFFFFF;
+}
+
+/*Botao de autenticação*/
+ #unico {
+			display: inline-block;
+			border-radius: 4px;
+			background-color: black;
+			border: none;
+			color: white;
+			text-align: center;
+			padding: 1.2rem;
+			width: 150px;
+			transition: all 0.5s;
+			cursor: pointer;
+			margin-top: 0.4rem;
+			}
+			
+ #unico span {
+			cursor: pointer;
+			display: inline-block;
+			position: relative;
+			transition: 0.5s;
+			}
+			
+#unico span:after{
+			content: '\00bb';
+			position: absolute;
+			opacity: 0;
+			top: 0;
+			right: -20px;
+			transition: 0.5s;
+			}
+			
+#unico:hover span {
+  padding-right: 25px;
+}
+
+#unico:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.section-container {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   margin-left: 4.8vw;
+   margin-right: 4.8vw;
+   padding-top: 4.8vw;
+   padding-bottom: 1.6vw;
+   width: 100%;
+}
+
+.title-h2 {
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 2.4rem;
+   margin: 0;
+   color: #FFFFFF;
+}
+
+.text-p {
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 500;
+   font-size: 1.2rem;
+   margin: 0;
+   color: #FFFFFF;
+}
+
+form {
+   margin-left: 4.8vw;
+   margin-right: 4.8vw;
+}
+
+#create-playlist-button {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;
+   padding: 1.6rem;
+
+   height: 2.4rem;
+   background: #2C2C2C;
+   /* 04 dp */
+
+   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);
+   border-radius: 50px;
+   border-style: none;
+
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 0.8rem;
+
+   display: flex;
+   align-items: center;
+   letter-spacing: 1.25px;
+   text-transform: uppercase;
+
+   color: #FFFFFF;
+}
+
+#remove-playlist-button {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;
+   padding: 1.6rem;
+
+   height: 2.4rem;
+   background: none;
+   /* 04 dp */
+
+   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);
+   border-radius: 50px;
+   border: 2px solid #1E2732;
+   border-radius: 50px;
+
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 0.8rem;
+
+   display: flex;
+   align-items: center;
+   letter-spacing: 1.25px;
+   text-transform: uppercase;
+
+   color: #2C2C2C;
+}
+
+.playlist-buttons-container {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   padding: 2.4rem;
+   gap: 3.2rem;
+
+   width: 100%;
+}
+
+
+
+
+
+
+
+/* TEMPLATE DE UM BOTÃO "REMOVE" */
+
+.remove-button {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;
+   padding: 0.8rem;
+   
+
+   height: 2.4rem;
+   background: none;
+
+   border-radius: 50px;
+   border: 1px solid #E6EAED;
+   border-radius: 4px;
+
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 0.8rem;
+
+   display: flex;
+   align-items: center;
+   letter-spacing: 1.25px;
+   text-transform: uppercase;
+
+   color: #FAFAFA;
+}
+
+/* FIM DO TEMPLATE DE UM BOTÃO "REMOVE" */
+
+.open-button {
+  background-color: #000000;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+
+}
+
+select { background-color: red}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
