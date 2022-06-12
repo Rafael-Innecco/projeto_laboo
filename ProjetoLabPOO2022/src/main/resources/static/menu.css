@@ -292,7 +292,6 @@ form {
   padding: 16px 20px;
   border: none;
   cursor: pointer;
-
 }
 
 select { background-color: red}
@@ -300,7 +299,9 @@ select { background-color: red}
 /* The popup form - hidden by default */
 .form-popup {
   display: none;
-  position: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
   border: 3px solid #f1f1f1;
   z-index: 9;
 }
