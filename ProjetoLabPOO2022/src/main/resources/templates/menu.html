@@ -80,47 +80,47 @@
 						 <option value="none" selected disabled hidden>Selecione uma playlist</option>
 					 </select>
 					 
-           		<button type="submit" class="btn" onclick="(() => {
-						let select = document.getElementById('dropdownPlaylists');
-						let idDaPlaylist = select.value;
-						let uriDaMusica = window.localStorage.getItem('uriDaMusica');
-
-						adicionaMusica(uriDaMusica, idDaPlaylist);
-						console.log(uriDaMusica);
-
-					  })">Adicionar</button>
+           		<button type="button" class="btn" onclick="selecionarPlaylistParaAdicionar()">Adicionar</button>
            		<button type="button" class="btn cancel" onclick="fechaForm()">Sair</button>
          	</form>
         </div>
 		
 		<script>
-			function getQueryVariable(variable)
-			{
+			function selecionarPlaylistParaAdicionar(){					
+				let select = document.getElementById('dropdownPlaylists');
+				let idDaPlaylist = select.value;
+				let uriDaMusica = window.localStorage.getItem('uriDaMusica');
+
+				console.log("URI da música que será adicionada: " + uriDaMusica);
+				console.log("ID da playlist: " + idDaPlaylist);
+
+				adicionaMusica(uriDaMusica, idDaPlaylist);
+				console.log("Adicionei a música: " + uriDaMusica);
+			}
+
+			function getQueryVariable(variable) {
 			       let query = window.location.search.substring(1);
 			       let vars = query.split("&");
 			       for (let i=0;i<vars.length;i++) {
-			               let pair = vars[i].split("=");
-			               if(pair[0] == variable){return pair[1];}
+							let pair = vars[i].split("=");
+							if(pair[0] == variable){return pair[1];}
 			       }
 			       return(false);
 			}
 			
-			function busca(){
+			function busca() {
 				let queryParam = getQueryVariable("nome-busca");
 				if (queryParam == false)
 					return;
 				console.log("buscando...");
 				fetch('/menu/busca-musica?nome-busca=' + getQueryVariable("nome-busca"))
 					.then(function (response) {
-						console.log('Primeiro then');
 						return response.json();
 					})
 					.then(function (data) {
-						console.log('Segundo then');
 						appendData_busca(data, "resultadosDeBusca");
 					})
 					.catch(function (err) {
-						console.log('Terceiro then');
 						console.log('error: ' + err);
 					});
 			}
@@ -141,7 +141,7 @@
 					
 					button_listar.setAttribute('class', 'open-button');
 					button_listar.type = 'button';
-					button_listar.setAttribute('onclick', 'abreForm("' + data[i].id + '");listaPlaylists();');
+					button_listar.setAttribute('onclick', 'abreForm("'+data[i].id+'");listaPlaylists();');
 
 					button_listar.innerHTML = '+ Adicionar a uma Playlist';
 
@@ -166,7 +166,7 @@
 				document.getElementById("popupAdicionarMusica").style.display = "none";
 			}
 			
-			function listaPlaylists(uriDaMusica){
+			function listaPlaylists(uriDaMusica) {
 				console.log("buscando...");
 				fetch('/menu/lista-playlists?')
 					.then(function (response) {
@@ -196,7 +196,6 @@
 					let h4 = document.createElement('h4');
 					let button_remover = document.createElement('button');
 					let button_listar = document.createElement('button');
-					let button_adicionar = document.createElement('button');
 
 					h4.innerHTML = 'Name: ' + data[i].name + ' ;';
 					
@@ -213,15 +212,6 @@
 					div.appendChild(h4);
 					div.appendChild(button_remover);
 					div.appendChild(button_listar);
-
-					if(uriDaMusica != 'semBotão')
-					{
-						button_adicionar.setAttribute('class', 'botao2');
-						button_adicionar.type = 'button';
-						button_adicionar.setAttribute('onclick', 'adicionaMusica("' + uriDaMusica + '", "' + data[i].id + '")');
-						button_adicionar.innerHTML = 'Adicionar música';
-						div.appendChild(button_adicionar);
-					}
 					
 					console.log('Name: ' + data[i].name + ' ;');
 					console.log('Id: ' + data[i].id + ' ;');
@@ -250,11 +240,9 @@
 				console.log("Playlist listada: " + idDaPlaylist);
 				fetch('/menu/lista-itens-de-playlist?playlist-selecionada=' + idDaPlaylist)
 					.then(function (response) {
-						console.log("Conseguiu fazer o fetch");
 						return response.json();
 					})
 					.then(function (data) {
-						console.log("Conseguiu fazer o appendData_itens");
 						appendData_itens(data, "itens-de-playlist", idDaPlaylist);
 					})
 					.catch(function (err) {
@@ -263,33 +251,11 @@
 			}
 
 			function appendData_itens(data, elementId, idDaPlaylist) {
-				console.log("Conseguiu entrar no appendData_itens");
 				let mainContainer = document.getElementById(elementId);
-
 				mainContainer.innerHTML = "";
 
 				for (let i = 0; i < data.length; i++) {
-					let card = `"<div id="item-playlist-${i}"><h4>Nome: ${data[i].track.name} — Artista: ${data[i].track.artists[0].name}</h4><button class="botao2" onclick="removeMusica("${data[i].track.uri}", "${idDaPlaylist}", "item-playlist-${i}")">Remover da playlist</button></div>`;
-
-					/*
-					let div = document.createElement("div");
-					div.id = "item-playlist-" + i;
-
-					let h4 = document.createElement("h4");
-					let button_remove = document.createElement("button");
-					
-					button_remove.setAttribute('class', 'botao2');
-					button_remove.type = 'button';
-					button_remove.setAttribute('onclick', 'removeMusica("' + data[i].track.uri + '", "' + idDaPlaylist + '", "' + div.id +  '")');
-					button_remove.innerHTML = 'Remover da playlist';
-					
-					h4.innerHTML = 'Nome: ' + data[i].track.name + ' — Artista: ' + data[i].track.artists[0].name;
-
-					div.appendChild(h4);
-					div.appendChild(button_remove);
-
-					mainContainer.appendChild(div);
-					*/
+					let card = `<div id="item-playlist-${i}"><h4>Nome: ${data[i].track.name} — Artista: ${data[i].track.artists[0].name}</h4><button class="botao2" onclick="removeMusica("${data[i].track.uri}", "${idDaPlaylist}", "item-playlist-${i}")">Remover da playlist</button></div>`;
 
 					mainContainer.innerHTML += card;
 				}
@@ -314,27 +280,29 @@
 			}
 			
 			
+			// TODO
 			function adicionaMusica (uriDaMusica, idDaPlaylist){
 				console.log("ID da playlist para add a música: " + idDaPlaylist);
-				fetch('/menu/adiciona-itens?playlist-selecionada=' + idDaPlaylist + '&uri=' + uriDaMusica)
+
+				fetch('/menu/adiciona-itens?playlist-selecionada=' + idDaPlaylist + '&uri=spotify:track:' + uriDaMusica)
 					.then(function (response) {
 						console.log("Musica adicionada?");
-						alert("Música adicionada com sucesso!");
 						console.log(response);
 						return response.json();
 					})
 					.then(function (data) {
 						console.log("Música adicionada!");
+						alert("Música adicionada com sucesso!");
 					})
 					.catch(function (err) {
-						console.log('erro ao adicionar playlist: ' + err);
+						console.log('Erro ao adicionar playlist: ' + err);
 					});
 			}
 
 			function scrolldiv(idDaDiv) {
-                let elem = document.getElementById(idDaDiv);
-                elem.scrollIntoView();
-            }
+				let elem = document.getElementById(idDaDiv);
+				elem.scrollIntoView();
+			}
 		</script>
 	</body>
 </html>
