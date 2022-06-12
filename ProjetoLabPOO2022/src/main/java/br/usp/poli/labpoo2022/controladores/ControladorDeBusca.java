@@ -125,6 +125,7 @@ public class ControladorDeBusca{
 	 * @return  Lista de Tracks organizadas de maneira que pode ser manipulada pelo front-end
 	 * @throws ServerException
 	 */
+	@RequestMapping("/busca-musica-por-parametro")
 	public ResponseEntity<Track[]> buscaMusicaPorParametro(@RequestParam(value = "nome-musica", required = false, defaultValue = "") String nomeMusica,
 			@RequestParam(value = "nome-artista", required = false, defaultValue = "") String nomeArtista,
 			@RequestParam(value  = "nome-album", required = false, defaultValue = "") String nomeAlbum) 
