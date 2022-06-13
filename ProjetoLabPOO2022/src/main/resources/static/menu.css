@@ -89,6 +89,7 @@ body {
 
    color: #1E2732;
    margin-right: 8vw;
+   cursor: pointer;
 }
 
 .logout-img {
@@ -181,6 +182,7 @@ form {
 }
 
 #create-playlist-button {
+   cursor: pointer;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -215,7 +217,7 @@ form {
    align-items: center;
    padding: 2.4rem;
    gap: 3.2rem;
-
+   cursor: pointer;
    width: 100%;
 }
 
@@ -228,7 +230,7 @@ form {
    
 
    height: 2.4rem;
-   background: #00B3C2;
+   background: #1E2732;
 
    border-style: none;
    border-radius: 4px;
@@ -242,8 +244,13 @@ form {
    align-items: center;
    letter-spacing: 1.25px;
    text-transform: uppercase;
-
+   cursor: pointer;
    color: #FAFAFA;
+}
+
+.playlist-img {
+   width: 12rem;
+   border-radius: 0.4rem;
 }
 
 .remove-button {
@@ -265,6 +272,7 @@ form {
    align-items: center;
    letter-spacing: 0.6px;
    text-transform: uppercase;
+   cursor: pointer;
 
    color: #FAFAFA;
 }
@@ -281,34 +289,53 @@ select { background-color: red}
 
 /* The popup form - hidden by default */
 .form-popup {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
+   display: none;
+   position: absolute;
+   top: 25%;
+   left: 19%;
 }
 
 /* Add styles to the form container */
 .form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
+   position: relative;
+   width: 50vw;
+   height: 30vw;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   
+   background: #fff;
+   border-radius: 0.4rem;
+   border-style: none;
+   padding: 1.2rem;
+
+   margin-top: 0.8rem;
+
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 1rem;
+   color: #2C2C2C;
 }
 
 /* Full-width input fields */
 .form-container input[type=text], .form-container input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
   border: none;
-  background: #f1f1f1;
+  background: #654040;
 }
 
 /* When the inputs get focus, do something */
 .form-container input[type=text]:focus, .form-container input[type=password]:focus {
   background-color: #ddd;
   outline: none;
+}
+
+#dropdownPlaylists {
+   padding: 0.8rem;
+
+   background-color: rgb(59, 26, 104);
 }
 
 /* Set a style for the submit/login button */
@@ -331,4 +358,31 @@ select { background-color: red}
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+}
+
+.textbox-criaPlaylist {
+   width: fit-content;
+   height: 1.2rem;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   
+   background: #fff;
+   border-radius: 0.4rem;
+   border-style: none;
+   padding: 1.2rem;
+
+   margin-top: 0.8rem;
+
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 1rem;
+   color: #2C2C2C;
+}
+
+#nova-playlist-title {
+   margin-top: 2.4rem;
 }
