@@ -23,6 +23,10 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 public class ServicoDeAutorizacao {
 	
 	private  long tempoDaUltimaRenovacao;
+	private String scope = new String(
+			"playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private"
+			+ " user-modify-playback-state user-library-modify user-read-private ugc-image-upload"
+			);
 	
 	/**
 	 * Endereço para o qual o usuário será redirecionado após aceitar ou recusar a 
@@ -53,7 +57,7 @@ public class ServicoDeAutorizacao {
 	public String loginDoSpotify(HttpServletResponse resposta) throws IOException
 	{
 		AuthorizationCodeUriRequest requisicaoDoCodigoDeAutorizacao = spotifyApi.authorizationCodeUri()
-				.scope("playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private")
+				.scope(scope)
 				.show_dialog(true)
 				.build();
 		final URI uri = requisicaoDoCodigoDeAutorizacao.execute();

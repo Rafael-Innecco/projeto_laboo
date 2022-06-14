@@ -132,9 +132,9 @@ public class ControladorDeBusca{
 					throws ServerException
 	{
 		String resultado = "";
-		resultado += (nomeMusica == "" ? "": "track:" + nomeMusica);
-		resultado += (nomeArtista == "" ? "" : " artist:" + nomeArtista);
-		resultado += (nomeAlbum == "" ? "" : " album:" + nomeAlbum);
+		resultado += (nomeMusica.length() == 0 ? "" : ("track:" + nomeMusica));
+		resultado += (nomeArtista.length() == 0 ? "" : (" artist:" + nomeArtista));
+		resultado += (nomeAlbum.length() == 0 ? "" : (" album:" + nomeAlbum));
 		
 		try {
 			return new ResponseEntity<>(servicoDeBusca.buscaMusicaPorParametro(resultado), HttpStatus.CREATED);

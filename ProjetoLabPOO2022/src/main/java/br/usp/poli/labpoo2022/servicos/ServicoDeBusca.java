@@ -147,7 +147,6 @@ public class ServicoDeBusca extends ServicoBase {
 			SearchResult resultados = requisicaoDeBusca.execute();
 			
 			System.out.println("Buscando música ... ");
-			
 			return resultados.getTracks().getItems();
 		} catch (IOException | SpotifyWebApiException | ParseException e)
 		{
