@@ -299,7 +299,7 @@ select { background-color: red}
 .form-container {
    position: relative;
    width: 50vw;
-   height: 30vw;
+   height: fit-content;
 
    display: flex;
    justify-content: center;
@@ -309,15 +309,22 @@ select { background-color: red}
    background: #fff;
    border-radius: 0.4rem;
    border-style: none;
-   padding: 1.2rem;
-
-   margin-top: 0.8rem;
+   padding: 2.4rem;
 
    font-family: 'Open Sans';
    font-style: normal;
    font-weight: 400;
    font-size: 1rem;
    color: #2C2C2C;
+}
+
+#descricao-popup {
+   color: #2C2C2C;
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 500;
+   font-size: 1.2rem;
+   margin: 0;
 }
 
 /* Full-width input fields */
@@ -333,17 +340,27 @@ select { background-color: red}
 }
 
 #dropdownPlaylists {
-   padding: 0.8rem;
+   padding: 1.6rem;
+   margin-bottom: 0.8rem;
+   margin-top: 0;
+   border-style: none;
+   background-color: #FAFAFA;
+   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);
 
-   background-color: rgb(59, 26, 104);
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 1rem;
+   color: #2C2C2C;
 }
 
 /* Set a style for the submit/login button */
 .form-container .btn {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   padding: 16px 20px;
   border: none;
+  border-radius: 0.4rem;
   cursor: pointer;
   width: 100%;
   margin-bottom:10px;
@@ -383,6 +400,12 @@ select { background-color: red}
    color: #2C2C2C;
 }
 
+#titulo-popup {
+   font-size: 2rem;
+   color: #2C2C2C;
+}
+
 #nova-playlist-title {
    margin-top: 2.4rem;
+   margin-bottom: 0;
 }
