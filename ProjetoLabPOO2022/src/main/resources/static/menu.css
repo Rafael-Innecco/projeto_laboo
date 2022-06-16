@@ -14,6 +14,35 @@ body {
    overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
+.container-categorias-de-busca {
+
+}
+
+.botao-param-de-busca {
+   font-family: 'Open Sans';
+   font-style: normal;
+   font-weight: 600;
+   font-size: 0.8rem;
+   line-height: 20px;
+   color: rgba(0, 0, 0, 0.87);
+   background-color: #FFFFFF;
+
+   border-style: none;
+   padding: 0.4rem 0.8rem 0.4rem 0.8rem;
+   border-radius: 1.6rem;
+   cursor: pointer;
+}
+
+.botao-param-de-busca:focus {
+   color: #FFFFFF;
+   background-color: #00C4B4;
+}
+
+.botao-param-de-busca:active {
+   color: rgba(0, 0, 0, 0.87);
+   background-color: #FFFFFF;
+}
+
 .search-form-container {
    width: 100%;
 

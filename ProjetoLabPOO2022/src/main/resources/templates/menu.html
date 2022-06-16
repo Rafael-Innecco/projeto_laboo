@@ -18,6 +18,22 @@
 			</button>
 		</div>
 		<h1 class="title-header">Super Gerenciador Musical</h1>
+
+		<!-- TEMPLATE DE BOTÃO PARA BUSCA POR PARÂMETROS -->
+		<div class="container-categorias-de-busca">
+				<button class="botao-param-de-busca" id="botao-param-de-busca-titulo">Título</button>
+				<script>
+					let buttonParam_Titulo = document.getElementById("botao-param-de-busca-titulo");
+					let CountbuttonParam_TituloClicks = 0;
+
+					buttonParam_Titulo.addEventListener("click", function() {
+					CountbuttonParam_TituloClicks += 1;
+					
+					// terminar de implementar o contador de clicks para definir a cor do botão (#00C4B4 se estiver clicado, ou #FFFFFF se não estiver)
+					});
+				</script>
+		</div>
+		
 		
 	    <!-- busca musica -->
 		<div class="search-form-container">
@@ -115,11 +131,6 @@
 			
 			function busca() {
 				// condition ? expressionIfTrue : expressionIfFalse;
-				/* 
-				let queryParamMusica = getQueryVariable("nome-busca-musica");
-				if (queryParamMusica == false)
-					return; 
-				*/
 
 				let queryParamMusica = getQueryVariable("nome-busca-musica") == false ? '' : getQueryVariable("nome-busca-musica");
 
