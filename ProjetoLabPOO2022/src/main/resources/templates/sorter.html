@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sort a HTML Table Alphabetically</title>
+<style>
+
+.botao1{  
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 10px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  cursor: pointer;}
+  
+  table {
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #000000;
+  color: white;
+  text-align: left;
+  padding: 16px;
+}
+
+td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+
+</style>
+</head>
+<body>
+
+<p>Ordenar Por:</p>
+<button class="botao1" onclick="sort(0)">Música</button>
+<button class="botao1" onclick="sort(1)">Artista</button>
+<button class="botao1" onclick="sort(2)">Dançável</button>
+<button class="botao1" onclick="sort(3)">Energia</button>
+<button class="botao1" onclick="sort(4)">Andamento</button>
+<button class="botao1" onclick="sort(5)">Força</button>
+<button class="botao1" onclick="sort(6)">Fala</button>
+<button class="botao1" onclick="sort(7)">Instrumental</button>
+<button class="botao1" onclick="sort(8)">Ao Vivo</button>
+<button class="botao1" onclick="sort(9)">Acústica</button>
+<br></br>
+<table id="myTable">
+  <tr>
+    <th>Música</th>
+    <th>Artista</th>
+	<th>Dançável</th>
+	<th>Energia</th>
+	<th>Andamento</th>
+	<th>Força</th>
+	<th>Fala</th>
+	<th>Instrumental</th>
+	<th>Ao Vivo</th>
+	<th>Acústica</th>
+  </tr>
+  <tr>
+    <td>Gravity Wall</td>
+    <td>Sawano</td>
+	<td>0.793</td>
+	<td>0.921</td>
+	<td>161.84</td>
+	<td>0.456</td>
+	<td>0.0504</td>
+	<td>0.0</td>
+	<td>0.608</td>
+	<td>0.313</td>
+  </tr>
+  <tr>
+    <td>Words</td>
+    <td>Aimer</td>
+	<td>0.453</td>
+	<td>0.431</td>
+	<td>132.84</td>
+	<td>0.412</td>
+	<td>0.0873</td>
+	<td>0.1</td>
+	<td>0.302</td>
+	<td>0.562</td>
+  </tr>
+  <tr>
+    <td>Beastars</td>
+    <td>Yoasobi</td>
+	<td>0.983</td>
+	<td>0.45</td>
+	<td>162.12</td>
+	<td>0.921</td>
+	<td>0.0345</td>
+	<td>0.4</td>
+	<td>0.687</td>
+	<td>0.354</td>
+  </tr>
+  <tr>
+    <td>Homura</td>
+    <td>Lisa</td>
+	<td>0.683</td>
+	<td>0.344</td>
+	<td>113.21</td>
+	<td>0.763</td>
+	<td>0.0123</td>
+	<td>0.9</td>
+	<td>0.421</td>
+	<td>0.984</td>
+  </tr>
+</table>
+
+<!--Link consulta: https://www.w3schools.com/howto/howto_js_sort_table.asp-->
+<script>
+/*tirei os comentários pq não dá pra direfenciar no celular, segui o exemplo 2 do link*/
+function sort(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  
+  switching = true;
+  
+  dir = "asc"; 
+  
+  while (switching) {
+    
+    switching = false;
+    rows = table.rows;
+    
+    for (i = 1; i < (rows.length - 1); i++) {
+     
+      shouldSwitch = false;
+      
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+     
+      switchcount ++;      
+    } else {
+    
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>
