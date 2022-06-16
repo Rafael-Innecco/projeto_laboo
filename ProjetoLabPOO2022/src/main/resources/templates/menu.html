@@ -22,8 +22,18 @@
 	    <!-- busca musica -->
 		<div class="search-form-container">
 			<form>
-				<p id="search-tag">Pesquisar</p>
-				<input class="caixaBusca" type="text" th:name="nome-busca" id="nome-busca-input" value="Digite um item para buscar..."> 
+				<p id="search-tag">Pesquisar música</p>
+				<input class="caixaBusca" type="text" id="nome-busca-input-musica" th:name="nome-busca"  placeholder="Digite um item para buscar..."> 
+
+				<p id="search-tag">Pesquisar artista</p>
+				<input class="caixaBusca" type="text" id="nome-busca-input-artista" th:name="nome-busca"  placeholder="Digite um item para buscar..."> 
+
+				<p id="search-tag">Pesquisar álbum</p>
+				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-busca"  placeholder="Digite um item para buscar..."> 
+
+				<p id="search-tag">Pesquisar playlist pública</p>
+				<input class="caixaBusca" type="text" id="nome-busca-input-playlist" th:name="nome-busca"  placeholder="Digite um item para buscar..."> 
+
 				<input class="botao1 animated1" id="unico" type="submit" value="Buscar"/>
 			</form>
 		</div>
@@ -43,7 +53,7 @@
 		<form th:action="@{/menu/cria-playlist}">
 			<div>
 				<h2 class="title-h2" id="nova-playlist-title">Nova Playlist</h2>
-				<p class="text-p">Digite o nome da sua playlist</p>
+				<p class="text-p" id="nova-playlist-text">Digite o nome da sua playlist</p>
 			</div>
 
 			<input type="text" th:name="nome-da-playlist" value="Nova playlist..." class="textbox-criaPlaylist">

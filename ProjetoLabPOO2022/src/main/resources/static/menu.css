@@ -33,7 +33,7 @@ body {
    color: #FFFFFF;
 }
 
-#nome-busca-input {
+.caixaBusca {
    width: 86vw;
    height: 1.2rem;
 
@@ -342,7 +342,7 @@ select { background-color: red}
 #dropdownPlaylists {
    padding: 1.6rem;
    margin-bottom: 0.8rem;
-   margin-top: 0;
+   margin-top: 0.4rem;
    border-style: none;
    background-color: #FAFAFA;
    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);
@@ -391,7 +391,7 @@ select { background-color: red}
    border-style: none;
    padding: 1.2rem;
 
-   margin-top: 0.8rem;
+   margin-bottom: 0.4rem;
 
    font-family: 'Open Sans';
    font-style: normal;
@@ -407,5 +407,8 @@ select { background-color: red}
 
 #nova-playlist-title {
    margin-top: 2.4rem;
-   margin-bottom: 0;
+}
+
+#nova-playlist-text {
+   margin-bottom: 0.4rem;
 }
