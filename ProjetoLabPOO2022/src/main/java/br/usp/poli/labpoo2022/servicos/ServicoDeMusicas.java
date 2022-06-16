@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
+import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForSeveralTracksRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForTrackRequest;
 
 @Service
@@ -29,5 +30,20 @@ public class ServicoDeMusicas extends ServicoBase{
 		} catch (ParseException | SpotifyWebApiException | IOException e) {
             throw e;
 		}
+    }
+    
+    public AudioFeatures[] requisitaCaracteristicasDeVariasMusicas(String ids) throws Exception
+    {
+    	final GetAudioFeaturesForSeveralTracksRequest requisicaoDeCaracteristicas = servicoDeAutorizacao.getSpotifyApi()
+    			.getAudioFeaturesForSeveralTracks(ids)
+    			.build();
+    	
+    	try {
+    		final AudioFeatures[] caracteristicasDasMusicas = requisicaoDeCaracteristicas.execute();
+    		
+    		return caracteristicasDasMusicas;
+    	} catch (ParseException | SpotifyWebApiException | IOException e) {
+    		throw e;
+    	}
     }
 }

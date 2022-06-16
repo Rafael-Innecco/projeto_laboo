@@ -34,4 +34,15 @@ public class ControladorDeMusica {
         
         }
     }
+    
+    @GetMapping("/caracteristicas-de-varias-musicas")
+    public ResponseEntity<AudioFeatures[]> getCaracteristicasDeVariasMusicas(@RequestParam(value = "ids-das-musicas", required = true) String idsDasMusicas)
+    {
+    	try {
+    		return new ResponseEntity<>(servicoDeMusicas.requisitaCaracteristicasDeVariasMusicas(idsDasMusicas), HttpStatus.OK);
+    	} catch (Exception e) {
+    		System.out.println("Erro ao requisitar características de várias músicas: " + e.getMessage());
+    		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    	}
+    }
 }

@@ -37,7 +37,7 @@ public class ServicoDeBusca extends ServicoBase {
 	{
 		final SearchTracksRequest requisicaoDeBuscaMusica = servicoDeAutorizacao.getSpotifyApi()
 				.searchTracks(nomeBuscado)
-				.limit(50)
+				.limit(15)
 				.build();
 		
 		try {
