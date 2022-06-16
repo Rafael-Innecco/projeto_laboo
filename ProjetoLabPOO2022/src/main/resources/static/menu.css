@@ -33,7 +33,7 @@ body {
    cursor: pointer;
 }
 
-.botao-param-de-busca:focus {
+/* .botao-param-de-busca:focus {
    color: #FFFFFF;
    background-color: #00C4B4;
 }
@@ -41,7 +41,7 @@ body {
 .botao-param-de-busca:active {
    color: rgba(0, 0, 0, 0.87);
    background-color: #FFFFFF;
-}
+} */
 
 .search-form-container {
    width: 100%;

@@ -23,13 +23,29 @@
 		<div class="container-categorias-de-busca">
 				<button class="botao-param-de-busca" id="botao-param-de-busca-titulo">Título</button>
 				<script>
-					let buttonParam_Titulo = document.getElementById("botao-param-de-busca-titulo");
-					let CountbuttonParam_TituloClicks = 0;
+					let idDoBotao = "botao-param-de-busca-titulo";
+					let idDaBarraDeBusca = "nome-busca-input-musica";
 
-					buttonParam_Titulo.addEventListener("click", function() {
-					CountbuttonParam_TituloClicks += 1;
-					
-					// terminar de implementar o contador de clicks para definir a cor do botão (#00C4B4 se estiver clicado, ou #FFFFFF se não estiver)
+					let botaoParametroDeBusca = document.getElementById(idDoBotao);
+					let barraDeBusca = document.getElementById(idDaBarraDeBusca);
+
+					let contadorDeCliques = 0;
+
+					botaoParametroDeBusca.addEventListener("click", function() {
+						contadorDeCliques += 1;
+						
+						if(contadorDeCliques % 2 == 0){ // unclick
+							botaoParametroDeBusca.style.backgroundColor = "#FFFFFF";
+							botaoParametroDeBusca.style.color = "rgba(0, 0, 0, 0.87)";
+							barraDeBusca.style.display = "none";
+							botaoParametroDeBusca.style.backgroundColor = "blue";
+						}
+						else{ // click
+							botaoParametroDeBusca.style.backgroundColor = "#00C4B4";
+							botaoParametroDeBusca.style.color = "#FFFFFF";
+							barraDeBusca.style.display = "flex";
+							botaoParametroDeBusca.style.backgroundColor = "red";
+						}
 					});
 				</script>
 		</div>
@@ -46,10 +62,6 @@
 
 				<p id="search-tag">Pesquisar álbum</p>
 				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-busca-album"  placeholder="Digite um item para buscar..."> 
-
-				<!-- TO-DO: IMPLEMENTAR ESSA BUSCA POR PLAYLIST PÚBLICA NA FUNÇÃO busca() -->
-				<!-- <p id="search-tag">Pesquisar playlist pública</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-playlist" th:name="nome-busca-playlist-publica"  placeholder="Digite um item para buscar...">  -->
 
 				<input class="botao1 animated1" id="unico" type="submit" value="Buscar"/>
 			</form>
@@ -107,16 +119,22 @@
 		</div>
 
 		<script>
-			function selecionarPlaylistParaAdicionar(){					
+			function selecionarPlaylistParaAdicionar(){				
 				let select = document.getElementById('dropdownPlaylists');
 				let idDaPlaylist = select.value;
 				let uriDaMusica = window.localStorage.getItem('uriDaMusica');
 
-				console.log("URI da música que será adicionada: " + uriDaMusica);
-				console.log("ID da playlist: " + idDaPlaylist);
+				if(select.value == "none"){
+					alert("Selecione uma playlist");
+				}
+				else{
+					console.log("URI da música que será adicionada: " + uriDaMusica);
+					console.log("ID da playlist: " + idDaPlaylist);
 
-				adicionaMusica(uriDaMusica, idDaPlaylist);
-				console.log("Adicionei a música: " + uriDaMusica);
+					adicionaMusica(uriDaMusica, idDaPlaylist);
+					console.log("Adicionei a música: " + uriDaMusica);
+					fechaForm();
+				}
 			}
 
 			function getQueryVariable(variable) {
