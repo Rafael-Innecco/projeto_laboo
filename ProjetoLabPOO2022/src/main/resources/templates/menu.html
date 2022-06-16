@@ -23,16 +23,17 @@
 		<div class="search-form-container">
 			<form>
 				<p id="search-tag">Pesquisar música</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-musica" th:name="nome-busca"  placeholder="Digite um item para buscar..."> 
+				<input class="caixaBusca" type="text" id="nome-busca-input-musica" th:name="nome-busca-musica"  placeholder="Digite um item para buscar..."> 
 
 				<p id="search-tag">Pesquisar artista</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-artista" th:name="nome-busca"  placeholder="Digite um item para buscar..."> 
+				<input class="caixaBusca" type="text" id="nome-busca-input-artista" th:name="nome-busca-artista"  placeholder="Digite um item para buscar..."> 
 
 				<p id="search-tag">Pesquisar álbum</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-busca"  placeholder="Digite um item para buscar..."> 
+				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-busca-album"  placeholder="Digite um item para buscar..."> 
 
-				<p id="search-tag">Pesquisar playlist pública</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-playlist" th:name="nome-busca"  placeholder="Digite um item para buscar..."> 
+				<!-- TO-DO: IMPLEMENTAR ESSA BUSCA POR PLAYLIST PÚBLICA NA FUNÇÃO busca() -->
+				<!-- <p id="search-tag">Pesquisar playlist pública</p>
+				<input class="caixaBusca" type="text" id="nome-busca-input-playlist" th:name="nome-busca-playlist-publica"  placeholder="Digite um item para buscar...">  -->
 
 				<input class="botao1 animated1" id="unico" type="submit" value="Buscar"/>
 			</form>
@@ -113,11 +114,22 @@
 			}
 			
 			function busca() {
-				let queryParam = getQueryVariable("nome-busca");
-				if (queryParam == false)
-					return;
-				console.log("buscando...");
-				fetch('/menu/busca-musica?nome-busca=' + getQueryVariable("nome-busca"))
+				// condition ? expressionIfTrue : expressionIfFalse;
+				/* 
+				let queryParamMusica = getQueryVariable("nome-busca-musica");
+				if (queryParamMusica == false)
+					return; 
+				*/
+
+				let queryParamMusica = getQueryVariable("nome-busca-musica") == false ? '' : getQueryVariable("nome-busca-musica");
+
+				let queryParamAlbum = getQueryVariable("nome-busca-album") == false ? '' : getQueryVariable("nome-busca-album");
+
+				let queryParamArtista = getQueryVariable("nome-busca-artista") == false ? '' : getQueryVariable("nome-busca-artista");
+
+				console.log("Buscando...");
+
+				fetch('/menu/busca-musica-por-parametro?nome-musica=' + queryParamMusica + '&nome-album=' + queryParamAlbum + '&nome-artista=' + queryParamArtista)
 					.then(function (response) {
 						return response.json();
 					})
