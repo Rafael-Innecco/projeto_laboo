@@ -101,7 +101,8 @@
 		
 		<div class="section-container">
 			<h2 class="title-h2">Músicas da playlist</h2>
-			<div id="itens-de-playlist"></div>
+			<br></br>
+			<table id="itens-de-playlist"></table>
 		</div>
 		
 		<!-- Popup para adicionar música a uma Playlist -->
@@ -250,23 +251,61 @@
 					.then(function (response) {
 						return response.json();
 					})
-					.then(function (data) {
-						appendData_itens(data, "itens-de-playlist", idDaPlaylist);
+					.then(function (dataDasMusicasNaPlaylist) {
+
+						let mainContainer = document.getElementById("itens-de-playlist");
+						scrolldiv("itens-de-playlist");
+
+						mainContainer.innerHTML = 
+						`<tr>
+							<th><button class="botao-sort" onclick="ordenador(0)">Nome</button></th>
+							<th><button class="botao-sort" onclick="ordenador(1)">Artista</button></th>
+							<th><button class="botao-sort" onclick="ordenador(2)">Dançável</button></th>
+							<th><button class="botao-sort" onclick="ordenador(3)">Energia</button></th>
+							<th><button class="botao-sort" onclick="ordenador(4)">Andamento</button></th>
+							<th><button class="botao-sort" onclick="ordenador(5)">Força</button></th>
+							<th><button class="botao-sort" onclick="ordenador(6)">Fala</button></th>
+							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
+							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
+							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
+							<th></th>
+						</tr>`;
+
+						for (let i=0; i < dataDasMusicasNaPlaylist.length; i++){
+							fetch('/menu/parametros-de-musica?id-da-musica=' + dataDasMusicasNaPlaylist[i].track.id)
+								.then(function (response) {
+									return response.json();
+								})
+								.then(function(dataDaMusica){
+									console.log("Consegui pegar as características da música " + dataDasMusicasNaPlaylist[i].track.name + "!")
+									console.log(dataDaMusica);
+
+									let card = 
+										`<table id="item-playlist-${i}">
+											<tr>
+												<td>${dataDasMusicasNaPlaylist[i].track.name}</td>
+												<td>${dataDasMusicasNaPlaylist[i].track.artists[0].name}</td>
+												<td>${dataDaMusica.danceability}<td>
+												<td>${dataDaMusica.energy}<td>
+												<td>${dataDaMusica.tempo}<td>
+												<td>${dataDaMusica.loudness}<td>
+												<td>${dataDaMusica.speechiness}<td>
+												<td>${dataDaMusica.instrumentalness}<td>
+												<td>${dataDaMusica.liveness}<td>
+												<td>${dataDaMusica.acousticness}<td>
+												<td><button class="botao2" onclick="removeMusica("${dataDasMusicasNaPlaylist[i].track.uri}", "${idDaPlaylist}", "item-playlist-${i}")">Remover</button></td>
+											</tr>
+										</table>`;
+									mainContainer.innerHTML += card;
+								})
+								.catch(function (err) {
+									console.log("Erro ao pegar características da música: " + err);
+								});								
+						}
 					})
 					.catch(function (err) {
 						console.log("Erro ao listar playlist: " + err);
 					}); 
-			}
-
-			function appendData_itens(data, elementId, idDaPlaylist) {
-				let mainContainer = document.getElementById(elementId);
-				mainContainer.innerHTML = "";
-
-				for (let i = 0; i < data.length; i++) {
-					let card = `<div id="item-playlist-${i}"><h4>Nome: ${data[i].track.name} — Artista: ${data[i].track.artists[0].name}</h4><button class="botao2" onclick="removeMusica("${data[i].track.uri}", "${idDaPlaylist}", "item-playlist-${i}")">Remover da playlist</button></div>`;
-
-					mainContainer.innerHTML += card;
-				}
 			}
 			
 			function removeMusica (uriDaMusica, idDaPlaylist, idDaDiv){
@@ -309,6 +348,57 @@
 				let elem = document.getElementById(idDaDiv);
 				elem.scrollIntoView();
 			}
+
+			function ordenador(n) {
+  				var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  				table = document.getElementById("itens-de-playlist");
+  				switching = true;
+  				dir = "asc"; 
+  
+  				while (switching) {
+ 
+    				switching = false;
+ 					rows = table.rows;
+    
+    				for (i = 1; i < (rows.length - 1); i++) {
+     
+     					shouldSwitch = false;
+      					x = rows[i].getElementsByTagName("TD")[n];
+      					y = rows[i + 1].getElementsByTagName("TD")[n];
+      
+      					if (dir == "asc") {
+        					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          
+          						shouldSwitch= true;
+          						break;
+        					}
+      					} else if (dir == "desc") {
+        					if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          
+          						shouldSwitch = true;
+          						break;
+        					}
+      					}
+    				}
+    			
+    				if (shouldSwitch) {
+      
+      					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      					switching = true;
+    					switchcount ++;      
+    			
+    				} else {
+    
+      					if (switchcount == 0 && dir == "asc") {
+        				
+        					dir = "desc";
+        					switching = true;
+      				
+      						}
+    					}
+  					}
+				}
+
 		</script>
 	</body>
 </html>

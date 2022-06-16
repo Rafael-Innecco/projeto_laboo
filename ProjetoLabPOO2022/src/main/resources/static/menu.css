@@ -441,3 +441,40 @@ select { background-color: red}
 #nova-playlist-text {
    margin-bottom: 0.4rem;
 }
+
+/*Tabela de Dados */
+table {
+  border-spacing: 0;
+  width: 90%;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #000000;
+  font-size: 14px;
+  color: white;
+  text-align: left;
+  padding: 7px;
+}
+
+td {
+  text-align: left;
+  padding: 7px;
+  font-size: 12px;
+  background-color: #transparent
+}
+
+.botao-sort{  
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 2px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 1px;
+  cursor: pointer;}
+
+
+
