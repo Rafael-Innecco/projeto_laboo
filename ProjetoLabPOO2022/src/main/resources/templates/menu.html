@@ -19,51 +19,36 @@
 		</div>
 		<h1 class="title-header">Super Gerenciador Musical</h1>
 
-		<!-- TEMPLATE DE BOTÃO PARA BUSCA POR PARÂMETROS -->
+		<!-- TEMPLATE DE BOTÃO PARA BUSCA POR PARÂMETROS
 		<div class="container-categorias-de-busca">
-				<button class="botao-param-de-busca" id="botao-param-de-busca-titulo">Título</button>
-				<script>
-					let idDoBotao = "botao-param-de-busca-titulo";
-					let idDaBarraDeBusca = "nome-busca-input-musica";
-
-					let botaoParametroDeBusca = document.getElementById(idDoBotao);
-					let barraDeBusca = document.getElementById(idDaBarraDeBusca);
-
-					let contadorDeCliques = 0;
-
-					botaoParametroDeBusca.addEventListener("click", function() {
-						contadorDeCliques += 1;
-						
-						if(contadorDeCliques % 2 == 0){ // unclick
-							botaoParametroDeBusca.style.backgroundColor = "#FFFFFF";
-							botaoParametroDeBusca.style.color = "rgba(0, 0, 0, 0.87)";
-							barraDeBusca.style.display = "none";
-							botaoParametroDeBusca.style.backgroundColor = "blue";
-						}
-						else{ // click
-							botaoParametroDeBusca.style.backgroundColor = "#00C4B4";
-							botaoParametroDeBusca.style.color = "#FFFFFF";
-							barraDeBusca.style.display = "flex";
-							botaoParametroDeBusca.style.backgroundColor = "red";
-						}
-					});
-				</script>
-		</div>
-		
+				<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-artista" onclick="displayCritérioArtista('botao-param-de-busca-artista', 'nome-busca-input-artista', 'search-tag-artista')">Artista</button>
+		</div> -->
 		
 	    <!-- busca musica -->
 		<div class="search-form-container">
 			<form>
 				<p id="search-tag">Pesquisar música</p>
 				<input class="caixaBusca" type="text" id="nome-busca-input-musica" th:name="nome-busca-musica"  placeholder="Digite um item para buscar..."> 
+				<div class="container-categorias-de-busca"  style="display: inline">
+					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-artista" onclick="displayCritérioArtista('botao-param-de-busca-artista', 'nome-busca-input-artista', 'search-tag-artista', 'artista')">Artista</button>
+				</div>
+				<div class="container-categorias-de-busca"  style="display: inline">
+					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-album" onclick="displayCritérioArtista('botao-param-de-busca-album', 'nome-busca-input-album', 'search-tag-album', 'album')">Album</button>
+				</div>
+				
+				<p id="search-tag-artista" style="display: none">Critério: artista</p>
+				<input class="caixaBusca" type="text" id="nome-busca-input-artista" th:name="nome-busca-artista"  placeholder="Digite uma música para buscar..." style="display: none"> 
 
-				<p id="search-tag">Pesquisar artista</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-artista" th:name="nome-busca-artista"  placeholder="Digite um item para buscar..."> 
+				<p id="search-tag-album" style="display: none">Critério: álbum</p>
+				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-busca-album"  placeholder="Digite um item para buscar..." style="display: none; background: #00ceec; opacity: 0.5"> 
 
 				<p id="search-tag">Pesquisar álbum</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-busca-album"  placeholder="Digite um item para buscar..."> 
+				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-album"  placeholder="Digite um album para buscar...">
+				
+				<p id="search-tag">Pesquisar playlist</p>
+				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-album"  placeholder="Digite um album para buscar...">
 
-				<input class="botao1 animated1" id="unico" type="submit" value="Buscar"/>
+				<input class="botao1 animated1" id="unico" type="submit" value="Buscar" style="display: block"/>
 			</form>
 		</div>
 		
@@ -103,6 +88,12 @@
 			<h2 class="title-h2">Músicas da playlist</h2>
 			<br></br>
 			<table id="itens-de-playlist"></table>
+		</div>
+		
+		<div class="section-container">
+			<h2 class="title-h2">Músicas do álbum</h2>
+			<br></br>
+			<table id="itens-de-album"></table>
 		</div>
 		
 		<!-- Popup para adicionar música a uma Playlist -->
@@ -151,20 +142,48 @@
 			function busca() {
 				// condition ? expressionIfTrue : expressionIfFalse;
 
-				let queryParamMusica = getQueryVariable("nome-busca-musica") == false ? '' : getQueryVariable("nome-busca-musica");
+				let queryParamMusica = getQueryVariable("nome-busca-musica") == false ? '' : 'nome-musica-criterio=' + getQueryVariable("nome-busca-musica");
 
-				let queryParamAlbum = getQueryVariable("nome-busca-album") == false ? '' : getQueryVariable("nome-busca-album");
+				let queryParamAlbumCriteria = getQueryVariable("nome-busca-album") == false ? '' : '&nome-album-criterio=' + getQueryVariable("nome-busca-album");
 
-				let queryParamArtista = getQueryVariable("nome-busca-artista") == false ? '' : getQueryVariable("nome-busca-artista");
+				let queryParamArtistaCriteria = getQueryVariable("nome-busca-artista") == false ? '' : '&nome-artista-criterio=' + getQueryVariable("nome-busca-artista");
 
+				let queryParamAlbum = getQueryVariable("nome-album") == false ? '' : 'nome-album=' + getQueryVariable("nome-album");
+				
+				let queryParamPlaylist = getQueryVariable("nome-playlist") == false ? '' : 'nome-playlist=' + getQueryVariable("nome-playlist");
+				
 				console.log("Buscando...");
-
-				fetch('/menu/busca-musica-por-parametro?nome-musica=' + queryParamMusica + '&nome-album=' + queryParamAlbum + '&nome-artista=' + queryParamArtista)
+				
+				if(queryParamMusica != '' || queryParamAlbumCriteria != '' || queryParamArtistaCriteria || '')
+					fetch('/menu/busca-musica-por-parametro?' + queryParamMusica + queryParamAlbumCriteria + queryParamArtistaCriteria)
+						.then(function (response) {
+							return response.json();
+						})
+						.then(function (data) {
+							appendData_busca(data, "resultadosDeBusca");
+						})
+						.catch(function (err) {
+							console.log('error: ' + err);
+						});
+				
+				else if (queryParamAlbum != '')
+					fetch('/menu/busca-albums?' + queryParamAlbum)
 					.then(function (response) {
 						return response.json();
 					})
 					.then(function (data) {
-						appendData_busca(data, "resultadosDeBusca");
+						appendData_buscaAlbum(data, "resultadosDeBusca");
+					})
+					.catch(function (err) {
+						console.log('error: ' + err);
+					});
+				else if (queryParamPlaylist != '')
+					fetch('/menu/busca-playlist?' + queryParamPlaylist)
+					.then(function (response) {
+						return response.json();
+					})
+					.then(function (data) {
+						appendData_buscaPlaylist(data, "resultadosDeBusca");
 					})
 					.catch(function (err) {
 						console.log('error: ' + err);
@@ -183,6 +202,38 @@
 					
 					// console.log('Name: ' + data[i].name + ' ;');
 					// console.log('Id: ' + data[i].id + ' ;');
+				}
+			}
+
+			function appendData_buscaAlbum(data, elementId) {
+				let mainContainer = document.getElementById(elementId);
+
+				// Esvazia o conteúdo inicial da div
+				mainContainer.innerHTML = "";
+
+				// TODO: listaAlbum
+				for (let i = 0; i < data.length; i++) {
+					let div = `<div><h4>Nome: ${data[i].name} — Artista: ${data[i].artists[0].name}</h4><button class="open-button" onclick="listaItensDeAlbum('${data[i].id}')">+ Listar músicas</button></div>`;
+					mainContainer.innerHTML += div;
+					
+					// console.log('Name: ' + data[i].name + ' ;');
+					// console.log('Id: ' + data[i].id + ' ;');
+				}
+			}
+			
+			function appendData_buscaPlaylist(data, elementId) {
+				let mainContainer = document.getElementById(elementId);
+
+				mainContainer.innerHTML = "";
+				let dropdownDePlaylists = document.getElementById("dropdownPlaylists");
+				
+				for (let i = 0; i < data.length; i++) {
+					// Cria o elemento <option> para cada playlist, para mostrar no dropdown de escolhas
+					dropdownDePlaylists.innerHTML += `<option value= "${data[i].id}">` + data[i].name + "</option>";
+
+					let div = `<div id="playlist-numero-${i}"><h4>Nome: ${data[i].name};</h4><img src="default-image.png" class="playlist-img"><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button></div>`;			
+
+					mainContainer.innerHTML += div;
 				}
 			}
 			
@@ -308,6 +359,68 @@
 					}); 
 			}
 			
+			function listaItensDeAlbum(idDoAlbum) {
+				console.log("Álbum listado: " + idDoAlbum);
+				fetch('/menu/lista-musicas-de-album?album-selecionado=' + idDoAlbum)
+					.then(function (response) {
+						return response.json();
+					})
+					.then(function (dataDasMusicasNoAlbum) {
+
+						let mainContainer = document.getElementById("itens-de-album");
+						scrolldiv("itens-de-album");
+
+						mainContainer.innerHTML = 
+						`<tr>
+							<th><button class="botao-sort" onclick="ordenador(0)">Nome</button></th>
+							<th><button class="botao-sort" onclick="ordenador(1)">Artista</button></th>
+							<th><button class="botao-sort" onclick="ordenador(2)">Dançável</button></th>
+							<th><button class="botao-sort" onclick="ordenador(3)">Energia</button></th>
+							<th><button class="botao-sort" onclick="ordenador(4)">Andamento</button></th>
+							<th><button class="botao-sort" onclick="ordenador(5)">Força</button></th>
+							<th><button class="botao-sort" onclick="ordenador(6)">Fala</button></th>
+							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
+							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
+							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
+							<th></th>
+						</tr>`;
+
+						for (let i=0; i < dataDasMusicasNoAlbum.length; i++){
+							fetch('/menu/parametros-de-musica?id-da-musica=' + dataDasMusicasNoAlbum[i].id)
+								.then(function (response) {
+									return response.json();
+								})
+								.then(function(dataDaMusica){
+									console.log("Consegui pegar as características da música " + dataDasMusicasNoAlbum[i].name + "!")
+									console.log(dataDaMusica);
+
+									let card = 
+										`<table id="item-album-${i}">
+											<tr>
+												<td>${dataDasMusicasNoAlbum[i].name}</td>
+												<td>${dataDasMusicasNoAlbum[i].artists[0].name}</td>
+												<td>${dataDaMusica.danceability}<td>
+												<td>${dataDaMusica.energy}<td>
+												<td>${dataDaMusica.tempo}<td>
+												<td>${dataDaMusica.loudness}<td>
+												<td>${dataDaMusica.speechiness}<td>
+												<td>${dataDaMusica.instrumentalness}<td>
+												<td>${dataDaMusica.liveness}<td>
+												<td>${dataDaMusica.acousticness}<td>
+											</tr>
+										</table>`;
+									mainContainer.innerHTML += card;
+								})
+								.catch(function (err) {
+									console.log("Erro ao pegar características da música: " + err);
+								});								
+						}
+					})
+					.catch(function (err) {
+						console.log("Erro ao listar álbum: " + err);
+					}); 
+			}
+			
 			function removeMusica (uriDaMusica, idDaPlaylist, idDaDiv){
 				console.log(idDaPlaylist);
 				fetch('/menu/remove-itens-de-playlist?playlist-selecionada=' + idDaPlaylist + '&uris=' + uriDaMusica)
@@ -399,6 +512,33 @@
   					}
 				}
 
+			let contadorDeCliquesArtista = 0;
+			let contadorDeCliquesAlbum = 0;
+			function displayCritérioArtista(idDoBotao, idDaBarraDeBusca, idDoTituloDaBarra, tipo){
+
+				let botaoParametroDeBusca = document.getElementById(idDoBotao);
+				let barraDeBusca = document.getElementById(idDaBarraDeBusca);
+				let tituloDeBusca = document.getElementById(idDoTituloDaBarra);
+				
+				contadorDeCliquesArtista += tipo == "artista" ? 1 : 0;
+				contadorDeCliquesAlbum += tipo == "album" ? 1 : 0;
+				let contadorDeCliques = tipo == "artista" ? contadorDeCliquesArtista : contadorDeCliquesAlbum
+					
+				if(contadorDeCliques % 2 == 0){ // unclick
+					botaoParametroDeBusca.style.backgroundColor = "#FFFFFF";
+					botaoParametroDeBusca.style.color = "rgba(0, 0, 0, 0.87)";
+					barraDeBusca.style.display = "none";
+					tituloDeBusca.style.display = "none";
+				}
+				else{ // click
+					botaoParametroDeBusca.style.backgroundColor = "#00C4B4";
+					botaoParametroDeBusca.style.color = "#FFFFFF";
+					barraDeBusca.style.display = "flex";
+					tituloDeBusca.style.display = "flex";
+					botaoParametroDeBusca.style.backgroundColor = "red";
+				}
+			}
+			
 		</script>
 	</body>
 </html>

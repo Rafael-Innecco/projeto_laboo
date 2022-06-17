@@ -126,9 +126,9 @@ public class ControladorDeBusca{
 	 * @throws ServerException
 	 */
 	@RequestMapping("/busca-musica-por-parametro")
-	public ResponseEntity<Track[]> buscaMusicaPorParametro(@RequestParam(value = "nome-musica", required = false, defaultValue = "") String nomeMusica,
-			@RequestParam(value = "nome-artista", required = false, defaultValue = "") String nomeArtista,
-			@RequestParam(value  = "nome-album", required = false, defaultValue = "") String nomeAlbum) 
+	public ResponseEntity<Track[]> buscaMusicaPorParametro(@RequestParam(value = "nome-musica-criterio", required = false, defaultValue = "") String nomeMusica,
+			@RequestParam(value = "nome-artista-criterio", required = false, defaultValue = "") String nomeArtista,
+			@RequestParam(value  = "nome-album-criterio", required = false, defaultValue = "") String nomeAlbum) 
 					throws ServerException
 	{
 		String resultado = "";

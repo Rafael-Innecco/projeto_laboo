@@ -62,6 +62,24 @@ body {
    color: #FFFFFF;
 }
 
+#search-tag-artista {
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 16px;
+   line-height: 19px;
+   color: #FFFFFF;
+}
+
+#search-tag-album {
+   font-family: 'Raleway';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 16px;
+   line-height: 19px;
+   color: #FFFFFF;
+}
+
 .caixaBusca {
    width: 86vw;
    height: 1.2rem;
