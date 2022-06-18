@@ -293,6 +293,7 @@
 					.then(function (data) {
 						let div = document.getElementById(idDaDiv);
 						div.remove();
+						alert("Playlist removida com sucesso!");
 					})
 					.catch(function (err) {
 						console.log('erro ao remover playlist: ' + err);

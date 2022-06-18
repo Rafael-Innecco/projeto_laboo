@@ -54,7 +54,7 @@ public class ServicoDePlaylist extends ServicoBase{
 			final Playlist playlist = requisicaoDeCriacaoDePlaylist.execute();
 			
 			System.out.println("Nome da playlist: " + playlist.getName());
-			resposta.sendRedirect("/menu/cria-Playlist/playlistCriada");
+			resposta.sendRedirect("/menu");
 			
 			return true;
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
