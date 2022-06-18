@@ -153,7 +153,7 @@ public class ControladorDePlaylist{
 			@RequestParam(value = "uris", required = true) String musica) throws ServerException
 	{
 		try {
-			Boolean respostaDaRequisicao = Boolean.valueOf(servicoDePlaylist.adicionaItensEmPlaylist(idDaPlaylistSelecionada, musica));
+			Boolean respostaDaRequisicao = Boolean.valueOf(servicoDePlaylist.removeItensDePlaylist(idDaPlaylistSelecionada, musica));
 			return new ResponseEntity<>(respostaDaRequisicao, HttpStatus.OK);
 			
 		}catch(ServerException e)
