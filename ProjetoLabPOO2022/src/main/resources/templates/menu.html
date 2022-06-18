@@ -231,7 +231,7 @@
 					// Cria o elemento <option> para cada playlist, para mostrar no dropdown de escolhas
 					dropdownDePlaylists.innerHTML += `<option value= "${data[i].id}">` + data[i].name + "</option>";
 
-					let div = `<div id="playlist-numero-${i}"><h4>Nome: ${data[i].name};</h4><img src="default-image.png" class="playlist-img"><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button></div>`;			
+					let div = `<div id="playlist-numero-${i}"><h4>Nome: ${data[i].name};</h4><img src="default-image.png" class="playlist-img"><button class="list-musics-button" onclick="listaItensPlaylistPublica('${data[i].id}')">Listar músicas</button></div>`;			
 
 					mainContainer.innerHTML += div;
 				}
@@ -345,6 +345,69 @@
 												<td>${dataDaMusica.liveness}<td>
 												<td>${dataDaMusica.acousticness}<td>
 												<td><button class="botao2" onclick="removeMusica("${dataDasMusicasNaPlaylist[i].track.uri}", "${idDaPlaylist}", "item-playlist-${i}")">Remover</button></td>
+											</tr>
+										</table>`;
+									mainContainer.innerHTML += card;
+								})
+								.catch(function (err) {
+									console.log("Erro ao pegar características da música: " + err);
+								});								
+						}
+					})
+					.catch(function (err) {
+						console.log("Erro ao listar playlist: " + err);
+					}); 
+			}
+			
+			function listaItensPlaylistPublica(idDaPlaylist) {
+				console.log("Playlist listada: " + idDaPlaylist);
+				fetch('/menu/lista-itens-de-playlist?playlist-selecionada=' + idDaPlaylist)
+					.then(function (response) {
+						return response.json();
+					})
+					.then(function (dataDasMusicasNaPlaylist) {
+
+						let mainContainer = document.getElementById("itens-de-playlist");
+						scrolldiv("itens-de-playlist");
+
+						mainContainer.innerHTML = 
+						`<tr>
+							<th><button class="botao-sort" onclick="ordenador(0)">Nome</button></th>
+							<th><button class="botao-sort" onclick="ordenador(1)">Artista</button></th>
+							<th><button class="botao-sort" onclick="ordenador(2)">Dançável</button></th>
+							<th><button class="botao-sort" onclick="ordenador(3)">Energia</button></th>
+							<th><button class="botao-sort" onclick="ordenador(4)">Andamento</button></th>
+							<th><button class="botao-sort" onclick="ordenador(5)">Força</button></th>
+							<th><button class="botao-sort" onclick="ordenador(6)">Fala</button></th>
+							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
+							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
+							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
+							<th></th>
+						</tr>`;
+
+						for (let i=0; i < dataDasMusicasNaPlaylist.length; i++){
+							fetch('/menu/parametros-de-musica?id-da-musica=' + dataDasMusicasNaPlaylist[i].track.id)
+								.then(function (response) {
+									return response.json();
+								})
+								.then(function(dataDaMusica){
+									console.log("Consegui pegar as características da música " + dataDasMusicasNaPlaylist[i].track.name + "!")
+									console.log(dataDaMusica);
+
+									let card = 
+										`<table id="item-playlist-${i}">
+											<tr>
+												<td>${dataDasMusicasNaPlaylist[i].track.name}</td>
+												<td>${dataDasMusicasNaPlaylist[i].track.artists[0].name}</td>
+												<td>${dataDaMusica.danceability}<td>
+												<td>${dataDaMusica.energy}<td>
+												<td>${dataDaMusica.tempo}<td>
+												<td>${dataDaMusica.loudness}<td>
+												<td>${dataDaMusica.speechiness}<td>
+												<td>${dataDaMusica.instrumentalness}<td>
+												<td>${dataDaMusica.liveness}<td>
+												<td>${dataDaMusica.acousticness}<td>
+												<td><button class="open-button" onclick="abreForm('${dataDasMusicasNaPlaylist[i].track.id}');listaPlaylists();">+ Adicionar a uma Playlist</button></td>
 											</tr>
 										</table>`;
 									mainContainer.innerHTML += card;
