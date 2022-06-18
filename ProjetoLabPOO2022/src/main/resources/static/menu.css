@@ -494,5 +494,7 @@ td {
   margin: 2px 1px;
   cursor: pointer;}
 
-
+.container {
+  display: flex; /* or inline-flex */
+}
 
