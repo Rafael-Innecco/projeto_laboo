@@ -4,12 +4,12 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title> Menu Principal </title>
-	
+		
+		<title>Menu Principal</title>
 		<link rel="stylesheet" href="./menu.css">
 	</head>
 	
-	<body onload="busca()">
+	<body onload="busca(); listaPlaylists('sim')">
 		<div class="nav-bar-container">
 			<h2 id="projeto-text">Projetão LabOO - 2022</h2>
 			<a href="http://localhost:8080/"><button class="logout-button">
@@ -54,14 +54,9 @@
 		
 		<div class="section-container">
 			<h2 class="title-h2">Minhas playlists</h2>
-			<p class="text-p">Clique para ver as playlists que você criou.</p>
-			<div id="lista-de-playlists"></div>
+			<div id="lista-de-playlists" class="flex-container-geral"></div>
 		</div>
 
-		<!-- Lista Playlists -->
-		<form>
-            <button class="botao1 animated2" id="unico" type="button" onclick="listaPlaylists('sim'); scrolldiv('lista-de-playlists')">Listar Playlists</button>
-		</form>
 		
 	   <!-- cria Playslist -->
 		<form th:action="@{/menu/cria-playlist}">
@@ -259,7 +254,7 @@
 					// Cria o elemento <option> para cada playlist, para mostrar no dropdown de escolhas
 					//dropdownDePlaylists.innerHTML += `<option value= "${data[i].id}">` + data[i].name + "</option>";
 
-					let div = `<div id="playlist-numero-${i}"><h4>Nome da playlist: ${data[i].name};</h4><img src=${data[i].images[0].url} class="playlist-img"><button class="list-musics-button" onclick="listaItensPlaylistPublica('${data[i].id}')">Listar músicas</button></div>`;			
+					let div = `<div id="playlist-numero-${i}" class="flex-container-geral"><h4>Nome da playlist: ${data[i].name};</h4><img src=${data[i].images[0].url} class="playlist-img"><button class="list-musics-button" onclick="listaItensPlaylistPublica('${data[i].id}')">Listar músicas</button></div>`;			
 					mainContainer.innerHTML += div;
 				}
 			}
@@ -304,7 +299,8 @@
 					{
 						let containerDeBusca = document.getElementById("resultadosDeBusca");
 						containerDeBusca.innerHTML = "";
-						let div = `<div id="playlist-numero-${i}"><h4>Nome: ${data[i].name};</h4><img src=${data[i].images[0].url} class="playlist-img"><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button><button class="remove-button" onclick="deletaPlaylist('${data[i].id}', 'playlist-numero-${i}')";>⨉ Remover</button></div>`;			
+						//${data[i].images[0].url}
+						let div = `<div id="playlist-numero-${i}"><img src=${data[i].images[0].url} class="playlist-img"><h4>${data[i].name}</h4><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button><button class="remove-button" onclick="deletaPlaylist('${data[i].id}', 'playlist-numero-${i}')";>⨉ Remover</button></div>`;			
 						mainContainer.innerHTML += div;
 					}
 				}
@@ -317,7 +313,7 @@
 						console.log("Playlist removida?");
 						console.log(response);
 						return response.json();
-					})
+					})	
 					.then(function (data) {
 						let div = document.getElementById(idDaDiv);
 						div.remove();

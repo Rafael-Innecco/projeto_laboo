@@ -307,7 +307,9 @@ form {
    align-items: flex-start;   
    padding: 0.4rem;
 
-   background: none;
+   background-color: tomato;
+   border-radius: 6px;
+
    border-style: none;
 
    font-family: 'Open Sans';
@@ -498,3 +500,24 @@ td {
   display: flex; /* or inline-flex */
 }
 
+.resultado {
+  background-color: #4169E1;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  width: 300px;
+  border-radius: 8px;
+  padding: 50px;
+  margin: 20px;
+}
+
+ .flex-container-geral {
+  	display: flex;
+					   }
+
+ .flex-container-geral > div {
+ 	background-color: #4169E1;
+  	box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  	border-radius: 8px;
+  	width: 100%;
+  	margin: 30px;
+  	padding: 10px;
+							 }
