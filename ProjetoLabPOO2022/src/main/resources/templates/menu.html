@@ -316,21 +316,13 @@
 							<th><button class="botao-sort" onclick="ordenador(0)">Nome</button></th>
 							<th><button class="botao-sort" onclick="ordenador(1)">Artista</button></th>
 							<th><button class="botao-sort" onclick="ordenador(2)">Dançável</button></th>
-							<th></th>
-							<th><button class="botao-sort" onclick="ordenador(4)">Energia</button></th>
-							<th></th>
-							<th><button class="botao-sort" onclick="ordenador(6)">Andamento</button></th>
-							<th></th>
-							<th><button class="botao-sort" onclick="ordenador(8)">Força</button></th>
-							<th></th>
-							<th><button class="botao-sort" onclick="ordenador(10)">Fala</button></th>
-							<th></th>
-							<th><button class="botao-sort" onclick="ordenador(12)">Instrumental</button></th>
-							<th></th>
-							<th><button class="botao-sort" onclick="ordenador(14)">Ao Vivo</button></th>
-							<th></th>
-							<th><button class="botao-sort" onclick="ordenador(16)">Acústica</button></th>
-							<th></th>
+							<th><button class="botao-sort" onclick="ordenador(3)">Energia</button></th>
+							<th><button class="botao-sort" onclick="ordenador(4)">Andamento</button></th>
+							<th><button class="botao-sort" onclick="ordenador(5)">Força</button></th>
+							<th><button class="botao-sort" onclick="ordenador(6)">Fala</button></th>
+							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
+							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
+							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
 							<th></th>
 						</tr>`;
 
@@ -347,14 +339,14 @@
 										`<tr id=item-playlist-${i}>
 											<td>${dataDasMusicasNaPlaylist[i].track.name}</td>
 											<td>${dataDasMusicasNaPlaylist[i].track.artists[0].name}</td>
-											<td>${dataDaMusica.danceability}<td>
-											<td>${dataDaMusica.energy}<td>
-											<td>${dataDaMusica.tempo}<td>
-											<td>${dataDaMusica.loudness}<td>
-											<td>${dataDaMusica.speechiness}<td>
-											<td>${dataDaMusica.instrumentalness}<td>
-											<td>${dataDaMusica.liveness}<td>
-											<td>${dataDaMusica.acousticness}<td>
+											<td>${dataDaMusica.danceability}</td>
+											<td>${dataDaMusica.energy}</td>
+											<td>${dataDaMusica.tempo}</td>
+											<td>${dataDaMusica.loudness}</td>
+											<td>${dataDaMusica.speechiness}</td>
+											<td>${dataDaMusica.instrumentalness}</td>
+											<td>${dataDaMusica.liveness}</td>
+											<td>${dataDaMusica.acousticness}</td>
 											<td><button class="botao2" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button></td>
 										</tr>`;
 									mainContainer.innerHTML += card;
