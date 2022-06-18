@@ -197,8 +197,36 @@
 				mainContainer.innerHTML = "";
 
 				for (let i = 0; i < data.length; i++) {
-					let div = `<div><h4>Nome: ${data[i].name} — Artista: ${data[i].artists[0].name}</h4><button class="open-button" onclick="abreForm('${data[i].id}');listaPlaylists('nao');">+ Adicionar a uma Playlist</button></div>`;
-					mainContainer.innerHTML += div;
+					console.log(data[i].id);
+					fetch('/menu/parametros-de-musica?id-da-musica=' + data[i].id)
+						.then(function (response) {
+							return response.json();
+						})
+						.then(function(dataDaMusica){
+							console.log("Consegui pegar as características da música " + data[i].name + "!")
+							console.log(data[i]);
+				
+							let div = `<br><div class="resultado">
+									<div class="container">
+										<span>
+											<img src=${data[i].album.images[0].url} class="playlist-img"></img>
+											<p>Artista ${data[i].artists[0].name}</p>
+											<h4>${data[i].name}</h4>
+										<span>
+										<p>Caracteristicas: </p>
+										<p1>dançabilidade: ${dataDaMusica.danceability} || energia: ${dataDaMusica.energy}</p1>
+										<p1>duração: ${dataDaMusica.tempo} || força: ${dataDaMusica.loudness}</p1>
+										<p1>fala: ${dataDaMusica.speechiness} || instrumental: ${dataDaMusica.instrumentalness}</p1>
+										<p1>ao vivo: ${dataDaMusica.liveness} || acústica: ${dataDaMusica.acousticness}</p1>
+									</div>
+									<button class="open-button" onclick="abreForm('${data[i].id}');listaPlaylists();">+ Adicionar a uma Playlist</button>
+								</div></br>`;
+							mainContainer.innerHTML += div;
+							
+						})
+						.catch(function (err) {
+									console.log("Erro ao pegar características da música: " + err);
+						});
 					
 					// console.log('Name: ' + data[i].name + ' ;');
 					// console.log('Id: ' + data[i].id + ' ;');
