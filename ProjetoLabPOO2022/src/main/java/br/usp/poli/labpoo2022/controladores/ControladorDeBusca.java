@@ -2,18 +2,21 @@ package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
 import java.rmi.ServerException;
-import org.apache.hc.core5.http.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.usp.poli.labpoo2022.servicos.ServicoDeBusca;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
-import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
-import se.michaelthelin.spotify.model_objects.specification.Paging;
+import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
+import se.michaelthelin.spotify.model_objects.specification.Artist;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
-import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 
 /**
  * 
@@ -22,35 +25,123 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
  * Exemplo: Buscar por uma música na base de dados do spotify
  *
  */
-@Controller
-public class ControladorDeBusca {
+@RestController
+@Scope("singleton")
+@RequestMapping("/menu")
+public class ControladorDeBusca{
+	
+	@Autowired
+    private ServicoDeBusca servicoDeBusca;
 	
 	/**
 	 * Método que busca por uma música a partir de uma string (Preferencialmente o nome da música)
 	 * @param nomeBuscado parâmetro da busca
-	 * @return Se a busca for bem-sucedida, retorna uma array das músicas encontradas, se não retorna, null
+	 * @return Se a busca for bem-sucedida, retorna as músicas encontradas
 	 * @throws ServerException 
 	 */
-	@RequestMapping("/menu/busca-musica")
-	public static ResponseEntity<Track[]> buscaMusica(@RequestParam(value = "nome-busca", required = true) String nomeBuscado) throws ServerException
+	@RequestMapping("/busca-musica")
+	public ResponseEntity<Track[]> buscaMusicaPadrao(
+			@RequestParam(value = "nome-busca", required = true) String nomeBuscado) 
+			throws ServerException
 	{
-		final SearchTracksRequest requisicaoBuscaDeMusicas = ControladorDeAutorizacao.getSpotifyApi()
-				.searchTracks(nomeBuscado)
-				.limit(50)
-				.build();
 		try {
 			// O próximo bloco efetivamente executa a busca e manuseia o resultado para um formato de dados conveniente
-			final Paging<Track> musicasEncontradas = requisicaoBuscaDeMusicas.execute();
 
-			System.out.println("buscando...");
-			//return musicasEncontradas.getItems();
-			return new ResponseEntity<>(musicasEncontradas.getItems(), HttpStatus.CREATED);
+			return new ResponseEntity<>(servicoDeBusca.buscaMusicaPadrao(nomeBuscado), HttpStatus.CREATED);
 		} 
-		catch (IOException | SpotifyWebApiException | ParseException e) {
+		catch (IOException e) {
 			System.out.println("Erro na busca por musica: " + e.getMessage());
 		}
 		
-		//return null;
 		throw new ServerException(nomeBuscado);	
+	}
+	
+	/**
+	 * Método que busca por artistas a partir de uma string de referência
+	 * @param nomeArtista
+	 * @return Lista de Artistas organizadas de maneira que pode ser manipulada pelo front-end
+	 * @throws ServerException
+	 */
+	@RequestMapping("/busca-artista")
+	public ResponseEntity<Artist[]> buscaArtista(
+			@RequestParam(value  ="nome-artista", required = true) String nomeArtista) 
+			throws ServerException
+	{
+		try {
+			return new ResponseEntity<>(servicoDeBusca.buscaArtista(nomeArtista), HttpStatus.CREATED);
+		}
+		catch (IOException e) {
+			System.out.println("Erro na busca por artista: " + e.getMessage());
+		}
+		
+		throw new ServerException(nomeArtista);
+	}
+	
+	/**
+	 * Método que realiza uma busca por playlists públca
+	 * @param nomePlaylist
+	 * @return Lista de Playlists organizadas de maneira que pode ser manipulada pelo front-end
+	 * @throws ServerException
+	 */
+	@RequestMapping("/busca-playlist")
+	public ResponseEntity<PlaylistSimplified[]> buscaPlaylist(@RequestParam(value = "nome-playlist", required = true) String nomePlaylist) throws ServerException
+	{
+		try {
+			return new ResponseEntity<>(servicoDeBusca.buscaPlaylist(nomePlaylist), HttpStatus.CREATED);
+		}
+		catch (IOException e) {
+			System.out.println("Erro na busca por playlist: " + e.getMessage());
+		}
+		
+		throw new ServerException(nomePlaylist);
+	}
+	
+	/**
+	 * Método que realiza a busca por um álbum a partir de uma string de referância
+	 * @param nomeAlbum
+	 * @return Lista de Álbums organizadas de maneira que pode ser manipulada pelo front-end
+	 * @throws ServerException
+	 */
+	@RequestMapping("/busca-albums")
+	public ResponseEntity<AlbumSimplified[]> buscaAlbum(
+			@RequestParam(value = "nome-album", required = true) String nomeAlbum) 
+			throws ServerException
+	{
+		try {
+			return new ResponseEntity<>(servicoDeBusca.buscaAlbum(nomeAlbum), HttpStatus.CREATED);
+		}
+		catch (IOException e) {
+			System.out.println("Erro na busca por album: " + e.getMessage());
+		}
+	
+		throw new ServerException(nomeAlbum);
+	}
+	
+	/**
+	 * Método que busca por uma música a partir de alguns parâmetros
+	 * @param nomeMusica Caso desejado, nome da música
+	 * @param nomeArtista Caso desejado, nome do artista
+	 * @param nomeAlbum Caso desejado, nome do álbum
+	 * @return  Lista de Tracks organizadas de maneira que pode ser manipulada pelo front-end
+	 * @throws ServerException
+	 */
+	@RequestMapping("/busca-musica-por-parametro")
+	public ResponseEntity<Track[]> buscaMusicaPorParametro(@RequestParam(value = "nome-musica-criterio", required = false, defaultValue = "") String nomeMusica,
+			@RequestParam(value = "nome-artista-criterio", required = false, defaultValue = "") String nomeArtista,
+			@RequestParam(value  = "nome-album-criterio", required = false, defaultValue = "") String nomeAlbum) 
+					throws ServerException
+	{
+		String resultado = "";
+		resultado += (nomeMusica.length() == 0 ? "" : ("track:" + nomeMusica));
+		resultado += (nomeArtista.length() == 0 ? "" : (" artist:" + nomeArtista));
+		resultado += (nomeAlbum.length() == 0 ? "" : (" album:" + nomeAlbum));
+		
+		try {
+			return new ResponseEntity<>(servicoDeBusca.buscaMusicaPorParametro(resultado), HttpStatus.CREATED);
+		} catch (ServerException e)
+		{
+			System.out.println("Erro na busca");
+			throw new ServerException(e.getMessage());
+		}
 	}
 }
