@@ -6,10 +6,9 @@
 		
 	</head>
 	
-	<div class="flex-container-geral">
-		<div>
-			<body>
-	
+	<body>
+		<div class="flex-container-geral">
+			<div>
 				<!-- Textos -->
 				<h1> Super Gerenciador Musical </h1>
 				<h3> A melhor ferramenta para organizar suas playlists e músicas favoritas! </h3>
@@ -17,28 +16,27 @@
 		
 				<!-- Autenticação -->
 				<form th:action="@{/autorizacao/login}">
-					<button class="unico" type="submit"><span>Experimentar</span></button>
+					<button class="autenticador" type="submit"><span>Experimentar</span></button>
 				</form>
 			
-				<!-- Informações adicionais-->
-				<div class="flex-container-sub">
-					<button class="expansor" type="submit"><img src="./arrow_icon.png" class="arrow" alt="ícone de seta"> Veja como funciona</button>
+				<!-- Informações adicionais -->
+				<div class="flex-container-adicionais">
+					<button class="expansor" type="submit"><img class="arrow-icone" src="./arrow_icon.png" alt="ícone de seta"> Veja como funciona</button>
 					<div class="conteudo">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						<p>nada no momento...</p>
 					</div>
 			
-					<button class="expansor" type="submit"><img src="./arrow_icon.png" class="arrow" alt="ícone de seta"> Contribuições</button>
+					<button class="expansor" type="submit"><img class="arrow-icone" src="./arrow_icon.png" alt="ícone de seta"> Contribuições</button>
 					<div class="conteudo">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						<p>nada no momento...</p>
 					</div>
 				</div>
-				
-			<!-- Logo -->	
 			</div>
-				<img src="/pic_logo.png" alt="logo" width="300" height="300">
-		<div>
+			
+			<!-- Logo -->		
+			<img class="logo-icone" src="/logo_icon.png" alt="logo">
+		</div>
 		
-		<!-- Função para informações adicionais -->
 		<script>
 			var coll = document.getElementsByClassName("expansor");
 			var i;
