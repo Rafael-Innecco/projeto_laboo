@@ -1,4 +1,4 @@
-package br.usp.poli.labpoo2022.fluxo_de_autorizacao;
+package br.usp.poli.labpoo2022.credenciais;
 
 /**
  * Guarda o ID e segredo da aplicação web.

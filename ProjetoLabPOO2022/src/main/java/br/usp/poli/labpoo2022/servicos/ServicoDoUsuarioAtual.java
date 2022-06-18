@@ -1,8 +1,10 @@
-package br.usp.poli.labpoo2022.controladores;
+package br.usp.poli.labpoo2022.servicos;
 
 import java.io.IOException;
 
-import br.usp.poli.labpoo2022.fluxo_de_autorizacao.ControladorDeAutorizacao;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.User;
 import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfileRequest;
@@ -10,10 +12,11 @@ import se.michaelthelin.spotify.requests.data.users_profile.GetCurrentUsersProfi
 /**
  * Gerencia funcionalidades do usuário atualmente logado.
  */
-public class ControladorDoUsuarioAtual {
+@Service
+@Scope("singleton")
+public class ServicoDoUsuarioAtual extends ServicoBase{
 	
-	private final GetCurrentUsersProfileRequest requisicaoDePerfilDeUsuario = ControladorDeAutorizacao.getSpotifyApi().getCurrentUsersProfile()
-    		.build();
+	private GetCurrentUsersProfileRequest requisicaoDePerfilDeUsuario;
 	
 	/**
 	 * Getter do ID do usuário atual.
@@ -21,6 +24,8 @@ public class ControladorDoUsuarioAtual {
 	 */
 	public String getIdDeUsuario()
 	{
+		this.requisicaoDePerfilDeUsuario = servicoDeAutorizacao.getSpotifyApi().getCurrentUsersProfile()
+	    		.build();
 		try 
 		{
 			final User usuario = requisicaoDePerfilDeUsuario.execute();

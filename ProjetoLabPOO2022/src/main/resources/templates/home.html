@@ -1,54 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 	<head>
 		<title> LABPOO 2022 </title>
-	
-		<style>
-		    body{
-              background-color:#28272c;			  
-			}
-			
-            h1 {
-              color: MediumSeaGreen;
-			  font: canvas;
-              text-align: center;
-			  font-family: "Courier New";
-			  margin-top: 250px;
-              margin-bottom: 30px;			  
-            }
-			   
-			.botao {
-              padding: 20px;
-              text-align: center;
-              display: inline-block;
-			  font-family: "Courier New";	
-              font-size: 20px;
-              margin: 4px 2px;
-              cursor: pointer;
-			  border-radius: 8px;
-			  transition-duration: 0.4s;
-              margin: 0 auto;
-			  display: block;
-			}
-			
-			.unico{
-			  background-color: #28272c;
-              color: MediumSeaGreen;
-			  border: 1px solid MediumSeaGreen;
-			}
-			
-			.unico:hover{
-			  background-color: MediumSeaGreen;
-              color: #28272c;
-			}		
-			
-		</style>
+		<link rel="stylesheet" href="./home.css">
+		
 	</head>
 	
 	<body>
-		<h1> Super Gerenciador Musical </h2>
-		<form th:action="@{/autorizacao/login}">
-			<button class="botao unico" type="submit">Autenticar</button>
-		</form>
+		<div class="flex-container-geral">
+			<div>
+				<!-- Textos -->
+				<h1> Super Gerenciador Musical </h1>
+				<h3> A melhor ferramenta para organizar suas playlists e músicas favoritas! </h3>
+				<p> O Gerenciador Musical vai te ajudar a criar novas playlists, adicionar músicas incríveis e gerenciar tudo isto de forma simples com uma integração com a sua conta no Spotify! </p>
+		
+				<!-- Autenticação -->
+				<form th:action="@{/autorizacao/login}">
+					<button class="autenticador" type="submit"><span>Experimentar</span></button>
+				</form>
+			
+				<!-- Informações adicionais -->
+				<div class="flex-container-adicionais">
+					<button class="expansor" type="submit"><img class="arrow-icone" src="./arrow_icon.png" alt="ícone de seta"> Veja como funciona</button>
+					<div class="conteudo">
+						<p>nada no momento...</p>
+					</div>
+			
+					<button class="expansor" type="submit"><img class="arrow-icone" src="./arrow_icon.png" alt="ícone de seta"> Contribuições</button>
+					<div class="conteudo">
+						<p>nada no momento...</p>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Logo -->		
+			<img class="logo-icone" src="/logo_icon.png" alt="logo">
+		</div>
+		
+		<script>
+			var coll = document.getElementsByClassName("expansor");
+			var i;
+
+			for (i = 0; i < coll.length; i++) {
+				coll[i].addEventListener("click", function() {
+					this.classList.toggle("ativador");
+					var content = this.nextElementSibling;
+					if (content.style.display === "block") {
+						content.style.display = "none";
+					} else {
+						content.style.display = "block";
+					}
+				});
+			}
+		</script>
 	</body>
 </html>
