@@ -119,6 +119,7 @@
 
 					adicionaMusica(uriDaMusica, idDaPlaylist);
 					console.log("Adicionei a música: " + uriDaMusica);
+					//listaPlaylists('sim');
 					fechaForm();
 				}
 			}
@@ -290,18 +291,29 @@
 
 				mainContainer.innerHTML = "";
 				let dropdownDePlaylists = document.getElementById("dropdownPlaylists");
+				dropdownDePlaylists.innerHTML = "";
 
 				for (let i = 0; i < data.length; i++) {
 					// Cria o elemento <option> para cada playlist, para mostrar no dropdown de escolhas
 					dropdownDePlaylists.innerHTML += `<option value= "${data[i].id}">` + data[i].name + "</option>";
-					if(display != 'nao')
-					{
+					//if(display == 'sim')
+					//{
 						let containerDeBusca = document.getElementById("resultadosDeBusca");
 						containerDeBusca.innerHTML = "";
 						//${data[i].images[0].url}
-						let div = `<div id="playlist-numero-${i}"><img src=${data[i].images[0].url} class="playlist-img"><h4>${data[i].name}</h4><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button><button class="remove-button" onclick="deletaPlaylist('${data[i].id}', 'playlist-numero-${i}')";>⨉ Remover</button></div>`;
-						mainContainer.innerHTML += div;
-					}
+						if(data[i].tracks.total != 0)
+						{
+							let div = `<div id="playlist-numero-${i}"><img src=${data[i].images[0].url} class="playlist-img"><h4>${data[i].name}</h4><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button><button class="remove-button" onclick="deletaPlaylist('${data[i].id}', 'playlist-numero-${i}')";>⨉ Remover</button></div>`;
+							mainContainer.innerHTML += div;
+						}
+						else
+						{
+							let div = `<div id="playlist-numero-${i}"><img src="/default-image.png" class="playlist-img"><h4>${data[i].name}</h4><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button><button class="remove-button" onclick="deletaPlaylist('${data[i].id}', 'playlist-numero-${i}')";>⨉ Remover</button></div>`;
+							mainContainer.innerHTML += div;
+						}
+						
+						
+					//}
 				}
 			}
 
@@ -522,6 +534,7 @@
 						console.log("Música removida!");
 						let div = document.getElementById(idDaDiv);
 						div.parentNode.removeChild(div);
+						listaPlaylists();
 					})
 					.catch(function (err) {
 						console.log('erro ao remover playlist: ' + err);
@@ -540,6 +553,7 @@
 					.then(function (data) {
 						console.log("Música adicionada!");
 						alert("Música adicionada com sucesso!");
+						listaPlaylists();
 					})
 					.catch(function (err) {
 						console.log('Erro ao adicionar playlist: ' + err);
