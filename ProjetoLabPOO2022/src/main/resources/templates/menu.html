@@ -224,43 +224,15 @@
 			function appendData_buscaPlaylist(data, elementId) {
 				let mainContainer = document.getElementById(elementId);
 
-				// Esvazia o conteúdo inicial da div
 				mainContainer.innerHTML = "";
-
-				for (let i = 0; i < data.length; i++) {
-					console.log(data[i].id);
-					fetch('/menu/parametros-de-musica?id-da-musica=' + data[i].id)
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function(dataDaMusica){
-							console.log("Consegui pegar as características da música " + data[i].name + "!")
-							console.log(data[i]);
+				//let dropdownDePlaylists = document.getElementById("dropdownPlaylists");
 				
-							let div = `<br><div class="resultado">
-									<div class="container">
-										<span>
-											<img src=${data[i].album.images[0].url} class="playlist-img"></img>
-											<p>Artista ${data[i].artists[0].name}</p>
-											<h4>${data[i].name}</h4>
-										<span>
-										<p>Caracteristicas: </p>
-										<p1>dançabilidade: ${dataDaMusica.danceability} || energia: ${dataDaMusica.energy}</p1>
-										<p1>duração: ${dataDaMusica.tempo} || força: ${dataDaMusica.loudness}</p1>
-										<p1>fala: ${dataDaMusica.speechiness} || instrumental: ${dataDaMusica.instrumentalness}</p1>
-										<p1>ao vivo: ${dataDaMusica.liveness} || acústica: ${dataDaMusica.acousticness}</p1>
-									</div>
-									<button class="open-button" onclick="abreForm('${data[i].id}');listaPlaylists();">+ Adicionar a uma Playlist</button>
-								</div></br>`;
-							mainContainer.innerHTML += div;
-							
-						})
-						.catch(function (err) {
-									console.log("Erro ao pegar características da música: " + err);
-						});
-					
-					// console.log('Name: ' + data[i].name + ' ;');
-					// console.log('Id: ' + data[i].id + ' ;');
+				for (let i = 0; i < data.length; i++) {
+					// Cria o elemento <option> para cada playlist, para mostrar no dropdown de escolhas
+					//dropdownDePlaylists.innerHTML += `<option value= "${data[i].id}">` + data[i].name + "</option>";
+
+					let div = `<div id="playlist-numero-${i}"><h4>Nome da playlist: ${data[i].name};</h4><img src=${data[i].images[0].url} class="playlist-img"><button class="list-musics-button" onclick="listaItensPlaylistPublica('${data[i].id}')">Listar músicas</button></div>`;			
+					mainContainer.innerHTML += div;
 				}
 			}
 			
