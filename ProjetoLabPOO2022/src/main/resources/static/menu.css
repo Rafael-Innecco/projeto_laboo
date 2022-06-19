@@ -510,14 +510,27 @@ td {
 }
 
  .flex-container-geral {
-  	display: flex;
+ 	width: 90vw;
+	overflow-x: scroll;
+    overflow-y: hidden;
+  	display: grid;
+    /*grid-gap: 0 10px;*/
+	grid-auto-flow: column;
+    grid-template-columns: auto;
+
+    /*padding: 30px 60px;
+    padding-right: 0;*/
 					   }
 
  .flex-container-geral > div {
  	background-color: #4169E1;
   	box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   	border-radius: 8px;
-  	width: 100%;
+  	width: 192px;
   	margin: 30px;
   	padding: 10px;
 							 }
+
+.empty {
+	width: 192px;
+}

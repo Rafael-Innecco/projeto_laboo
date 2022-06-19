@@ -54,7 +54,8 @@
 
 		<div class="section-container">
 			<h2 class="title-h2">Minhas playlists</h2>
-			<div id="lista-de-playlists" class="flex-container-geral"></div>
+			<div id="lista-de-playlists" class="flex-container-geral wrapper"></div>
+			<div class="empty"></div>
 		</div>
 
 
@@ -303,12 +304,12 @@
 						//${data[i].images[0].url}
 						if(data[i].tracks.total != 0)
 						{
-							let div = `<div id="playlist-numero-${i}"><img src=${data[i].images[0].url} class="playlist-img"><h4>${data[i].name}</h4><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button><button class="remove-button" onclick="deletaPlaylist('${data[i].id}', 'playlist-numero-${i}')";>⨉ Remover</button></div>`;
+							let div = `<div id="playlist-numero-${i}" class="item"><img src=${data[i].images[0].url} class="playlist-img"><h4>${data[i].name}</h4><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button><button class="remove-button" onclick="deletaPlaylist('${data[i].id}', 'playlist-numero-${i}')";>⨉ Remover</button></div>`;
 							mainContainer.innerHTML += div;
 						}
 						else
 						{
-							let div = `<div id="playlist-numero-${i}"><img src="/default-image.png" class="playlist-img"><h4>${data[i].name}</h4><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button><button class="remove-button" onclick="deletaPlaylist('${data[i].id}', 'playlist-numero-${i}')";>⨉ Remover</button></div>`;
+							let div = `<div id="playlist-numero-${i}" class="item"><img src="/default-image.png" class="playlist-img"><h4>${data[i].name}</h4><button class="list-musics-button" onclick="listaItens('${data[i].id}')">Listar músicas</button><button class="remove-button" onclick="deletaPlaylist('${data[i].id}', 'playlist-numero-${i}')";>⨉ Remover</button></div>`;
 							mainContainer.innerHTML += div;
 						}
 						
