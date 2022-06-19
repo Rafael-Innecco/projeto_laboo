@@ -33,7 +33,7 @@ public class ControladorDePlaylist{
 	private ServicoDePlaylist servicoDePlaylist;
 	
 	/**
-	 * Cria uma playlist vazia.
+	 * Requisita a criação de uma playlisa vazia.
 	 * 
 	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário atual.
 	 * @param resposta resposta do servlet à requisição de criação de playlist.
@@ -54,7 +54,7 @@ public class ControladorDePlaylist{
 	}
 	
 	/**
-	* Remove playlist de usuário.
+	* Requisita a remoção de uma playlist do usuário
 	*
 	* @param idDaPlaylistSelecionada ID da playlist a ser removida.
 	* @return String JSON indicando sucesso na requisição de remoção.
@@ -76,7 +76,7 @@ public class ControladorDePlaylist{
 	}
 	
 	/**
-	 * Adiciona músicas à playlist selecionada.
+	 * Requisita a adição de itens à playlist selecionada para o serviço relevante
 	 * 
 	 * @param playlistSelecionada Playlist selecionada pelo usuário.
 	 * @param uris URIs das músicas selecionadas
@@ -98,7 +98,7 @@ public class ControladorDePlaylist{
 	}
 
 	/**
-	 * Captura a lista de playlists do usuário atual.
+	 * Requisita a lista de playlists do usuário para o serviço de playlist;
 	 * 
 	 * @return Array de playlists contendo informações sobre as playlists.
 	 * @throws ServerException 
@@ -118,7 +118,7 @@ public class ControladorDePlaylist{
 	}
 	
 	/**
-	 * Lista os itens de uma playlist do usuário atual.
+	 * Requisita a lista dos itens de uma playlist qualquer para o serviço responsável
 	 * 
 	 * @param idDaPlaylist ID da playlist cujos itens serão listados.
 	 * @return Array de músicas de playlists
@@ -140,7 +140,7 @@ public class ControladorDePlaylist{
 	}
 
 	/**
-	 * Remove itens de determinada playlist do usuário atual.
+	 * Pede a remoção de itens de determinada playlist do usuário atual para o serviço responsável.
 	 * 
 	 * @param idDaPlaylistSelecionada ID da playlist cuja música será removidas.
 	 * @param musica String contendo URI da música a ser removida.

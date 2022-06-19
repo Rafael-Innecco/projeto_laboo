@@ -2,8 +2,6 @@ package br.usp.poli.labpoo2022.servicos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.usp.poli.labpoo2022.controladores.ControladorDeAutorizacao;
-
 public abstract class ServicoBase {
 	
 	@Autowired

@@ -25,6 +25,12 @@ public class ControladorDeAlbums {
 	@Autowired
 	private ServicoDeAlbums servicoDeAlbums;
 	
+	/**
+	 * Método que solicita a listagem das músicas de um álbum para o Serviço responsável e devolve a resposta em formato conveniente
+	 * @param idDoAlbum id do álbum a ser listado
+	 * @return Response Entity com lista de músicas
+	 * @throws ServerException
+	 */
 	@RequestMapping("/lista-musicas-de-album")
 	public ResponseEntity<TrackSimplified[]> listaMusicas (@RequestParam(value = "album-selecionado", required = true) String idDoAlbum)
 		throws ServerException {
