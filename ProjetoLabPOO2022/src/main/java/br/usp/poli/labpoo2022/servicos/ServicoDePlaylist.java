@@ -43,6 +43,8 @@ public class ServicoDePlaylist extends ServicoBase{
 	 * 
 	 * @param nomeDaPlaylist Nome da playlist escolhida pelo usuário atual.
 	 * @param resposta resposta do servlet à requisição de criação de playlist.
+	 * @return booleano verdadeiro se a playlist foi criada com sucesso e falso, caso contrário.
+	 * @throws ServerException
 	 */
 	public boolean criaPlaylist(String nomeDaPlaylist, HttpServletResponse resposta) throws ServerException
 	{
@@ -67,6 +69,7 @@ public class ServicoDePlaylist extends ServicoBase{
 	*
 	* @param idDaPlaylistSelecionada ID da playlist a ser removida.
 	* @return String JSON indicando sucesso na requisição de remoção.
+	* @return booleano verdadeiro se a playlist foi removida com sucesso e falso, caso contrário
 	* @throws ServerException
 	*/
 	public boolean removePlaylist(String idDaPlaylistSelecionada) throws ServerException
@@ -89,10 +92,12 @@ public class ServicoDePlaylist extends ServicoBase{
 	}
 	
 	/**
-	 * Adiciona músicas à playlist selecionada.
+	 * Adiciona música à playlist selecionada.
 	 * 
 	 * @param playlistSelecionada Playlist selecionada pelo usuário.
-	 * @param uris URIs das músicas selecionadas
+	 * @param uri URI da música selecionada
+	 * @return booleano verdadeiro se o item foi adicionado com sucesso e falso, caso contrário
+	 * @throws ServerException
 	 */
 	public boolean adicionaItensEmPlaylist (String idDaplaylistSelecionada, String uri) throws ServerException
 	{
@@ -163,7 +168,7 @@ public class ServicoDePlaylist extends ServicoBase{
 	 * 
 	 * @param idDaPlaylistSelecionada ID da playlist cuja música será removidas.
 	 * @param musica String contendo URI da música a ser removida.
-	 * @return String JSON confirmando a remoção do item
+	 * @return booleano verdadeiro se o item foi removido com sucesso e falso, caso contrário
 	 * @throws ServerException
 	 */
 	public boolean removeItensDePlaylist(String idDaPlaylistSelecionada, String musica) throws ServerException

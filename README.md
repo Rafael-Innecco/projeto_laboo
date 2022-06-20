@@ -9,8 +9,8 @@
 O projeto ainda está em desenvolvimento. Abaixo estão as funcionalidades que já estão implementadas e as que estão por vir:
 
 - [x] O sistema permite que o usuário crie uma ou mais playlists com suas músicas preferidas. Cada playlist tem um nome definido pelo usuário. O sistema permite a criação, remoção e listagem das playlists existentes. Ademais, também é possível inserir e remover músicas de uma playlist.
-- [ ] O sistema permite a busca por músicas de acordo com vários critérios: título, autor, nome do álbum, nome de playlists públicas do spotify.
-- [ ] Para cada resultado de uma busca, o sistema permite uma visão detalhada das músicas oferecendo uma série de parâmetros sobre a música, incluindo dançável, energia, andamento (tempo), força (loudness), fala (speechiness), instrumental, ao vivo, acústica.
+- [X] O sistema permite a busca por músicas de acordo com vários critérios: título, autor, nome do álbum, nome de playlists públicas do spotify.
+- [X] Para cada resultado de uma busca, o sistema permite uma visão detalhada das músicas oferecendo uma série de parâmetros sobre a música, incluindo dançável, energia, andamento (tempo), força (loudness), fala (speechiness), instrumental, ao vivo, acústica.
 - [ ] Ao exibir um álbum ou playlist, o sistema mostra as imagens a ele associadas. Ao exibir uma playlist, o sistema mostra todas as informações disponíveis sobre cada um das músicas (título, artistas, ano, duração).
 - [ ] O sistema permite ao usuário filtrar as buscas por músicas em uma determinada tonalidade, determinado modo (maior ou menor) e determinada fórmula de compasso (3/4, 4/4, 5/4, 6/8).
 - [ ] O sistema permite a busca dentro de todas as playlists que ele criou usando um critério baseado nos parâmetros de análise do áudio das músicas (dançável, acústica, energia, etc.).

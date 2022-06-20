@@ -19,6 +19,13 @@ import se.michaelthelin.spotify.requests.data.albums.GetAlbumsTracksRequest;
 @Scope("singleton")
 public class ServicoDeAlbums extends ServicoBase{
 	
+	/**
+	 * Método que retorna músicas contidas em um álbum
+	 * 
+	 * @param id do álbum
+	 * @return Array com as músicas do álbum
+	 * @throws ServerException
+	 */
 	public TrackSimplified[] listaMusicas (String id) throws ServerException {
 		final GetAlbumsTracksRequest requisicaoDeMusicasNoAlbum = servicoDeAutorizacao.getSpotifyApi()
 				.getAlbumsTracks(id)
@@ -35,5 +42,4 @@ public class ServicoDeAlbums extends ServicoBase{
       		throw new ServerException(e.getMessage());
 		}
 	}
-	
 }

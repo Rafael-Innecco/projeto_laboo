@@ -15,6 +15,13 @@ import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForTrackReq
 @Scope("singleton")
 public class ServicoDeMusicas extends ServicoBase{
 
+	
+	/**
+	 * Retorna características de uma música (dançável, energia, andamento, força, etc.)
+	 * @param idDaMusica
+	 * @return características da música
+	 * @throws Exception
+	 */
     public AudioFeatures requisitaCaracteristicasDeMusica(String idDaMusica) throws Exception
     {
         final GetAudioFeaturesForTrackRequest requisicaoDeCaracteristicasDeMusica = servicoDeAutorizacao.getSpotifyApi()
@@ -32,6 +39,12 @@ public class ServicoDeMusicas extends ServicoBase{
 		}
     }
     
+    /**
+     * Retorna características de várias músicas (dançável, energia, andamento, força, etc.)
+     * @param ids
+     * @return Características das músicas requisitadas
+     * @throws Exception
+     */
     public AudioFeatures[] requisitaCaracteristicasDeVariasMusicas(String ids) throws Exception
     {
     	final GetAudioFeaturesForSeveralTracksRequest requisicaoDeCaracteristicas = servicoDeAutorizacao.getSpotifyApi()

@@ -255,7 +255,7 @@
 					// Cria o elemento <option> para cada playlist, para mostrar no dropdown de escolhas
 					//dropdownDePlaylists.innerHTML += `<option value= "${data[i].id}">` + data[i].name + "</option>";
 
-					let div = `<div id="playlist-numero-${i}" class="flex-container-geral"><h4>Nome da playlist: ${data[i].name};</h4><img src=${data[i].images[0].url} class="playlist-img"><button class="list-musics-button" onclick="listaItensPlaylistPublica('${data[i].id}')">Listar músicas</button></div>`;
+					let div = `<div id="playlist-numero-${i}"><h4>Nome da playlist: ${data[i].name};</h4><img src=${data[i].images[0].url} class="playlist-img"><button class="list-musics-button" onclick="listaItensPlaylistPublica('${data[i].id}')">Listar músicas</button></div>`;
 					mainContainer.innerHTML += div;
 				}
 			}
