@@ -20,6 +20,11 @@ public class ControladorDeMusica {
     @Autowired
     private ServicoDeMusicas servicoDeMusicas;
 
+    /**
+     * Método que requisita as características de uma música para o serviço responsável
+     * @param idDeMusica
+     * @return Objeto com as características do música
+     */
     @GetMapping("/parametros-de-musica")
     public ResponseEntity<AudioFeatures> getCaracteristicasDeMusicas(@RequestParam("id-da-musica") String idDeMusica)
     {
@@ -35,6 +40,11 @@ public class ControladorDeMusica {
         }
     }
     
+    /**
+     * Método que requisita as características de várias músicas de uma vez para o serviço responsável
+     * @param idsDasMusicas
+     * @return Array de objetos com as caracterpisticas das músicas
+     */
     @GetMapping("/caracteristicas-de-varias-musicas")
     public ResponseEntity<AudioFeatures[]> getCaracteristicasDeVariasMusicas(@RequestParam(value = "ids-das-musicas", required = true) String idsDasMusicas)
     {

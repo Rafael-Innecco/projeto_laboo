@@ -34,7 +34,7 @@ public class ControladorDeBusca{
     private ServicoDeBusca servicoDeBusca;
 	
 	/**
-	 * Método que busca por uma música a partir de uma string (Preferencialmente o nome da música)
+	 * Método que requisita a busca por uma música a partir de uma string (Preferencialmente o nome da música) para o serviço responsável
 	 * @param nomeBuscado parâmetro da busca
 	 * @return Se a busca for bem-sucedida, retorna as músicas encontradas
 	 * @throws ServerException 
@@ -57,7 +57,7 @@ public class ControladorDeBusca{
 	}
 	
 	/**
-	 * Método que busca por artistas a partir de uma string de referência
+	 * Método que requisita a  busca por artistas a partir de uma string de referência para o serviço de busca
 	 * @param nomeArtista
 	 * @return Lista de Artistas organizadas de maneira que pode ser manipulada pelo front-end
 	 * @throws ServerException
@@ -78,7 +78,7 @@ public class ControladorDeBusca{
 	}
 	
 	/**
-	 * Método que realiza uma busca por playlists públca
+	 * Método que requisita a busca por playlists públca para o serviço de busca
 	 * @param nomePlaylist
 	 * @return Lista de Playlists organizadas de maneira que pode ser manipulada pelo front-end
 	 * @throws ServerException
@@ -97,7 +97,7 @@ public class ControladorDeBusca{
 	}
 	
 	/**
-	 * Método que realiza a busca por um álbum a partir de uma string de referância
+	 * Método que requisita a busca por um álbum a partir de uma string de referância para o serviço responsável
 	 * @param nomeAlbum
 	 * @return Lista de Álbums organizadas de maneira que pode ser manipulada pelo front-end
 	 * @throws ServerException
@@ -118,7 +118,7 @@ public class ControladorDeBusca{
 	}
 	
 	/**
-	 * Método que busca por uma música a partir de alguns parâmetros
+	 * Método que manipula os parâmetros recebidos para formar uma string e requisita uma busca para o serviço de busca
 	 * @param nomeMusica Caso desejado, nome da música
 	 * @param nomeArtista Caso desejado, nome do artista
 	 * @param nomeAlbum Caso desejado, nome do álbum
