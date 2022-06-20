@@ -50,9 +50,11 @@ public class ServicoDeAutorizacao {
 			.build();
 	
 	/**
-	 * Cria pedido de permissão de acesso à funcionalidades da conta do usuário.
+	 * realiza login do usuário no spotify.
 	 * 
-	 * @return URI de redirecionamento do usuário.
+	 * @param resposta resposta do servlet http à requisição
+	 * @return
+	 * @throws IOException
 	 */
 	public String loginDoSpotify(HttpServletResponse resposta) throws IOException
 	{
@@ -118,6 +120,11 @@ public class ServicoDeAutorizacao {
 		 }
 	}
 
+	/**
+	 * Getter do Singleton responsável pela autorizão de requisições à API do Spotify.
+	 * Também renova o acesso, caso necessário.
+	 * @return instância do objeto spotifyApi
+	 */
 	public SpotifyApi getSpotifyApi() {
 		if ((System.nanoTime() - tempoDaUltimaRenovacao) * 0.000000001 >= 1800)
 			renovaAcesso();
