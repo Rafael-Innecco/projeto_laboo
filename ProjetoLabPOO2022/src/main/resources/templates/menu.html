@@ -360,6 +360,7 @@
 							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
 							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
 							<th></th>
+							<th></th>
 						</tr>`;
 
 						for (let i=0; i < dataDasMusicasNaPlaylist.length; i++){
@@ -383,6 +384,7 @@
 											<td>${dataDaMusica.instrumentalness}</td>
 											<td>${dataDaMusica.liveness}</td>
 											<td>${dataDaMusica.acousticness}</td>
+											<td><audio controls="controls"><source src=>${dataDasMusicasNaPlaylist[i].track.previewUrl} /></audio><td>
 											<td><button class="botao2" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button></td>
 										</tr>`;
 									mainContainer.innerHTML += card;
