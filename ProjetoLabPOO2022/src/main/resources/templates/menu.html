@@ -359,6 +359,9 @@
 							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
 							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
 							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
+							<th><button class="botao-sort" onclick="ordenador(10)">Ano</button></th>
+							<th><button class="botao-sort" onclick="ordenador(11)">Duração(seg)</button></th>
+							<th></th>
 							<th></th>
 							<th></th>
 						</tr>`;
@@ -384,8 +387,10 @@
 											<td>${dataDaMusica.instrumentalness}</td>
 											<td>${dataDaMusica.liveness}</td>
 											<td>${dataDaMusica.acousticness}</td>
-											<td><audio controls="controls"><source src=>${dataDasMusicasNaPlaylist[i].track.previewUrl} /></audio><td>
-											<td><button class="botao2" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button></td>
+											<td>${dataDasMusicasNaPlaylist[i].track.album.releaseDate}</td>
+											<td>${dataDasMusicasNaPlaylist[i].track.durationMs/1000}</td>
+											<td><audio controls="controls"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><td>
+											<td><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button></td>
 										</tr>`;
 									mainContainer.innerHTML += card;
 								})
@@ -422,6 +427,10 @@
 							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
 							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
 							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
+							<th><button class="botao-sort" onclick="ordenador(10)">Ano</button></th>
+							<th><button class="botao-sort" onclick="ordenador(11)">Duração(seg)</button></th>
+							<th></th>
+							<th></th>
 							<th></th>
 						</tr>`;
 
@@ -437,17 +446,20 @@
 									let card =
 										`<table id="item-playlist-${i}">
 											<tr>
-												<td>${dataDasMusicasNaPlaylist[i].track.name}</td>
-												<td>${dataDasMusicasNaPlaylist[i].track.artists[0].name}</td>
-												<td>${dataDaMusica.danceability}</td>
-												<td>${dataDaMusica.energy}</td>
-												<td>${dataDaMusica.tempo}</td>
-												<td>${dataDaMusica.loudness}</td>
-												<td>${dataDaMusica.speechiness}</td>
-												<td>${dataDaMusica.instrumentalness}</td>
-												<td>${dataDaMusica.liveness}</td>
-												<td>${dataDaMusica.acousticness}</td>
-												<td><button class="open-button" onclick="abreForm('${dataDasMusicasNaPlaylist[i].track.id}');listaPlaylists('nao');">+ Adicionar a uma Playlist</button></td>
+											<td>${dataDasMusicasNaPlaylist[i].track.name}</td>
+											<td>${dataDasMusicasNaPlaylist[i].track.artists[0].name}</td>
+											<td>${dataDaMusica.danceability}</td>
+											<td>${dataDaMusica.energy}</td>
+											<td>${dataDaMusica.tempo}</td>
+											<td>${dataDaMusica.loudness}</td>
+											<td>${dataDaMusica.speechiness}</td>
+											<td>${dataDaMusica.instrumentalness}</td>
+											<td>${dataDaMusica.liveness}</td>
+											<td>${dataDaMusica.acousticness}</td>
+											<td>${dataDasMusicasNaPlaylist[i].track.album.releaseDate}</td>
+											<td>${dataDasMusicasNaPlaylist[i].track.durationMs/1000}</td>
+											<td><audio controls="controls"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><td>
+											<td><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button></td>
 											</tr>
 										</table>`;
 									mainContainer.innerHTML += card;
