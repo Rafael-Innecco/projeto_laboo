@@ -6,6 +6,7 @@ import org.apache.hc.core5.http.ParseException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import se.michaelthelin.spotify.enums.Modality;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.special.SearchResult;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
@@ -27,17 +28,20 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
 @Scope("singleton")
 public class ServicoDeBusca extends ServicoBase {
 	
+	
 	/**
 	 * Método que acessa a api do spotify e busca por uma música
 	 * @param nomeBuscado
+	 * @param offset deslocamento dos resultados da busca (o método retorna 25 músicas, mas a API do Spotify retorna 50)
 	 * @return Array de Tracks encontradas
 	 * @throws ServerException
 	 */
-	public Track[] buscaMusicaPadrao (String nomeBuscado) throws ServerException
+	public Track[] buscaMusicaPadrao (String nomeBuscado, int offset) throws ServerException
 	{
 		final SearchTracksRequest requisicaoDeBuscaMusica = servicoDeAutorizacao.getSpotifyApi()
 				.searchTracks(nomeBuscado)
-				.limit(15)
+				.limit(25)
+				.offset(offset)
 				.build();
 		
 		try {
@@ -152,5 +156,16 @@ public class ServicoDeBusca extends ServicoBase {
 		{
 			throw new ServerException(e.getMessage());
 		}
+	}
+	
+	public Track[] buscaMusicaPorFiltro(String nomeBuscado, Integer tonalidade, Modality modo, Integer formulaDeCompasso, int offset) throws ServerException
+	{
+		final ServicoDeMusicas servicoDeMusicas = new ServicoDeMusicas();
+		Track[] resultadoFiltrado = servicoDeMusicas.filtraMusicasPorTom(this.buscaMusicaPadrao(nomeBuscado, offset), tonalidade);
+		resultadoFiltrado = servicoDeMusicas.filtraMusicasPorModo(resultadoFiltrado, modo);
+		resultadoFiltrado = servicoDeMusicas.filtraMusicasPorCompasso(resultadoFiltrado, formulaDeCompasso);
+		
+		return resultadoFiltrado;
+	
 	}
 }
