@@ -3,6 +3,7 @@ package br.usp.poli.labpoo2022.servicos;
 import java.io.IOException;
 import java.rmi.ServerException;
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,8 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
 @Scope("singleton")
 public class ServicoDeBusca extends ServicoBase {
 	
+	@Autowired
+	private ServicoDeMusicas servicoDeMusicas;
 	
 	/**
 	 * Método que acessa a api do spotify e busca por uma música
@@ -160,7 +163,6 @@ public class ServicoDeBusca extends ServicoBase {
 	
 	public Track[] buscaMusicaPorFiltro(String nomeBuscado, Integer tonalidade, Modality modo, Integer formulaDeCompasso, int offset) throws ServerException
 	{
-		final ServicoDeMusicas servicoDeMusicas = new ServicoDeMusicas();
 		Track[] resultadoFiltrado = servicoDeMusicas.filtraMusicasPorTom(this.buscaMusicaPadrao(nomeBuscado, offset), tonalidade);
 		resultadoFiltrado = servicoDeMusicas.filtraMusicasPorModo(resultadoFiltrado, modo);
 		resultadoFiltrado = servicoDeMusicas.filtraMusicasPorCompasso(resultadoFiltrado, formulaDeCompasso);
