@@ -41,6 +41,12 @@ public class ServicoDeBusca extends ServicoBase {
 	private ServicoDePlaylist servicoDePlaylist;
 	
 	/**
+	 * A API do spotify retorna no máximo 50 músicas a cada busca
+	 */
+	private final int maximoPossivelDeMusicasBuscadas = 15;
+
+	
+	/**
 	 * Método que acessa a api do spotify e busca por uma música
 	 * @param nomeBuscado
 	 * @param offset deslocamento dos resultados da busca (o método retorna 25 músicas, mas a API do Spotify retorna 50)
@@ -169,13 +175,28 @@ public class ServicoDeBusca extends ServicoBase {
 		}
 	}
 	
-	public Track[] buscaMusicaPorFiltro(String nomeBuscado, Integer tonalidade, Modality modo, Integer formulaDeCompasso, int offset) throws ServerException
+	public Track[] buscaMusicaPorFiltro(String nomeBuscado, Integer tonalidade, Integer modo, Integer formulaDeCompasso) throws ServerException
 	{
-		Track[] resultadoFiltrado = servicoDeMusicas.filtraMusicasPorTom(this.buscaMusicaPadrao(nomeBuscado, offset), tonalidade);
-		resultadoFiltrado = servicoDeMusicas.filtraMusicasPorModo(resultadoFiltrado, modo);
-		resultadoFiltrado = servicoDeMusicas.filtraMusicasPorCompasso(resultadoFiltrado, formulaDeCompasso);
+		int n = 0;
+		Track[] resultadoIntermediario;
+		Modality mode = (modo == null ? null : Modality.keyOf(modo));
+		List<Track> resultadoFiltrado = new ArrayList<>();
 		
-		return resultadoFiltrado;
+		while (resultadoFiltrado.size() < maximoPossivelDeMusicasBuscadas) {
+			resultadoIntermediario = this.buscaMusicaPadrao(nomeBuscado, n * 50);
+			
+			resultadoIntermediario = servicoDeMusicas.filtraMusicasPorTom(resultadoIntermediario, tonalidade);
+			resultadoIntermediario = servicoDeMusicas.filtraMusicasPorCompasso(resultadoIntermediario, formulaDeCompasso);
+			resultadoIntermediario = servicoDeMusicas.filtraMusicasPorModo(resultadoIntermediario, mode);
+			
+			for (Track musica: resultadoIntermediario)
+				if (musica != null)
+					resultadoFiltrado.add(musica);
+			
+			n += 1;
+		}
+
+		return resultadoFiltrado.toArray(new Track[resultadoFiltrado.size()]);
 	
 	}
 	/**

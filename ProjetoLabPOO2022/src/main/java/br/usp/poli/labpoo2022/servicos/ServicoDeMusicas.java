@@ -35,11 +35,12 @@ public class ServicoDeMusicas extends ServicoBase{
         final GetAudioFeaturesForTrackRequest requisicaoDeCaracteristicasDeMusica = servicoDeAutorizacao.getSpotifyApi()
             .getAudioFeaturesForTrack(idDaMusica)
             .build();
-
         try {
 			
             final AudioFeatures audioFeatures = requisicaoDeCaracteristicasDeMusica.execute();
-
+            
+            System.out.println("Características: modo = " + audioFeatures.getMode() + " tonalidade = " + audioFeatures.getKey() + " compasso = " + audioFeatures.getTimeSignature());
+            
             return audioFeatures;
 
 		} catch (ParseException | SpotifyWebApiException | IOException e) {
@@ -95,9 +96,9 @@ public class ServicoDeMusicas extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			
-				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getKey().compareTo(tonalidade) != 0;
+				return this.requisitaCaracteristicasDeMusica(musica.getId()).getKey().compareTo(tonalidade) != 0;
 				
-    		} catch (ServerException e) {
+    		} catch (Exception e) {
 				System.out.println("Falha na filtragem por tom: " + e.getMessage());
     		}
     		
@@ -117,9 +118,9 @@ public class ServicoDeMusicas extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			if(musica != null)
-    				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getMode() != modo;
+    				return this.requisitaCaracteristicasDeMusica(musica.getId()).getMode() != modo;
 				
-    		} catch (ServerException e) {
+    		} catch (Exception e) {
 				System.out.println("Falha na filtragem por modo: " + e.getMessage());
     		}
     		
@@ -139,10 +140,10 @@ public class ServicoDeMusicas extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			
-				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getTimeSignature().compareTo(formulaDeCompasso) != 0;
+				return this.requisitaCaracteristicasDeMusica(musica.getId()).getTimeSignature().compareTo(formulaDeCompasso) != 0;
 				
 				
-    		} catch (ServerException e) {
+    		} catch (Exception e) {
 				System.out.println("Falha na filtragem por fórmula de compasso: " + e.getMessage());
     		}
     		

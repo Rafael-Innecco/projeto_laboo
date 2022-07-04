@@ -2,10 +2,6 @@ package br.usp.poli.labpoo2022.controladores;
 
 import java.io.IOException;
 import java.rmi.ServerException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -17,7 +13,6 @@ import br.usp.poli.labpoo2022.servicos.ServicoDeBusca;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import se.michaelthelin.spotify.enums.Modality;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
@@ -38,11 +33,6 @@ public class ControladorDeBusca{
 	
 	@Autowired
     private ServicoDeBusca servicoDeBusca;
-	
-	/**
-	 * A API do spotify retorna no máximo 50 músicas a cada busca
-	 */
-	private final int maximoPossivelDeMusicasBuscadas = 5;
 
 	/**
 	 * Método que requisita a busca por uma música a partir de uma string (Preferencialmente o nome da música) para o serviço responsável
@@ -157,21 +147,19 @@ public class ControladorDeBusca{
 	}
 	
 	@RequestMapping("/busca-musica-por-filtro")
-	public ResponseEntity<Track[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-busca", required = false) String nomeBuscado,
+	public ResponseEntity<Track[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-busca", required = true) String nomeBuscado,
 			@RequestParam(value = "tonalidade", required = false) Integer tonalidade,
 			@RequestParam(value = "modo", required = false) Integer modo,
 			@RequestParam(value = "formula-de-compasso", required = false) Integer formulaDeCompasso) throws ServerException
 	{
-		List<Track> resultadoDaBusca = new ArrayList<>();
-		
-		try {
-			while(resultadoDaBusca.size() < this.maximoPossivelDeMusicasBuscadas)
-			{
-				
-				resultadoDaBusca.addAll(Arrays.asList(servicoDeBusca.buscaMusicaPorFiltro(nomeBuscado, tonalidade, (modo != null ? Modality.keyOf(modo.intValue()) : null), formulaDeCompasso, resultadoDaBusca.size())));
-			}
+		Track[] resultadoDaBusca;
 
-			return new ResponseEntity<>(resultadoDaBusca.toArray(new Track[resultadoDaBusca.size()]), HttpStatus.CREATED);
+		try {
+			resultadoDaBusca = servicoDeBusca.buscaMusicaPorFiltro(nomeBuscado, tonalidade, modo, formulaDeCompasso);
+			
+			System.out.println("Busca filtrada concluída!");
+			
+			return new ResponseEntity<>(resultadoDaBusca, HttpStatus.CREATED);
 		} catch (ServerException e)
 		{
 			System.out.println("Erro na busca");
