@@ -29,6 +29,12 @@
 			<form>
 				<p id="search-tag">Pesquisar música</p>
 				<input class="caixaBusca" type="text" id="nome-busca-input-musica" th:name="nome-busca-musica"  placeholder="Digite um item para buscar...">
+				
+				<!-- inicio do commit html-->
+				<!-- parametros -->
+				<div class="container-categorias-de-busca"  style="display: inline">
+					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-filtro" onclick="displayCritérioArtista('botao-param-de-busca-filtro', 'nome-busca-input-filtro', 'search-tag-filtro', 'filtro')">Filtro</button>
+				</div>
 				<div class="container-categorias-de-busca"  style="display: inline">
 					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-artista" onclick="displayCritérioArtista('botao-param-de-busca-artista', 'nome-busca-input-artista', 'search-tag-artista', 'artista')">Artista</button>
 				</div>
@@ -36,12 +42,43 @@
 					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-album" onclick="displayCritérioArtista('botao-param-de-busca-album', 'nome-busca-input-album', 'search-tag-album', 'album')">Album</button>
 				</div>
 
+				<div id="search-tag-filtro" style="display: none">
+					<div class="flex-container-filtro">
+						<div>
+							<p> Modo </p> 
+							<label class="switch">
+  								<input type="checkbox">Maior</input>
+  								<input type="checkbox">Menor</input>
+							</label>
+						</div>
+						
+						<div>
+							<p> Compasso </p>
+							<select class="compasso_visual">
+    							<option value="none" selected disabled hidden>Selecione uma opção</option>
+    							<option value="1">3/4</option>
+    							<option value="2">4/4</option>
+    							<option value="3">5/4</option>
+    							<option value="4">6/8</option>
+  							</select>
+  						</div>
+  						
+  						<div>
+  							<p> Tonalidade </p>
+  							<input type="range" value="-1" min="-1" max="11" oninput="this.nextElementSibling.value = this.value">
+							<output>-1</output>
+						</div>
+						
+					</div>
+				</div>
+  							
 				<p id="search-tag-artista" style="display: none">Critério: artista</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-artista" th:name="nome-busca-artista"  placeholder="Digite uma música para buscar..." style="display: none; background: #00ceec;">
+				<input class="caixaBusca" type="text" id="nome-busca-input-artista" th:name="nome-busca-artista"  placeholder="Digite uma música para buscar..." style="display: none; background: #FFDEAD;">
 
 				<p id="search-tag-album" style="display: none">Critério: álbum</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-busca-album"  placeholder="Digite um item para buscar..." style="display: none; background: #00ceec;">
-
+				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-busca-album"  placeholder="Digite um item para buscar..." style="display: none; background: #FFE4E1;">
+			
+				
 				<p id="search-tag">Pesquisar álbum</p>
 				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-album"  placeholder="Digite um album para buscar...">
 
@@ -68,11 +105,9 @@
 			<div class="playlist-buttons-container">
 				<input type="text" th:name="nome-da-playlist" class="textbox-criaPlaylist" placeholder="Digite o nome da playlist" />
 			</div>
-
 			<div class="playlist-buttons-container">
 				<input class="botao2" id="create-playlist-button" type="submit" value="+ Criar nova playlist" />
 			</div>
-
 		</form>
 		<div class="section-container">
 			<h2 class="title-h2">Resultados de busca</h2>
@@ -635,6 +670,8 @@
 
 			let contadorDeCliquesArtista = 0;
 			let contadorDeCliquesAlbum = 0;
+			let contadorDeCliquesFiltro = 0;
+			
 			function displayCritérioArtista(idDoBotao, idDaBarraDeBusca, idDoTituloDaBarra, tipo){
 
 				let botaoParametroDeBusca = document.getElementById(idDoBotao);
@@ -643,20 +680,24 @@
 
 				contadorDeCliquesArtista += tipo == "artista" ? 1 : 0;
 				contadorDeCliquesAlbum += tipo == "album" ? 1 : 0;
-				let contadorDeCliques = tipo == "artista" ? contadorDeCliquesArtista : contadorDeCliquesAlbum
-
+				contadorDeCliquesFiltro += tipo == "filtro" ? 1 : 0;
+				
+				let contadorDeCliques = tipo == "artista" ? contadorDeCliquesArtista : contadorDeCliquesAlbum;
+				
 				if(contadorDeCliques % 2 == 0){ // unclick
 					botaoParametroDeBusca.style.backgroundColor = "#FFFFFF";
 					botaoParametroDeBusca.style.color = "rgba(0, 0, 0, 0.87)";
-					barraDeBusca.style.display = "none";
 					tituloDeBusca.style.display = "none";
+					if(tipo != "filtro"){barraDeBusca.style.display = "none";}
+					
 				}
 				else{ // click
-					botaoParametroDeBusca.style.backgroundColor = "#00C4B4";
-					botaoParametroDeBusca.style.color = "#FFFFFF";
-					barraDeBusca.style.display = "flex";
-					tituloDeBusca.style.display = "flex";
 					botaoParametroDeBusca.style.backgroundColor = "red";
+					botaoParametroDeBusca.style.color = "#FFFFFF";
+					tituloDeBusca.style.display = "flex";
+					if(tipo == "album"){barraDeBusca.style.display = "flex";}
+					else if(tipo != "filtro"){barraDeBusca.style.display = "flex";}
+					
 				}
 			}
 

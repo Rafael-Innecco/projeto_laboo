@@ -531,6 +531,30 @@ td {
   	padding: 10px;
 							 }
 
+ .flex-container-filtro {
+ 	width: 90vw;
+  	display: grid;
+	grid-auto-flow: column;
+   
+					   }
+					  
+ .flex-container-filtro > div {
+ 	text-align: center;
+ 	background-color: #000080;
+  	box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  	border-radius: 8px;
+  	width: 192px;
+  	margin: 30px;
+  	padding: 10px;
+							 }
+
+ .compasso_visual {
+ 	background-color: DodgerBlue;
+ 	font-family: 'Open Sans';
+   	font-style: normal;
+ 	color: white;
+ }
 .empty {
 	width: 192px;
 }
+
