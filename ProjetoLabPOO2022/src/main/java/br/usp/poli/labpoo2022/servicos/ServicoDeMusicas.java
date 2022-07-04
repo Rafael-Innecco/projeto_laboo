@@ -77,7 +77,7 @@ public class ServicoDeMusicas extends ServicoBase{
 		try {
 		      final AudioAnalysis analiseDaMusica = requisicaoDeAnaliseDeAudio.execute();
 
-		      System.out.println("Sucesso na requisicao: " + analiseDaMusica.getTrack().toString());
+		      System.out.println("Sucesso na requisicao: " + analiseDaMusica.getTrack().getMode());
 		      
 		      return analiseDaMusica;
 		    } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -95,7 +95,7 @@ public class ServicoDeMusicas extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			
-				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getKey() != tonalidade;
+				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getKey().compareTo(tonalidade) != 0;
 				
     		} catch (ServerException e) {
 				System.out.println("Falha na filtragem por tom: " + e.getMessage());
@@ -104,7 +104,7 @@ public class ServicoDeMusicas extends ServicoBase{
     		return true;
     	});
     	
-		return musicasFiltradas.toArray(musicas);
+    	return musicasFiltradas.toArray(new Track[musicasFiltradas.size()]);	
 	}
 	
 	public Track[] filtraMusicasPorModo(Track[] musicas, Modality modo) throws ServerException
@@ -126,7 +126,7 @@ public class ServicoDeMusicas extends ServicoBase{
     		return true;
     	});
 		
-    	return musicasFiltradas.toArray(musicas);	
+    	return musicasFiltradas.toArray(new Track[musicasFiltradas.size()]);	
 	}
 	
 	public Track[] filtraMusicasPorCompasso(Track[] musicas, Integer formulaDeCompasso) throws ServerException
@@ -139,7 +139,8 @@ public class ServicoDeMusicas extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			
-				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getTimeSignature() != formulaDeCompasso;
+				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getTimeSignature().compareTo(formulaDeCompasso) != 0;
+				
 				
     		} catch (ServerException e) {
 				System.out.println("Falha na filtragem por fórmula de compasso: " + e.getMessage());
@@ -148,6 +149,6 @@ public class ServicoDeMusicas extends ServicoBase{
     		return true;
     	});
 		
-    	return musicasFiltradas.toArray(musicas);
+    	return musicasFiltradas.toArray(new Track [musicasFiltradas.size()]);
 	}
 }

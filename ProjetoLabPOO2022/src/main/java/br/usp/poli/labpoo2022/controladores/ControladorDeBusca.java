@@ -167,7 +167,7 @@ public class ControladorDeBusca{
 			while(resultadoDaBusca.size() < this.maximoPossivelDeMusicasBuscadas)
 			{
 				
-				resultadoDaBusca.addAll(Arrays.asList(servicoDeBusca.buscaMusicaPorFiltro(nomeBuscado, tonalidade, Modality.keyOf((modo != null ? modo.intValue() : 0)), formulaDeCompasso, resultadoDaBusca.size())));
+				resultadoDaBusca.addAll(Arrays.asList(servicoDeBusca.buscaMusicaPorFiltro(nomeBuscado, tonalidade, (modo != null ? Modality.keyOf(modo.intValue()) : null), formulaDeCompasso, resultadoDaBusca.size())));
 			}
 
 			return new ResponseEntity<>(resultadoDaBusca.toArray(new Track[resultadoDaBusca.size()]), HttpStatus.CREATED);
