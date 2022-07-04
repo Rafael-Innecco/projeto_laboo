@@ -61,15 +61,18 @@
 
 	   <!-- cria Playslist -->
 		<form th:action="@{/menu/cria-playlist}">
-			<div>
+			<div class="playlist-buttons-container"> 
 				<h2 class="title-h2" id="nova-playlist-title">Nova Playlist</h2>
-				<p class="text-p" id="nova-playlist-text">Digite o nome da sua playlist</p>
+			</div>
+			
+			<div class="playlist-buttons-container">
+				<input type="text" th:name="nome-da-playlist" class="textbox-criaPlaylist" placeholder="Digite o nome da playlist" />
 			</div>
 
-			<input type="text" th:name="nome-da-playlist" class="textbox-criaPlaylist" placeholder="Digite o nome da playlist">
 			<div class="playlist-buttons-container">
 				<input class="botao2" id="create-playlist-button" type="submit" value="+ Criar nova playlist" />
 			</div>
+
 		</form>
 		<div class="section-container">
 			<h2 class="title-h2">Resultados de busca</h2>
