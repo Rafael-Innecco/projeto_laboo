@@ -41,7 +41,7 @@ public class ControladorDeBusca{
 	/**
 	 * A API do spotify retorna no máximo 50 músicas a cada busca
 	 */
-	private final int maximoPossivelDeMusicasBuscadas = 50;
+	private final int maximoPossivelDeMusicasBuscadas = 5;
 
 	/**
 	 * Método que requisita a busca por uma música a partir de uma string (Preferencialmente o nome da música) para o serviço responsável
