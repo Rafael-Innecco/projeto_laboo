@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"br.usp.poli.comp.labpoo2022"},{"l":"br.usp.poli.labpoo2022"},{"l":"br.usp.poli.labpoo2022.controladores"},{"l":"br.usp.poli.labpoo2022.credenciais"},{"l":"br.usp.poli.labpoo2022.servicos"}]
