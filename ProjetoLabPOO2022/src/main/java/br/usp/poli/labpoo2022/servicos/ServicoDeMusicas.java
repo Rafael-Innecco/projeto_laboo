@@ -116,8 +116,8 @@ public class ServicoDeMusicas extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			
-				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getMode() != modo;
+    			if(musica != null)
+    				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getMode() != modo;
 				
     		} catch (ServerException e) {
 				System.out.println("Falha na filtragem por modo: " + e.getMessage());
