@@ -78,8 +78,8 @@ public class ControladorDePlaylist{
 	/**
 	 * Requisita a adição de itens à playlist selecionada para o serviço relevante
 	 * 
-	 * @param playlistSelecionada Playlist selecionada pelo usuário.
-	 * @param uris URIs das músicas selecionadas
+	 * @param idDaplaylistSelecionada Playlist selecionada pelo usuário.
+	 * @param uri URIs das músicas selecionadas
 	 */
 	@GetMapping("/adiciona-itens")
 	public ResponseEntity<Boolean> adicionaItensEmPlaylist (
@@ -120,7 +120,7 @@ public class ControladorDePlaylist{
 	/**
 	 * Requisita a lista dos itens de uma playlist qualquer para o serviço responsável
 	 * 
-	 * @param idDaPlaylist ID da playlist cujos itens serão listados.
+	 * @param idDaPlaylistSelecionada ID da playlist cujos itens serão listados.
 	 * @return Array de músicas de playlists
 	 */
 	@GetMapping("/lista-itens-de-playlist")

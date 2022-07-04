@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.usp.poli.labpoo2022.servicos.ServicoDeMusicas;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
 
+/**
+ * 
+ * Controla as funcionalidades relacionadas ao tratamento de músicas
+ *
+ */
 @RestController
 @Scope("singleton")
 @RequestMapping("/menu")

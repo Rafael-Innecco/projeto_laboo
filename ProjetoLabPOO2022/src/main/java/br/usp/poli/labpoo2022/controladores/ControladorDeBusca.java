@@ -21,6 +21,7 @@ import se.michaelthelin.spotify.enums.Modality;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 /**
@@ -176,5 +177,19 @@ public class ControladorDeBusca{
 			System.out.println("Erro na busca");
 			throw e;
 		}		
+	}
+	
+	@RequestMapping("/busca-musica-em-playlists-por-filtro")
+	public ResponseEntity<PlaylistTrack[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-busca", required = true) String nomeBuscado,
+			@RequestParam(value = "bitmask", required = true) int bitmask,
+			@RequestParam(value = "valores-de-filtragem", required = true) String valoresDeFiltragem) throws ServerException
+	{
+		try {
+			return new ResponseEntity<>(servicoDeBusca.buscaMusicaEmPlaylistsPorFiltro(nomeBuscado, bitmask, valoresDeFiltragem), HttpStatus.CREATED);
+		} catch (ServerException e)
+		{
+			System.out.println("Erro na busca por músicas em playlists por filtro");
+			throw e;
+		}
 	}
 }

@@ -2,6 +2,10 @@ package br.usp.poli.labpoo2022.servicos;
 
 import java.io.IOException;
 import java.rmi.ServerException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -14,6 +18,7 @@ import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.search.SearchItemRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchAlbumsRequest;
@@ -31,6 +36,9 @@ public class ServicoDeBusca extends ServicoBase {
 	
 	@Autowired
 	private ServicoDeMusicas servicoDeMusicas;
+	
+	@Autowired
+	private ServicoDePlaylist servicoDePlaylist;
 	
 	/**
 	 * Método que acessa a api do spotify e busca por uma música
@@ -169,5 +177,48 @@ public class ServicoDeBusca extends ServicoBase {
 		
 		return resultadoFiltrado;
 	
+	}
+	/**
+	 * Dançável, energia, andamento, força, fala, instrumental, ao vivo, acústica,
+	 * @param nomeBuscado
+	 * @return
+	 * @throws ServerException 
+	 */
+	public PlaylistTrack[] buscaMusicaEmPlaylistsPorFiltro(String nomeBuscado, int bitmask, String valoresDeFiltragem) throws ServerException
+	{
+		List<PlaylistTrack> listaDeMusicasNasPlaylists = new ArrayList<>();
+		
+		for(PlaylistSimplified playlist : servicoDePlaylist.listaPlaylists())
+			listaDeMusicasNasPlaylists.addAll(Arrays.asList(servicoDePlaylist.listaItensDePlaylist(playlist.getId())));
+		
+		PlaylistTrack[] musicas = listaDeMusicasNasPlaylists.toArray(new PlaylistTrack[0]);
+		String[] maximosEMinimos = valoresDeFiltragem.split(",");
+		int index = 0;
+		
+		if((bitmask & 1) != 0)
+			musicas = servicoDePlaylist.filtraMusicasPorAcustiscidade(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		
+		if((bitmask & (1<<1)) != 0)
+			musicas = servicoDePlaylist.filtraMusicasPorAoVivo(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		
+		if((bitmask & (1<<2)) != 0)
+			musicas = servicoDePlaylist.filtraMusicasPorInstrumental(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		
+		if((bitmask & (1<<3)) != 0)
+			musicas = servicoDePlaylist.filtraMusicasPorFala(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		
+		if((bitmask & (1<<4)) != 0)
+			musicas = servicoDePlaylist.filtraMusicasPorForca(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		
+		if((bitmask & (1<<5)) != 0)
+			musicas = servicoDePlaylist.filtraMusicasPorAndamento(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		
+		if((bitmask & (1<<6)) != 0)
+			musicas = servicoDePlaylist.filtraMusicasPorEnergia(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		
+		if((bitmask & (1<<7)) != 0)
+			musicas = servicoDePlaylist.filtraMusicasPorDancavel(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		
+		return musicas;
 	}
 }
