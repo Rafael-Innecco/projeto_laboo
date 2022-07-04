@@ -150,4 +150,61 @@ public class ServicoDeMusicas extends ServicoBase{
 		
     	return musicasFiltradas.toArray(musicas);
 	}
+	
+	public Track[] filtraMusicasPorAcustiscidade(Track[] musicas, float minimoAcustico, float maximoAcustico) throws ServerException
+	{		
+		List<Track> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float acustiscidade = this.requisitaCaracteristicasDeMusica(musica.getId()).getAcousticness();
+				return  acustiscidade >= minimoAcustico && acustiscidade <= maximoAcustico;
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por acustiscidade: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
+	}
+	
+	public Track[] filtraMusicasPorAoVivo(Track[] musicas, float minimoAoVivo, float maximoAoVivo) throws ServerException
+	{		
+		List<Track> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float aoVivo = this.requisitaCaracteristicasDeMusica(musica.getId()).getLiveness();
+				return  aoVivo >= minimoAoVivo && aoVivo <= maximoAoVivo;
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por porcentagem de 'Ao vivo': " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
+	}
+	
+	public Track[] filtraMusicasPorAoVivo(Track[] musicas, float minimoAoVivo, float maximoAoVivo) throws ServerException
+	{		
+		List<Track> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float aoVivo = this.requisitaCaracteristicasDeMusica(musica.getId()).getLiveness();
+				return  aoVivo >= minimoAoVivo && aoVivo <= maximoAoVivo;
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por porcentagem de 'Ao vivo': " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
+	}
 }
