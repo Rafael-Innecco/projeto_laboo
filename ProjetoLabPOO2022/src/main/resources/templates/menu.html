@@ -29,25 +29,69 @@
 			<form>
 				<p id="search-tag">Pesquisar música</p>
 				<input class="caixaBusca" type="text" id="nome-busca-input-musica" th:name="nome-busca-musica"  placeholder="Digite um item para buscar...">
+				
+				<!-- inicio do commit html-->
+				<!-- parametros -->
+				<div class="container-categorias-de-busca"  style="display: inline">
+					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-filtro" onclick="displayCritérioArtista('botao-param-de-busca-filtro', 'nome-busca-input-filtro', 'search-tag-filtro', 'filtro')">Filtro</button>
+				</div>
 				<div class="container-categorias-de-busca"  style="display: inline">
 					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-artista" onclick="displayCritérioArtista('botao-param-de-busca-artista', 'nome-busca-input-artista', 'search-tag-artista', 'artista')">Artista</button>
 				</div>
 				<div class="container-categorias-de-busca"  style="display: inline">
-					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-album" onclick="displayCritérioArtista('botao-param-de-busca-album', 'nome-busca-input-album', 'search-tag-album', 'album')">Album</button>
+					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-album" onclick="displayCritérioArtista('botao-param-de-busca-album', 'nome-busca-input-album', 'search-tag-album', 'album')">Álbum</button>
 				</div>
 
+				<div id="search-tag-filtro" style="display: none">
+					<div class="flex-container-filtro">
+						<div>
+							<p> Modo </p> 
+							<label class="switch">
+								<input type="radio" id="Maior" name="modo" th:name="modo" value="1">
+								<label for="Maior">Maior</label>
+
+								<input type="radio" id="Menor" name="modo" th:name="modo" value="0">
+								<label for="Menor">Menor</label>
+							</label>
+						</div>
+						
+						<div>
+							<p> Compasso </p>
+							<select class="compasso_visual" th:name="formula-de-compasso">
+    							<option value="none" selected disabled hidden>Selecione uma opção</option>
+    							<option value="3">3/4</option>
+    							<option value="4">4/4</option>
+    							<option value="5">5/4</option>
+    							<option value="6">6/4</option>
+    							<option value="7">7/4</option>
+  							</select>
+  						</div>
+  						
+  						<div>
+  							<p> Tonalidade </p>
+  							<input type="range" value="-1" min="-1" max="11" th:name="tonalidade" oninput="this.nextElementSibling.value = this.value">
+							<output>-1</output>
+						</div>
+						
+					</div>
+				</div>
+  							
 				<p id="search-tag-artista" style="display: none">Critério: artista</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-artista" th:name="nome-busca-artista"  placeholder="Digite uma música para buscar..." style="display: none; background: #00ceec;">
+				<input class="caixaBusca" type="text" id="nome-busca-input-artista" th:name="nome-busca-artista"  placeholder="Digite um artista..." style="display: none; background: #fff;">
 
 				<p id="search-tag-album" style="display: none">Critério: álbum</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-busca-album"  placeholder="Digite um item para buscar..." style="display: none; background: #00ceec;">
-
-				<p id="search-tag">Pesquisar álbum</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-album"  placeholder="Digite um album para buscar...">
-
-				<p id="search-tag">Pesquisar playlist</p>
-				<input class="caixaBusca" type="text" id="nome-busca-input-playlist" th:name="nome-playlist"  placeholder="Digite uma playlist para buscar...">
-
+				<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-busca-album"  placeholder="Digite um álbum..." style="display: none; background: #fff;">
+			
+				<div id="pesquisar-album-container">
+					<p id="search-tag">Pesquisar álbum</p>
+					<input class="caixaBusca" type="text" id="nome-busca-input-album" th:name="nome-album"  placeholder="Digite um álbum para buscar...">
+				</div>
+				
+				<div id="pesquisar-playlist-container">
+					<p id="search-tag">Pesquisar playlist</p>
+					<input class="caixaBusca" type="text" id="nome-busca-input-playlist" th:name="nome-playlist"  placeholder="Digite uma playlist para buscar...">
+				</div>
+				
 				<input class="botao1 animated1" id="unico" type="submit" value="Buscar" style="display: block"/>
 			</form>
 		</div>
@@ -61,12 +105,13 @@
 
 	   <!-- cria Playslist -->
 		<form th:action="@{/menu/cria-playlist}">
-			<div>
+			<div class="playlist-buttons-container"> 
 				<h2 class="title-h2" id="nova-playlist-title">Nova Playlist</h2>
-				<p class="text-p" id="nova-playlist-text">Digite o nome da sua playlist</p>
 			</div>
-
-			<input type="text" th:name="nome-da-playlist" class="textbox-criaPlaylist" placeholder="Digite o nome da playlist">
+			
+			<div class="playlist-buttons-container">
+				<input type="text" th:name="nome-da-playlist" class="textbox-criaPlaylist" placeholder="Digite o nome da playlist" value="Nova playlist"/>
+			</div>
 			<div class="playlist-buttons-container">
 				<input class="botao2" id="create-playlist-button" type="submit" value="+ Criar nova playlist" />
 			</div>
@@ -148,7 +193,13 @@
 
 				let queryParamPlaylist = getQueryVariable("nome-playlist") == false ? '' : 'nome-playlist=' + getQueryVariable("nome-playlist");
 
-				console.log("Buscando...");
+				let queryParamTonalidade = getQueryVariable("tonalidade") == false ? '' : 'tonalidade=' + getQueryVariable("tonalidade");
+
+				let queryParamModo = getQueryVariable("modo") == false ? '' : 'modo=' + getQueryVariable("modo");
+
+				let queryParamCompasso = getQueryVariable("formula-de-compasso") == false ? '' : 'formula-de-compasso=' + getQueryVariable("formula-de-compasso");
+
+				// console.log("Buscando...");
 
 				if(queryParamMusica != '' || queryParamAlbumCriteria != '' || queryParamArtistaCriteria || '')
 					fetch('/menu/busca-musica-por-parametro?' + queryParamMusica + queryParamAlbumCriteria + queryParamArtistaCriteria)
@@ -184,6 +235,17 @@
 					.catch(function (err) {
 						console.log('error: ' + err);
 					});
+				else if (queryParamMusica != '' && (queryParamModo != '' || queryParamTonalidade != '' || queryParamCompasso != ''))
+					fetch('/menu/busca-musica-por-filtro?' + queryParamMusica + queryParamTonalidade + queryParamModo + queryParamCompasso)
+						.then(function (response) {
+							return response.json();
+						})
+						.then(function (data) {
+							appendData_busca(data, "resultadosDeBusca");
+						})
+						.catch(function (err) {
+							console.log('Erro na busca por filtros: ' + err);
+						});
 			}
 
 			function appendData_busca(data, elementId) {
@@ -210,10 +272,16 @@
 											<h4>${data[i].name}</h4>
 										<span>
 										<p>Caracteristicas: </p>
-										<p1>dançabilidade: ${dataDaMusica.danceability} || energia: ${dataDaMusica.energy}</p1>
-										<p1>duração: ${dataDaMusica.tempo} || força: ${dataDaMusica.loudness}</p1>
-										<p1>fala: ${dataDaMusica.speechiness} || instrumental: ${dataDaMusica.instrumentalness}</p1>
-										<p1>ao vivo: ${dataDaMusica.liveness} || acústica: ${dataDaMusica.acousticness}</p1>
+										<ul>
+											<li>Dançabilidade: ${dataDaMusica.danceability}</li>
+											<li>Energia: ${dataDaMusica.energy}</li>
+											<li>Duração: ${dataDaMusica.tempo}</li>
+											<li>Força: ${dataDaMusica.loudness}</li>
+											<li>Fala: ${dataDaMusica.speechiness}</li>
+											<li>Instrumental: ${dataDaMusica.instrumentalness}</li>
+											<li>Ao vivo: ${dataDaMusica.liveness}</li>
+											<li>Acústica: ${dataDaMusica.acousticness}</li>
+										</ul>
 									</div>
 									<button class="open-button" onclick="abreForm('${data[i].id}');listaPlaylists();">+ Adicionar a uma Playlist</button>
 								</div></br>`;
@@ -360,7 +428,7 @@
 							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
 							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
 							<th><button class="botao-sort" onclick="ordenador(10)">Ano</button></th>
-							<th><button class="botao-sort" onclick="ordenador(11)">Duração(seg)</button></th>
+							<th><button class="botao-sort" onclick="ordenador(11)">Duração (min)</button></th>
 							<th></th>
 							<th></th>
 							<th></th>
@@ -387,8 +455,8 @@
 											<td>${dataDaMusica.instrumentalness}</td>
 											<td>${dataDaMusica.liveness}</td>
 											<td>${dataDaMusica.acousticness}</td>
-											<td>${dataDasMusicasNaPlaylist[i].track.album.releaseDate}</td>
-											<td>${dataDasMusicasNaPlaylist[i].track.durationMs/1000}</td>
+											<td>${new Date(dataDasMusicasNaPlaylist[i].track.album.releaseDate).getFullYear()}</td>
+											<td>${converteFormatoDoTempo(dataDasMusicasNaPlaylist[i].track.durationMs)}</td>
 											<td><audio controls="controls"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><td>
 											<td><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button></td>
 										</tr>`;
@@ -428,7 +496,7 @@
 							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
 							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
 							<th><button class="botao-sort" onclick="ordenador(10)">Ano</button></th>
-							<th><button class="botao-sort" onclick="ordenador(11)">Duração(seg)</button></th>
+							<th><button class="botao-sort" onclick="ordenador(11)">Duração (min)</button></th>
 							<th></th>
 							<th></th>
 							<th></th>
@@ -456,10 +524,9 @@
 											<td>${dataDaMusica.instrumentalness}</td>
 											<td>${dataDaMusica.liveness}</td>
 											<td>${dataDaMusica.acousticness}</td>
-											<td>${dataDasMusicasNaPlaylist[i].track.album.releaseDate}</td>
-											<td>${dataDasMusicasNaPlaylist[i].track.durationMs/1000}</td>
-											<td><audio controls="controls"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><td>
-											<td><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button></td>
+											<td>${new Date(dataDasMusicasNaPlaylist[i].track.album.releaseDate).getFullYear()}</td>
+											<td>${converteFormatoDoTempo(dataDasMusicasNaPlaylist[i].track.durationMs)}</td>
+											<td><audio controls="controls"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><br><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button><td>
 											</tr>
 										</table>`;
 									mainContainer.innerHTML += card;
@@ -472,6 +539,17 @@
 					.catch(function (err) {
 						console.log("Erro ao listar playlist: " + err);
 					});
+			}
+
+			function converteFormatoDoTempo(milisegundos) {
+				let minutos = Math.floor(milisegundos / 60000);
+				let segundos = ((milisegundos % 60000) / 1000).toFixed(0);
+				
+				return (
+					segundos == 60 ?
+					(minutos+1) + ":00" :
+					minutos + ":" + (segundos < 10 ? "0" : "") + segundos
+				);
 			}
 
 			function listaItensDeAlbum(idDoAlbum) {
@@ -630,30 +708,67 @@
   					}
 				}
 
+			// Muda a cor e display dos botões conforme o número de cliques
 			let contadorDeCliquesArtista = 0;
 			let contadorDeCliquesAlbum = 0;
-			function displayCritérioArtista(idDoBotao, idDaBarraDeBusca, idDoTituloDaBarra, tipo){
+			let contadorDeCliquesFiltro = 0;
+			function displayCritérioArtista(idDoBotao, idDaBarraDeBusca, idDoTituloDaBarra, tipo) {
 
 				let botaoParametroDeBusca = document.getElementById(idDoBotao);
 				let barraDeBusca = document.getElementById(idDaBarraDeBusca);
 				let tituloDeBusca = document.getElementById(idDoTituloDaBarra);
 
+				// Soma 1 no contador, se clicado
 				contadorDeCliquesArtista += tipo == "artista" ? 1 : 0;
 				contadorDeCliquesAlbum += tipo == "album" ? 1 : 0;
-				let contadorDeCliques = tipo == "artista" ? contadorDeCliquesArtista : contadorDeCliquesAlbum
+				contadorDeCliquesFiltro += tipo == "filtro" ? 1 : 0;
+				
+				// let contadorDeCliques = tipo == "artista" ? contadorDeCliquesArtista : contadorDeCliquesAlbum;
+				let contadorDeCliques;
 
-				if(contadorDeCliques % 2 == 0){ // unclick
+				switch(tipo){
+					case "artista":
+						contadorDeCliques = contadorDeCliquesArtista;
+						break;
+					case "album":
+						contadorDeCliques = contadorDeCliquesAlbum;
+						break;
+					case "filtro":
+						contadorDeCliques = contadorDeCliquesFiltro;
+						break;
+				}
+				
+				if(contadorDeCliques % 2 == 0) { // unclick
 					botaoParametroDeBusca.style.backgroundColor = "#FFFFFF";
 					botaoParametroDeBusca.style.color = "rgba(0, 0, 0, 0.87)";
-					barraDeBusca.style.display = "none";
 					tituloDeBusca.style.display = "none";
+
+					// O tipo "filtro" não possui barra de busca
+					if(tipo != "filtro")
+						barraDeBusca.style.display = "none";
+
+					/* 
+						Como a busca por critérios precisa ocorrer somente com as músicas, podemos ocultar
+						a barra de busca por álbuns e playlists, para melhorar a experiência do usuário.
+					*/
+					document.getElementById("pesquisar-album-container").style.display = "block";
+					document.getElementById("pesquisar-playlist-container").style.display = "block";
+					
 				}
-				else{ // click
+				else { // click
 					botaoParametroDeBusca.style.backgroundColor = "#00C4B4";
 					botaoParametroDeBusca.style.color = "#FFFFFF";
-					barraDeBusca.style.display = "flex";
 					tituloDeBusca.style.display = "flex";
-					botaoParametroDeBusca.style.backgroundColor = "red";
+
+					if(tipo != "filtro")
+						barraDeBusca.style.display = "flex";
+					
+					/* 
+						Como a busca por critérios precisa ocorrer somente com as músicas, podemos ocultar
+						a barra de busca por álbuns e playlists, para melhorar a experiência do usuário.
+					*/
+					document.getElementById("pesquisar-album-container").style.display = "none";
+					document.getElementById("pesquisar-playlist-container").style.display = "none";
 				}
 			}
 

@@ -35,11 +35,12 @@ public class ServicoDeMusicas extends ServicoBase{
         final GetAudioFeaturesForTrackRequest requisicaoDeCaracteristicasDeMusica = servicoDeAutorizacao.getSpotifyApi()
             .getAudioFeaturesForTrack(idDaMusica)
             .build();
-
         try {
 			
             final AudioFeatures audioFeatures = requisicaoDeCaracteristicasDeMusica.execute();
-
+            
+            System.out.println("Características: modo = " + audioFeatures.getMode() + " tonalidade = " + audioFeatures.getKey() + " compasso = " + audioFeatures.getTimeSignature());
+            
             return audioFeatures;
 
 		} catch (ParseException | SpotifyWebApiException | IOException e) {
@@ -77,7 +78,7 @@ public class ServicoDeMusicas extends ServicoBase{
 		try {
 		      final AudioAnalysis analiseDaMusica = requisicaoDeAnaliseDeAudio.execute();
 
-		      System.out.println("Sucesso na requisicao: " + analiseDaMusica.getTrack().toString());
+		      System.out.println("Sucesso na requisicao: " + analiseDaMusica.getTrack().getMode());
 		      
 		      return analiseDaMusica;
 		    } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -95,16 +96,16 @@ public class ServicoDeMusicas extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			
-				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getKey() != tonalidade;
+				return this.requisitaCaracteristicasDeMusica(musica.getId()).getKey().compareTo(tonalidade) != 0;
 				
-    		} catch (ServerException e) {
+    		} catch (Exception e) {
 				System.out.println("Falha na filtragem por tom: " + e.getMessage());
     		}
     		
     		return true;
     	});
     	
-		return musicasFiltradas.toArray(musicas);
+    	return musicasFiltradas.toArray(new Track[musicasFiltradas.size()]);	
 	}
 	
 	public Track[] filtraMusicasPorModo(Track[] musicas, Modality modo) throws ServerException
@@ -116,17 +117,17 @@ public class ServicoDeMusicas extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			
-				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getMode() != modo;
+    			if(musica != null)
+    				return this.requisitaCaracteristicasDeMusica(musica.getId()).getMode() != modo;
 				
-    		} catch (ServerException e) {
+    		} catch (Exception e) {
 				System.out.println("Falha na filtragem por modo: " + e.getMessage());
     		}
     		
     		return true;
     	});
 		
-    	return musicasFiltradas.toArray(musicas);	
+    	return musicasFiltradas.toArray(new Track[musicasFiltradas.size()]);	
 	}
 	
 	public Track[] filtraMusicasPorCompasso(Track[] musicas, Integer formulaDeCompasso) throws ServerException
@@ -139,15 +140,17 @@ public class ServicoDeMusicas extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			
-				return this.requisitaAnaliseDeMusica(musica.getId()).getTrack().getTimeSignature() != formulaDeCompasso;
+				return this.requisitaCaracteristicasDeMusica(musica.getId()).getTimeSignature().compareTo(formulaDeCompasso) != 0;
 				
-    		} catch (ServerException e) {
+				
+    		} catch (Exception e) {
 				System.out.println("Falha na filtragem por fórmula de compasso: " + e.getMessage());
     		}
     		
     		return true;
     	});
 		
-    	return musicasFiltradas.toArray(musicas);
+    	return musicasFiltradas.toArray(new Track [musicasFiltradas.size()]);
 	}
+
 }
