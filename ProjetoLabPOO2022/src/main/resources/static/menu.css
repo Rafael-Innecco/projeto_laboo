@@ -31,6 +31,9 @@ body {
    padding: 0.4rem 0.8rem 0.4rem 0.8rem;
    border-radius: 1.6rem;
    cursor: pointer;
+
+   margin-top: 0.8rem;
+   margin-bottom: 0.8rem;
 }
 
 /* .botao-param-de-busca:focus {
@@ -262,7 +265,7 @@ form {
    flex-direction: row;
    justify-content: center;
    align-items: center;
-   padding: 2.4rem;
+   padding: 0.8rem;
    gap: 3.2rem;
    cursor: pointer;
    width: 100%;
@@ -274,7 +277,7 @@ form {
    justify-content: center;
    align-items: flex-start;
    padding: 1rem;
-   
+   margin-bottom: 0.4rem;
 
    height: 2.4rem;
    background: #1E2732;
@@ -379,7 +382,7 @@ select { background-color: red}
 /* Full-width input fields */
 .form-container input[type=text], .form-container input[type=password] {
   border: none;
-  background: #654040;
+  background: #654051;
 }
 
 /* When the inputs get focus, do something */
@@ -481,7 +484,7 @@ td {
   text-align: left;
   padding: 7px;
   font-size: 12px;
-  background-color: #transparent
+  background-color: transparent
 }
 
 .botao-sort{  
