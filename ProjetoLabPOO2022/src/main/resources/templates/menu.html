@@ -466,7 +466,7 @@
 							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
 							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
 							<th><button class="botao-sort" onclick="ordenador(10)">Ano</button></th>
-							<th><button class="botao-sort" onclick="ordenador(11)">Duração(seg)</button></th>
+							<th><button class="botao-sort" onclick="ordenador(11)">Duração (s)</button></th>
 							<th></th>
 							<th></th>
 							<th></th>
@@ -494,10 +494,9 @@
 											<td>${dataDaMusica.instrumentalness}</td>
 											<td>${dataDaMusica.liveness}</td>
 											<td>${dataDaMusica.acousticness}</td>
-											<td>${dataDasMusicasNaPlaylist[i].track.album.releaseDate}</td>
-											<td>${dataDasMusicasNaPlaylist[i].track.durationMs/1000}</td>
-											<td><audio controls="controls"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><td>
-											<td><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button></td>
+											<td>${new Date(dataDasMusicasNaPlaylist[i].track.album.releaseDate).getFullYear()}</td>
+											<td>${converteFormatoDoTempo(dataDasMusicasNaPlaylist[i].track.durationMs/1000)}</td>
+											<td><audio controls="controls"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><br><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button><td>
 											</tr>
 										</table>`;
 									mainContainer.innerHTML += card;
@@ -510,6 +509,17 @@
 					.catch(function (err) {
 						console.log("Erro ao listar playlist: " + err);
 					});
+			}
+
+			function converteFormatoDoTempo(milisegundos) {
+				let minutos = Math.floor(milisegundos / 60000);
+				let segundos = ((milisegundos % 60000) / 1000).toFixed(0);
+				
+				return (
+					segundos == 60 ?
+					(minutos+1) + ":00" :
+					minutos + ":" + (segundos < 10 ? "0" : "") + segundos
+				);
 			}
 
 			function listaItensDeAlbum(idDoAlbum) {
