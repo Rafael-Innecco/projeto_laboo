@@ -47,25 +47,29 @@
 						<div>
 							<p> Modo </p> 
 							<label class="switch">
-  								<input type="checkbox">Maior</input>
-  								<input type="checkbox">Menor</input>
+								<input type="radio" id="Maior" name="modo" th:name="modo" value="1">
+								<label for="Maior">Maior</label>
+
+								<input type="radio" id="Menor" name="modo" th:name="modo" value="0">
+								<label for="Menor">Menor</label>
 							</label>
 						</div>
 						
 						<div>
 							<p> Compasso </p>
-							<select class="compasso_visual">
+							<select class="compasso_visual" th:name="formula-de-compasso">
     							<option value="none" selected disabled hidden>Selecione uma opção</option>
-    							<option value="1">3/4</option>
-    							<option value="2">4/4</option>
-    							<option value="3">5/4</option>
-    							<option value="4">6/8</option>
+    							<option value="3">3/4</option>
+    							<option value="4">4/4</option>
+    							<option value="5">5/4</option>
+    							<option value="6">6/4</option>
+    							<option value="7">7/4</option>
   							</select>
   						</div>
   						
   						<div>
   							<p> Tonalidade </p>
-  							<input type="range" value="-1" min="-1" max="11" oninput="this.nextElementSibling.value = this.value">
+  							<input type="range" value="-1" min="-1" max="11" th:name="tonalidade" oninput="this.nextElementSibling.value = this.value">
 							<output>-1</output>
 						</div>
 						
@@ -189,7 +193,13 @@
 
 				let queryParamPlaylist = getQueryVariable("nome-playlist") == false ? '' : 'nome-playlist=' + getQueryVariable("nome-playlist");
 
-				console.log("Buscando...");
+				let queryParamTonalidade = getQueryVariable("tonalidade") == false ? '' : 'tonalidade=' + getQueryVariable("tonalidade");
+
+				let queryParamModo = getQueryVariable("modo") == false ? '' : 'modo=' + getQueryVariable("modo");
+
+				let queryParamCompasso = getQueryVariable("formula-de-compasso") == false ? '' : 'formula-de-compasso=' + getQueryVariable("formula-de-compasso");
+
+				// console.log("Buscando...");
 
 				if(queryParamMusica != '' || queryParamAlbumCriteria != '' || queryParamArtistaCriteria || '')
 					fetch('/menu/busca-musica-por-parametro?' + queryParamMusica + queryParamAlbumCriteria + queryParamArtistaCriteria)
@@ -225,6 +235,17 @@
 					.catch(function (err) {
 						console.log('error: ' + err);
 					});
+				else if (queryParamMusica != '' && (queryParamModo != '' || queryParamTonalidade != '' || queryParamCompasso != ''))
+					fetch('/menu/busca-musica-por-filtro?' + queryParamMusica + queryParamTonalidade + queryParamModo + queryParamCompasso)
+						.then(function (response) {
+							return response.json();
+						})
+						.then(function (data) {
+							appendData_busca(data, "resultadosDeBusca");
+						})
+						.catch(function (err) {
+							console.log('Erro na busca por filtros: ' + err);
+						});
 			}
 
 			function appendData_busca(data, elementId) {
