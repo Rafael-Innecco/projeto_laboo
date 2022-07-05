@@ -474,16 +474,16 @@ table {
 
 th {
   background-color: #000000;
-  font-size: 14px;
+  font-size: 9px;
   color: white;
-  text-align: left;
-  padding: 7px;
+  text-align: center;
+  padding: 5px;
 }
 
 td {
-  text-align: left;
-  padding: 7px;
-  font-size: 12px;
+  text-align: center;
+  padding: 5px;
+  font-size: 9px;
   background-color: transparent
 }
 
@@ -491,11 +491,11 @@ td {
   background-color: #000000;
   border: none;
   color: white;
-  padding: 2px 8px;
+  padding: 1px 8px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 12px;
   margin: 2px 1px;
   cursor: pointer;}
 
@@ -546,7 +546,7 @@ td {
  	background-color: #000080;
   	box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   	border-radius: 8px;
-  	width: 192px;
+  	width: 210px;
   	margin: 30px;
   	padding: 10px;
 							 }

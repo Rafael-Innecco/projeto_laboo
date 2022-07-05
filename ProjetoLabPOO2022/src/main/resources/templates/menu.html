@@ -30,7 +30,6 @@
 				<p id="search-tag">Pesquisar música</p>
 				<input class="caixaBusca" type="text" id="nome-busca-input-musica" th:name="nome-busca-musica"  placeholder="Digite um item para buscar...">
 				
-				<!-- inicio do commit html-->
 				<!-- parametros -->
 				<div class="container-categorias-de-busca"  style="display: inline">
 					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-filtro" onclick="displayCritérioArtista('botao-param-de-busca-filtro', 'nome-busca-input-filtro', 'search-tag-filtro', 'filtro')">Filtro</button>
@@ -101,9 +100,99 @@
 			<div id="lista-de-playlists" class="flex-container-geral wrapper"></div>
 			<div class="empty"></div>
 		</div>
-
+		
+		<!-- Busca dentro das Playlists -->
+		<form>
+			<div class="playlist-buttons-container">
+				<h2 class="title-h2" id="nova-playlist-title">Buscar dentro das suas Playlists</h2>
+			</div>
+			<div class="playlist-buttons-container">
+				<input type="text" class="textbox-criaPlaylist" placeholder="Pesquisar..." value="Pesquisar por..."/>
+			</div>
+			<div class="flex-container-filtro"><!-- quatro elementos -->
+				<div>
+  					<p>Dançável</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Energia</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Andamento</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="300" step="1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="300" step="1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Força</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="-60" max="0" step="1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="-60" max="0" step="1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+			</div>
+			<div class="flex-container-filtro">
+				<div><!--Implementar-->
+  					<p>Fala</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Instrumental</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Ao vivo</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Acústica</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+			</div>	
+			<br></br>
+			<div class="playlist-buttons-container">
+				<input class="botao2" id="create-playlist-button" type="submit" value="Buscar"/>
+			</div>
+		</form>
 
 	   <!-- cria Playslist -->
+	   
 		<form th:action="@{/menu/cria-playlist}">
 			<div class="playlist-buttons-container"> 
 				<h2 class="title-h2" id="nova-playlist-title">Nova Playlist</h2>
