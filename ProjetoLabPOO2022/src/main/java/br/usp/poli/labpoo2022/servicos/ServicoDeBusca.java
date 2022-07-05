@@ -182,7 +182,9 @@ public class ServicoDeBusca extends ServicoBase {
 		Modality mode = (modo == null ? null : Modality.keyOf(modo));
 		List<Track> resultadoFiltrado = new ArrayList<>();
 		
-		while (resultadoFiltrado.size() < maximoPossivelDeMusicasBuscadas) {
+		long tempoDeComeco = System.currentTimeMillis();
+		
+		while (resultadoFiltrado.size() < maximoPossivelDeMusicasBuscadas && (System.currentTimeMillis() - tempoDeComeco)*0.001 <= 15) {
 			resultadoIntermediario = this.buscaMusicaPadrao(nomeBuscado, n * 50);
 			
 			resultadoIntermediario = servicoDeMusicas.filtraMusicasPorTom(resultadoIntermediario, tonalidade);
