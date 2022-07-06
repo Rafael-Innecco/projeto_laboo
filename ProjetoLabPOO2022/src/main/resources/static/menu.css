@@ -495,7 +495,7 @@ td {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 12px;
+  font-size: 9px;
   margin: 2px 1px;
   cursor: pointer;}
 
@@ -561,3 +561,26 @@ td {
 	width: 192px;
 }
 
+audio{    
+    width: 200px;
+    height: 25px;
+    }
+    
+   .flex-container-resultado {
+ 	width: 90vw;
+	overflow-x: scroll;
+    overflow-y: hidden;
+  	display: grid;
+	grid-auto-flow: column;
+    grid-template-columns: auto;
+
+					   }
+
+ .flex-container-resultado > div {
+ 	background-color: #4169E1;
+  	box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  	border-radius: 10px;
+  	width: 200px;
+  	margin: 30px;
+  	padding: 30px;
+							 }
