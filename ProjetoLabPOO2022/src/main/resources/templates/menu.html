@@ -589,7 +589,6 @@
 							<th><button class="botao-sort" onclick="ordenador_tempo(11)">Duração (min)</button></th>
 							<th></th>
 							<th></th>
-							<th></th>
 						</tr>`;
 
 						for (let i=0; i < dataDasMusicasNaPlaylist.length; i++){
@@ -616,7 +615,7 @@
 											<td>${dataDaMusica.acousticness}</td>
 											<td>${new Date(dataDasMusicasNaPlaylist[i].track.album.releaseDate).getFullYear()}</td>
 											<td>${converteFormatoDoTempo(dataDasMusicasNaPlaylist[i].track.durationMs)}</td>
-											<td><audio controls="controls" class="size_audio"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><br><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button><td>
+											<td><audio controls="controls" class="size_audio"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><br><td>
 											</tr>
 										</table>`;
 									mainContainer.innerHTML += card;
