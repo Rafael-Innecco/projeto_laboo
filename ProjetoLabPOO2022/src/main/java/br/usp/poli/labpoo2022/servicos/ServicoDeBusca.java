@@ -185,7 +185,7 @@ public class ServicoDeBusca extends ServicoBase {
 		long tempoDeComeco = System.currentTimeMillis();
 		
 		while (resultadoFiltrado.size() < maximoPossivelDeMusicasBuscadas && (System.currentTimeMillis() - tempoDeComeco)*0.001 <= 15) {
-			resultadoIntermediario = this.buscaMusicaPadrao(nomeBuscado, n * 50);
+			resultadoIntermediario = this.buscaMusicaPadrao(nomeBuscado, n * 25);
 			
 			resultadoIntermediario = servicoDeMusicas.filtraMusicasPorTom(resultadoIntermediario, tonalidade);
 			resultadoIntermediario = servicoDeMusicas.filtraMusicasPorCompasso(resultadoIntermediario, formulaDeCompasso);
@@ -210,9 +210,26 @@ public class ServicoDeBusca extends ServicoBase {
 	public PlaylistTrack[] buscaMusicaEmPlaylistsPorFiltro(String nomeBuscado, int bitmask, String valoresDeFiltragem) throws ServerException
 	{
 		List<PlaylistTrack> listaDeMusicasNasPlaylists = new ArrayList<>();
+		List<Track> listaDeMusicasBuscadas = new ArrayList<>();
+
+		int i;
+		
+		for (i = 1; i <= 5; i++) {
+			Track[] musicasBuscadas = buscaMusicaPadrao(nomeBuscado, i * 25);
+			
+			for (Track musica : musicasBuscadas)
+				listaDeMusicasBuscadas.add(musica);
+		}
 		
 		for(PlaylistSimplified playlist : servicoDePlaylist.listaPlaylists())
 			listaDeMusicasNasPlaylists.addAll(Arrays.asList(servicoDePlaylist.listaItensDePlaylist(playlist.getId())));
+		
+		listaDeMusicasNasPlaylists.removeIf(musica -> {
+			for (Track musicaEncontrada : listaDeMusicasBuscadas)
+				if (musicaEncontrada.getId() == musica.getTrack().getId())
+					return false;
+			return true;
+		});
 		
 		PlaylistTrack[] musicas = listaDeMusicasNasPlaylists.toArray(new PlaylistTrack[0]);
 		String[] maximosEMinimos = valoresDeFiltragem.split(",");
