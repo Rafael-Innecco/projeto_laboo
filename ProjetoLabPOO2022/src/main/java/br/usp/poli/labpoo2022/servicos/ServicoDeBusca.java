@@ -210,28 +210,18 @@ public class ServicoDeBusca extends ServicoBase {
 	public PlaylistTrack[] buscaMusicaEmPlaylistsPorFiltro(String nomeBuscado, int bitmask, String valoresDeFiltragem) throws ServerException
 	{
 		List<PlaylistTrack> listaDeMusicasNasPlaylists = new ArrayList<>();
-		List<Track> listaDeMusicasBuscadas = new ArrayList<>();
 
-		int i;
-		
-		for (i = 1; i <= 5; i++) {
-			Track[] musicasBuscadas = buscaMusicaPadrao(nomeBuscado, i * 25);
-			
-			for (Track musica : musicasBuscadas)
-				listaDeMusicasBuscadas.add(musica);
-		}
-		
 		for(PlaylistSimplified playlist : servicoDePlaylist.listaPlaylists())
 			listaDeMusicasNasPlaylists.addAll(Arrays.asList(servicoDePlaylist.listaItensDePlaylist(playlist.getId())));
 		
-		listaDeMusicasNasPlaylists.removeIf(musica -> {
-			for (Track musicaEncontrada : listaDeMusicasBuscadas)
-				if (musicaEncontrada.getId() == musica.getTrack().getId())
-					return false;
-			return true;
-		});
+		if (nomeBuscado.length() != 0)
+			listaDeMusicasNasPlaylists.removeIf(musica -> {
+				return !(musica.getTrack().getName().toLowerCase().contains(nomeBuscado.toLowerCase()));
+			});
 		
-		PlaylistTrack[] musicas = listaDeMusicasNasPlaylists.toArray(new PlaylistTrack[0]);
+		System.out.println(listaDeMusicasNasPlaylists.size());
+		
+		PlaylistTrack[] musicas = listaDeMusicasNasPlaylists.toArray(new PlaylistTrack[listaDeMusicasNasPlaylists.size()]);
 		String[] maximosEMinimos = valoresDeFiltragem.split(",");
 		int index = 0;
 		

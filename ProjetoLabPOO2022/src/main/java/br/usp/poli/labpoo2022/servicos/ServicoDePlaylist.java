@@ -202,8 +202,8 @@ public class ServicoDePlaylist extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			float acustiscidade = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getAcousticness();
-				return  acustiscidade >= minimoAcustico && acustiscidade <= maximoAcustico;
+    			float acustiscidade = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getAcousticness();
+				return  !(acustiscidade >= minimoAcustico && acustiscidade <= maximoAcustico);
 				
     		} catch (Exception e) {
 				System.out.println("Falha na filtragem por acustiscidade: " + e.getMessage());
@@ -221,8 +221,8 @@ public class ServicoDePlaylist extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			float aoVivo = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getLiveness();
-				return  aoVivo >= minimoAoVivo && aoVivo <= maximoAoVivo;
+    			float aoVivo = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getLiveness();
+				return  !(aoVivo >= minimoAoVivo && aoVivo <= maximoAoVivo);
 				
     		} catch (Exception e) {
 				System.out.println("Falha na filtragem por porcentagem de 'Ao vivo': " + e.getMessage());
@@ -242,7 +242,7 @@ public class ServicoDePlaylist extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			float instrumental = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getInstrumentalness();
-				return  instrumental >= minimoInstrumental && instrumental <= maximoInstrumental;
+				return  !(instrumental >= minimoInstrumental && instrumental <= maximoInstrumental);
 				
     		} catch (Exception e) {
 				System.out.println("Falha na filtragem por porcentagem de instrumentalidade: " + e.getMessage());
@@ -261,7 +261,7 @@ public class ServicoDePlaylist extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			float fala = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getSpeechiness();
-				return  fala >= minimoFala && fala <= maximoFala;
+				return  !(fala >= minimoFala && fala <= maximoFala);
 				
     		} catch (Exception e) {
 				System.out.println("Falha na filtragem por porcentagem de nível de fala: " + e.getMessage());
@@ -280,7 +280,7 @@ public class ServicoDePlaylist extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			float forca = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getLoudness();
-				return  forca >= minimoForca && forca <= maximoForca;
+				return  !(forca >= minimoForca && forca <= maximoForca);
 				
     		} catch (Exception e) {
 				System.out.println("Falha na filtragem por porcentagem de força: " + e.getMessage());
@@ -298,8 +298,8 @@ public class ServicoDePlaylist extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			float andamento = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getTempo();
-				return  andamento >= minimoAndamento && andamento <= maximoAndamento;
+    			float andamento = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getTempo();
+				return  !(andamento >= minimoAndamento && andamento <= maximoAndamento);
 				
     		} catch (Exception e) {
 				System.out.println("Falha na filtragem por porcentagem de andamento: " + e.getMessage());
@@ -317,8 +317,8 @@ public class ServicoDePlaylist extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			float energia = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getEnergy();
-				return  energia >= minimoEnergia && energia <= maximoEnergia;
+    			float energia = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getEnergy();
+				return !(energia >= minimoEnergia && energia <= maximoEnergia);
 				
     		} catch (Exception e) {
 				System.out.println("Falha na filtragem por porcentagem de energia: " + e.getMessage());
@@ -337,7 +337,7 @@ public class ServicoDePlaylist extends ServicoBase{
     	musicasFiltradas.removeIf(musica -> {
     		try {
     			float dancavel = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getDanceability();
-				return  dancavel >= minimoDancavel && dancavel <= maximoDancavel;
+				return  !(dancavel >= minimoDancavel && dancavel <= maximoDancavel);
 				
     		} catch (Exception e) {
 				System.out.println("Falha na filtragem por porcentagem de dançável: " + e.getMessage());

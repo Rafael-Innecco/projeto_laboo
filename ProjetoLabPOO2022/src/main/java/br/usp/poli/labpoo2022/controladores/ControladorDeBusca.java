@@ -168,7 +168,7 @@ public class ControladorDeBusca{
 	}
 	
 	@RequestMapping("/busca-musica-em-playlists-por-filtro")
-	public ResponseEntity<PlaylistTrack[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-busca", required = true) String nomeBuscado,
+	public ResponseEntity<PlaylistTrack[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-busca", required = false, defaultValue="") String nomeBuscado,
 			@RequestParam(value = "bitmask", required = true) int bitmask,
 			@RequestParam(value = "valores-de-filtragem", required = true) String valoresDeFiltragem) throws ServerException
 	{
