@@ -107,81 +107,81 @@
 				<h2 class="title-h2" id="nova-playlist-title">Buscar dentro das suas Playlists</h2>
 			</div>
 			<div class="playlist-buttons-container">
-				<input type="text" class="textbox-criaPlaylist" placeholder="Pesquisar..." value="Pesquisar por..."/>
+				<input type="text" class="textbox-criaPlaylist" placeholder="Pesquisar..." th:name="stringBusca" value="Pesquisar por..."/>
 			</div>
-			<div class="flex-container-filtro"><!-- quatro elementos -->
+			<div class="flex-container-filtro">
 				<div>
   					<p>Dançável</p>
   					<p2>Min</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="DancavelMin" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 					<p2>Max</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="DancavelMax" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 				</div>
 				<div>
   					<p>Energia</p>
   					<p2>Min</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="EnergiaMin" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 					<p2>Max</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="EnergiaMax" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 				</div>
 				<div>
   					<p>Andamento</p>
   					<p2>Min</p2>
-  					<input type="range" value="0" min="0" max="300" step="1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="300" step="1" th:name="AndamentoMin" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 					<p2>Max</p2>
-  					<input type="range" value="0" min="0" max="300" step="1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="300" step="1" th:name="AndamentoMax" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 				</div>
 				<div>
   					<p>Força</p>
   					<p2>Min</p2>
-  					<input type="range" value="0" min="-60" max="0" step="1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="-60" max="0" step="1" th:name="ForcaMin" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 					<p2>Max</p2>
-  					<input type="range" value="0" min="-60" max="0" step="1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="-60" max="0" step="1" th:name="ForcaMax" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 				</div>
 			</div>
 			<div class="flex-container-filtro">
-				<div><!--Implementar-->
+				<div>
   					<p>Fala</p>
   					<p2>Min</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="FalaMin" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 					<p2>Max</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="FalaMax" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 				</div>
 				<div>
   					<p>Instrumental</p>
   					<p2>Min</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="InstrumentalMin" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 					<p2>Max</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="InstrumentalMax" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 				</div>
 				<div>
   					<p>Ao vivo</p>
   					<p2>Min</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="AoVivoMin" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 					<p2>Max</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="AoVivoMax" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 				</div>
 				<div>
   					<p>Acústica</p>
   					<p2>Min</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="AcusticaMin" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 					<p2>Max</p2>
-  					<input type="range" value="0" min="0" max="1" step="0.1" oninput="this.nextElementSibling.value = this.value">
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="AcusticaMax" oninput="this.nextElementSibling.value = this.value">
 					<output>0</output>
 				</div>
 			</div>	
@@ -209,8 +209,8 @@
 			<h2 class="title-h2">Resultados de busca</h2>
 			<p class="text-p">Clique em uma música para ver detalhes ou adicionar a uma playlist.</p>
 
-			<div id="resultadosDeBusca">
-			</div>
+			<div id="resultadosDeBusca" class="flex-container-resultado wrapper"></div>
+
 		</div>
 
 		<div class="section-container">
@@ -417,6 +417,7 @@
 				}
 			}
 
+
 			function abreForm(uriDaMusica) {
 				document.getElementById("popupAdicionarMusica").style.display = "block";
 				scrolldiv("popupAdicionarMusica")
@@ -506,18 +507,18 @@
 
 						mainContainer.innerHTML =
 						`<tr>
-							<th><button class="botao-sort" onclick="ordenador_alfabetico(0)">Nome</button></th>
-							<th><button class="botao-sort" onclick="ordenador_alfabetico(1)">Artista</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(2)">Dançável</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(3)">Energia</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(4)">Andamento</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(5)">Força</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(6)">Fala</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(7)">Instrumental</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(8)">Ao Vivo</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(9)">Acústica</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(10)">Ano</button></th>
-							<th><button class="botao-sort" onclick="ordenador_alfabetico(11)">Duração (min)</button></th>
+							<th><button class="botao-sort" onclick="ordenador(0)">Nome</button></th>
+							<th><button class="botao-sort" onclick="ordenador(1)">Artista</button></th>
+							<th><button class="botao-sort" onclick="ordenador(2)">Dançável</button></th>
+							<th><button class="botao-sort" onclick="ordenador(3)">Energia</button></th>
+							<th><button class="botao-sort" onclick="ordenador(4)">Andamento</button></th>
+							<th><button class="botao-sort" onclick="ordenador(5)">Força</button></th>
+							<th><button class="botao-sort" onclick="ordenador(6)">Fala</button></th>
+							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
+							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
+							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
+							<th><button class="botao-sort" onclick="ordenador(10)">Ano</button></th>
+							<th><button class="botao-sort" onclick="ordenador(11)">Duração (min)</button></th>
 							<th></th>
 							<th></th>
 							<th></th>
@@ -574,18 +575,18 @@
 
 						mainContainer.innerHTML =
 						`<tr>
-							<th><button class="botao-sort" onclick="ordenador_alfabetico(0)">Nome</button></th>
-							<th><button class="botao-sort" onclick="ordenador_alfabetico(1)">Artista</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(2)">Dançável</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(3)">Energia</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(4)">Andamento</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(5)">Força</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(6)">Fala</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(7)">Instrumental</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(8)">Ao Vivo</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(9)">Acústica</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(10)">Ano</button></th>
-							<th><button class="botao-sort" onclick="ordenador_alfabetico(11)">Duração (min)</button></th>
+							<th><button class="botao-sort" onclick="ordenador(0)">Nome</button></th>
+							<th><button class="botao-sort" onclick="ordenador(1)">Artista</button></th>
+							<th><button class="botao-sort" onclick="ordenador(2)">Dançável</button></th>
+							<th><button class="botao-sort" onclick="ordenador(3)">Energia</button></th>
+							<th><button class="botao-sort" onclick="ordenador(4)">Andamento</button></th>
+							<th><button class="botao-sort" onclick="ordenador(5)">Força</button></th>
+							<th><button class="botao-sort" onclick="ordenador(6)">Fala</button></th>
+							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
+							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
+							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
+							<th><button class="botao-sort" onclick="ordenador(10)">Ano</button></th>
+							<th><button class="botao-sort" onclick="ordenador(11)">Duração (min)</button></th>
 							<th></th>
 							<th></th>
 							<th></th>
@@ -615,7 +616,7 @@
 											<td>${dataDaMusica.acousticness}</td>
 											<td>${new Date(dataDasMusicasNaPlaylist[i].track.album.releaseDate).getFullYear()}</td>
 											<td>${converteFormatoDoTempo(dataDasMusicasNaPlaylist[i].track.durationMs)}</td>
-											<td><audio controls="controls"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><br><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button><td>
+											<td><audio controls="controls" class="size_audio"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><br><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button><td>
 											</tr>
 										</table>`;
 									mainContainer.innerHTML += card;
@@ -654,16 +655,16 @@
 
 						mainContainer.innerHTML =
 						`<tr>
-							<th><button class="botao-sort" onclick="ordenador_alfabetico(0)">Nome</button></th>
-							<th><button class="botao-sort" onclick="ordenador_alfabetico(1)">Artista</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(2)">Dançável</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(3)">Energia</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(4)">Andamento</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(5)">Força</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(6)">Fala</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(7)">Instrumental</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(8)">Ao Vivo</button></th>
-							<th><button class="botao-sort" onclick="ordenador_numerico(9)">Acústica</button></th>
+							<th><button class="botao-sort" onclick="ordenador(0)">Nome</button></th>
+							<th><button class="botao-sort" onclick="ordenador(1)">Artista</button></th>
+							<th><button class="botao-sort" onclick="ordenador(2)">Dançável</button></th>
+							<th><button class="botao-sort" onclick="ordenador(3)">Energia</button></th>
+							<th><button class="botao-sort" onclick="ordenador(4)">Andamento</button></th>
+							<th><button class="botao-sort" onclick="ordenador(5)">Força</button></th>
+							<th><button class="botao-sort" onclick="ordenador(6)">Fala</button></th>
+							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
+							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
+							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
 							<th></th>
 						</tr>`;
 
@@ -747,7 +748,7 @@
 				elem.scrollIntoView();
 			}
 
-			function ordenador_alfabetico(n) {
+			function ordenador(n) {
   				var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   				table = document.getElementById("itens-de-playlist");
   				switching = true;
@@ -759,77 +760,44 @@
  					rows = table.rows;
 
     				for (i = 1; i < (rows.length - 1); i++) {
+
      					shouldSwitch = false;
       					x = rows[i].getElementsByTagName("TD")[n];
       					y = rows[i + 1].getElementsByTagName("TD")[n];
 
       					if (dir == "asc") {
         					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+
           						shouldSwitch= true;
           						break;
         					}
       					} else if (dir == "desc") {
         					if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+
           						shouldSwitch = true;
           						break;
         					}
       					}
     				}
+
     				if (shouldSwitch) {
+
       					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       					switching = true;
     					switchcount ++;
 
     				} else {
+
       					if (switchcount == 0 && dir == "asc") {
+
         					dir = "desc";
         					switching = true;
+
       						}
     					}
   					}
 				}
 
-				function ordenador_numerico(n) {
-				var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  				table = document.getElementById("itens-de-playlist");
-  				switching = true;
-  				dir = "asc";
-
-  				while (switching) {
-
-    				switching = false;
- 					rows = table.rows;
-
-    				for (i = 1; i < (rows.length - 1); i++) {
-     					shouldSwitch = false;
-      					x = rows[i].getElementsByTagName("TD")[n];
-      					y = rows[i + 1].getElementsByTagName("TD")[n];
-
-      					if (dir == "asc") {
-        					if (Number(x.innerHTML) > Number(y.innerHTML)) {
-          						shouldSwitch= true;
-          						break;
-        					}
-      					} else if (dir == "desc") {
-        					if (Number(x.innerHTML) < Number(y.innerHTML)) {
-          						shouldSwitch = true;
-          						break;
-        					}
-      					}
-    				}
-    				if (shouldSwitch) {
-      					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      					switching = true;
-    					switchcount ++;
-
-    				} else {
-      					if (switchcount == 0 && dir == "asc") {
-        					dir = "desc";
-        					switching = true;
-      						}
-    					}
-						}			
-				}
 			// Muda a cor e display dos botões conforme o número de cliques
 			let contadorDeCliquesArtista = 0;
 			let contadorDeCliquesAlbum = 0;
