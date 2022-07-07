@@ -69,23 +69,14 @@ public class ServicoDeMusicas extends ServicoBase{
     	}
     }
     
-    public AudioAnalysis requisitaAnaliseDeMusica(String id) throws ServerException
-	{
-		final GetAudioAnalysisForTrackRequest requisicaoDeAnaliseDeAudio = servicoDeAutorizacao.getSpotifyApi()
-			    .getAudioAnalysisForTrack(id)
-			    .build();
-		
-		try {
-		      final AudioAnalysis analiseDaMusica = requisicaoDeAnaliseDeAudio.execute();
-
-		      System.out.println("Sucesso na requisicao: " + analiseDaMusica.getTrack().getMode());
-		      
-		      return analiseDaMusica;
-		    } catch (IOException | SpotifyWebApiException | ParseException e) {
-		    	throw new ServerException(e.getMessage());
-		    }
-	}
     
+    /**
+     * Remove músicas que possuem tonalidades diferentes da especificada de uma array de Tracks
+     * @param musicas
+     * @param tonalidade
+     * @return
+     * @throws ServerException
+     */
     public Track[] filtraMusicasPorTom(Track[] musicas, Integer tonalidade) throws ServerException
 	{
     	if (tonalidade == null)
@@ -108,6 +99,13 @@ public class ServicoDeMusicas extends ServicoBase{
     	return musicasFiltradas.toArray(new Track[musicasFiltradas.size()]);	
 	}
 	
+    /**
+     * Remove músicas que possuem modo (major ou minor) diferente da especificada de uma array de Tracks
+     * @param musicas
+     * @param modo
+     * @return lsita filtrada
+     * @throws ServerException
+     */
 	public Track[] filtraMusicasPorModo(Track[] musicas, Modality modo) throws ServerException
 	{
 		if(modo == null)
@@ -130,6 +128,13 @@ public class ServicoDeMusicas extends ServicoBase{
     	return musicasFiltradas.toArray(new Track[musicasFiltradas.size()]);	
 	}
 	
+	/**
+	 * Remove músicas que possuem compassos diferentes da especificada de uma array de Tracks
+	 * @param musicas
+	 * @param formulaDeCompasso compasso desejado
+	 * @return lista filtrada
+	 * @throws ServerException
+	 */
 	public Track[] filtraMusicasPorCompasso(Track[] musicas, Integer formulaDeCompasso) throws ServerException
 	{
 		if(formulaDeCompasso == null)
