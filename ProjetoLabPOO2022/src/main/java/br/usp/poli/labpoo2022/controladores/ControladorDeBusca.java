@@ -147,7 +147,7 @@ public class ControladorDeBusca{
 	}
 	
 	@RequestMapping("/busca-musica-por-filtro")
-	public ResponseEntity<Track[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-busca", required = true) String nomeBuscado,
+	public ResponseEntity<Track[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-musica-criterio", required = true) String nomeBuscado,
 			@RequestParam(value = "tonalidade", required = false) Integer tonalidade,
 			@RequestParam(value = "modo", required = false) Integer modo,
 			@RequestParam(value = "formula-de-compasso", required = false) Integer formulaDeCompasso) throws ServerException
@@ -158,7 +158,7 @@ public class ControladorDeBusca{
 			resultadoDaBusca = servicoDeBusca.buscaMusicaPorFiltro(nomeBuscado, tonalidade, modo, formulaDeCompasso);
 			
 			System.out.println("Busca filtrada concluída!");
-			
+			System.out.println(resultadoDaBusca);
 			return new ResponseEntity<>(resultadoDaBusca, HttpStatus.CREATED);
 		} catch (ServerException e)
 		{
@@ -168,7 +168,7 @@ public class ControladorDeBusca{
 	}
 	
 	@RequestMapping("/busca-musica-em-playlists-por-filtro")
-	public ResponseEntity<PlaylistTrack[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-busca", required = true) String nomeBuscado,
+	public ResponseEntity<PlaylistTrack[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-musica-criterio", required = false, defaultValue="") String nomeBuscado,
 			@RequestParam(value = "bitmask", required = true) int bitmask,
 			@RequestParam(value = "valores-de-filtragem", required = true) String valoresDeFiltragem) throws ServerException
 	{

@@ -182,8 +182,11 @@ public class ServicoDeBusca extends ServicoBase {
 		Modality mode = (modo == null ? null : Modality.keyOf(modo));
 		List<Track> resultadoFiltrado = new ArrayList<>();
 		
-		while (resultadoFiltrado.size() < maximoPossivelDeMusicasBuscadas) {
-			resultadoIntermediario = this.buscaMusicaPadrao(nomeBuscado, n * 50);
+		long tempoDeComeco = System.currentTimeMillis();
+		
+		while (resultadoFiltrado.size() < maximoPossivelDeMusicasBuscadas && (System.currentTimeMillis() - tempoDeComeco)*0.001 <= 15) {
+			resultadoIntermediario = this.buscaMusicaPadrao(nomeBuscado, n * 25);
+			System.out.println("Antes: " + resultadoIntermediario.length);
 			
 			resultadoIntermediario = servicoDeMusicas.filtraMusicasPorTom(resultadoIntermediario, tonalidade);
 			resultadoIntermediario = servicoDeMusicas.filtraMusicasPorCompasso(resultadoIntermediario, formulaDeCompasso);
@@ -194,6 +197,9 @@ public class ServicoDeBusca extends ServicoBase {
 					resultadoFiltrado.add(musica);
 			
 			n += 1;
+			System.out.println("Depois: " + resultadoIntermediario.length);
+			System.out.println(nomeBuscado);
+			System.out.println(n);
 		}
 
 		return resultadoFiltrado.toArray(new Track[resultadoFiltrado.size()]);
@@ -208,11 +214,18 @@ public class ServicoDeBusca extends ServicoBase {
 	public PlaylistTrack[] buscaMusicaEmPlaylistsPorFiltro(String nomeBuscado, int bitmask, String valoresDeFiltragem) throws ServerException
 	{
 		List<PlaylistTrack> listaDeMusicasNasPlaylists = new ArrayList<>();
-		
+
 		for(PlaylistSimplified playlist : servicoDePlaylist.listaPlaylists())
 			listaDeMusicasNasPlaylists.addAll(Arrays.asList(servicoDePlaylist.listaItensDePlaylist(playlist.getId())));
 		
-		PlaylistTrack[] musicas = listaDeMusicasNasPlaylists.toArray(new PlaylistTrack[0]);
+		if (nomeBuscado.length() != 0)
+			listaDeMusicasNasPlaylists.removeIf(musica -> {
+				return !(musica.getTrack().getName().toLowerCase().contains(nomeBuscado.toLowerCase()));
+			});
+		
+		System.out.println(listaDeMusicasNasPlaylists.size());
+		
+		PlaylistTrack[] musicas = listaDeMusicasNasPlaylists.toArray(new PlaylistTrack[listaDeMusicasNasPlaylists.size()]);
 		String[] maximosEMinimos = valoresDeFiltragem.split(",");
 		int index = 0;
 		

@@ -30,7 +30,6 @@
 				<p id="search-tag">Pesquisar música</p>
 				<input class="caixaBusca" type="text" id="nome-busca-input-musica" th:name="nome-busca-musica"  placeholder="Digite um item para buscar...">
 				
-				<!-- inicio do commit html-->
 				<!-- parametros -->
 				<div class="container-categorias-de-busca"  style="display: inline">
 					<button type="button" class="botao-param-de-busca" id="botao-param-de-busca-filtro" onclick="displayCritérioArtista('botao-param-de-busca-filtro', 'nome-busca-input-filtro', 'search-tag-filtro', 'filtro')">Filtro</button>
@@ -101,9 +100,99 @@
 			<div id="lista-de-playlists" class="flex-container-geral wrapper"></div>
 			<div class="empty"></div>
 		</div>
-
+		
+		<!-- Busca dentro das Playlists -->
+		<form>
+			<div class="playlist-buttons-container">
+				<h2 class="title-h2" id="nova-playlist-title">Buscar dentro das suas Playlists</h2>
+			</div>
+			<div class="playlist-buttons-container">
+				<input type="text" class="textbox-criaPlaylist" placeholder="Pesquisar..." th:name="stringBusca" value="Pesquisar por..."/>
+			</div>
+			<div class="flex-container-filtro">
+				<div>
+  					<p>Dançável</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="DancavelMin" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="DancavelMax" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Energia</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="EnergiaMin" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="EnergiaMax" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Andamento</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="300" step="1" th:name="AndamentoMin" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="300" step="1" th:name="AndamentoMax" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Força</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="-60" max="0" step="1" th:name="ForcaMin" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="-60" max="0" step="1" th:name="ForcaMax" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+			</div>
+			<div class="flex-container-filtro">
+				<div>
+  					<p>Fala</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="FalaMin" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="FalaMax" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Instrumental</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="InstrumentalMin" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="InstrumentalMax" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Ao vivo</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="AoVivoMin" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="AoVivoMax" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+				<div>
+  					<p>Acústica</p>
+  					<p2>Min</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="AcusticaMin" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+					<p2>Max</p2>
+  					<input type="range" value="0" min="0" max="1" step="0.1" th:name="AcusticaMax" oninput="this.nextElementSibling.value = this.value">
+					<output>0</output>
+				</div>
+			</div>	
+			<br></br>
+			<div class="playlist-buttons-container">
+				<input class="botao2" id="create-playlist-button" type="submit" value="Buscar"/>
+			</div>
+		</form>
 
 	   <!-- cria Playslist -->
+	   
 		<form th:action="@{/menu/cria-playlist}">
 			<div class="playlist-buttons-container"> 
 				<h2 class="title-h2" id="nova-playlist-title">Nova Playlist</h2>
@@ -120,8 +209,8 @@
 			<h2 class="title-h2">Resultados de busca</h2>
 			<p class="text-p">Clique em uma música para ver detalhes ou adicionar a uma playlist.</p>
 
-			<div id="resultadosDeBusca">
-			</div>
+			<div id="resultadosDeBusca" class="flex-container-resultado wrapper"></div>
+
 		</div>
 
 		<div class="section-container">
@@ -183,25 +272,25 @@
 			function busca() {
 				// condition ? expressionIfTrue : expressionIfFalse;
 
-				let queryParamMusica = getQueryVariable("nome-busca-musica") == false ? '' : 'nome-musica-criterio=' + getQueryVariable("nome-busca-musica");
+				let queryParamMusica = getQueryVariable("nome-busca-musica") == '' ? '' : 'nome-musica-criterio=' + getQueryVariable("nome-busca-musica");
 
-				let queryParamAlbumCriteria = getQueryVariable("nome-busca-album") == false ? '' : '&nome-album-criterio=' + getQueryVariable("nome-busca-album");
+				let queryParamAlbumCriteria = getQueryVariable("nome-busca-album") == '' ? '' : '&nome-album-criterio=' + getQueryVariable("nome-busca-album");
 
-				let queryParamArtistaCriteria = getQueryVariable("nome-busca-artista") == false ? '' : '&nome-artista-criterio=' + getQueryVariable("nome-busca-artista");
+				let queryParamArtistaCriteria = getQueryVariable("nome-busca-artista") == '' ? '' : '&nome-artista-criterio=' + getQueryVariable("nome-busca-artista");
 
-				let queryParamAlbum = getQueryVariable("nome-album") == false ? '' : 'nome-album=' + getQueryVariable("nome-album");
+				let queryParamAlbum = getQueryVariable("nome-album") == '' ? '' : '&nome-album=' + getQueryVariable("nome-album");
 
-				let queryParamPlaylist = getQueryVariable("nome-playlist") == false ? '' : 'nome-playlist=' + getQueryVariable("nome-playlist");
+				let queryParamPlaylist = getQueryVariable("nome-playlist") == '' ? '' : '&nome-playlist=' + getQueryVariable("nome-playlist");
 
-				let queryParamTonalidade = getQueryVariable("tonalidade") == false ? '' : 'tonalidade=' + getQueryVariable("tonalidade");
+				let queryParamTonalidade = getQueryVariable("tonalidade") == '' ? '' : '&tonalidade=' + getQueryVariable("tonalidade");
 
-				let queryParamModo = getQueryVariable("modo") == false ? '' : 'modo=' + getQueryVariable("modo");
+				let queryParamModo = getQueryVariable("modo") == '' ? '' : '&modo=' + getQueryVariable("modo");
 
-				let queryParamCompasso = getQueryVariable("formula-de-compasso") == false ? '' : 'formula-de-compasso=' + getQueryVariable("formula-de-compasso");
+				let queryParamCompasso = getQueryVariable("formula-de-compasso") == '' ? '' : '&formula-de-compasso=' + getQueryVariable("formula-de-compasso");
 
-				// console.log("Buscando...");
+				console.log("Buscando...");
 
-				if(queryParamMusica != '' || queryParamAlbumCriteria != '' || queryParamArtistaCriteria || '')
+				if((queryParamMusica != '' || queryParamAlbumCriteria != '' || queryParamArtistaCriteria || '') && (queryParamModo == '' || queryParamTonalidade == '' || queryParamCompasso == ''))
 					fetch('/menu/busca-musica-por-parametro?' + queryParamMusica + queryParamAlbumCriteria + queryParamArtistaCriteria)
 						.then(function (response) {
 							return response.json();
@@ -253,47 +342,54 @@
 
 				// Esvazia o conteúdo inicial da div
 				mainContainer.innerHTML = "";
-
-				for (let i = 0; i < data.length; i++) {
-					console.log(data[i].id);
-					fetch('/menu/parametros-de-musica?id-da-musica=' + data[i].id)
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function(dataDaMusica){
-							console.log("Consegui pegar as características da música " + data[i].name + "!")
-							console.log(data[i]);
-
-							let div = `<br><div class="resultado">
-									<div class="container">
-										<span>
-											<img src=${data[i].album.images[0].url} class="playlist-img"></img>
-											<p>Artista ${data[i].artists[0].name}</p>
-											<h4>${data[i].name}</h4>
-										<span>
-										<p>Caracteristicas: </p>
-										<ul>
-											<li>Dançabilidade: ${dataDaMusica.danceability}</li>
-											<li>Energia: ${dataDaMusica.energy}</li>
-											<li>Duração: ${dataDaMusica.tempo}</li>
-											<li>Força: ${dataDaMusica.loudness}</li>
-											<li>Fala: ${dataDaMusica.speechiness}</li>
-											<li>Instrumental: ${dataDaMusica.instrumentalness}</li>
-											<li>Ao vivo: ${dataDaMusica.liveness}</li>
-											<li>Acústica: ${dataDaMusica.acousticness}</li>
-										</ul>
-									</div>
-									<button class="open-button" onclick="abreForm('${data[i].id}');listaPlaylists();">+ Adicionar a uma Playlist</button>
-								</div></br>`;
-							mainContainer.innerHTML += div;
-
-						})
-						.catch(function (err) {
-									console.log("Erro ao pegar características da música: " + err);
-						});
-
-					// console.log('Name: ' + data[i].name + ' ;');
-					// console.log('Id: ' + data[i].id + ' ;');
+				if (data.length != 0)
+				{
+					for (let i = 0; i < data.length; i++) {
+						console.log(data[i].id);
+						fetch('/menu/parametros-de-musica?id-da-musica=' + data[i].id)
+							.then(function (response) {
+								return response.json();
+							})
+							.then(function(dataDaMusica){
+								console.log("Consegui pegar as características da música " + data[i].name + "!")
+								console.log(data[i]);
+	
+								let div = `<br><div class="resultado">
+										<div class="container">
+											<span>
+												<img src=${data[i].album.images[0].url} class="playlist-img"></img>
+												<p>Artista ${data[i].artists[0].name}</p>
+												<h4>${data[i].name}</h4>
+											<span>
+											<p>Caracteristicas: </p>
+											<ul>
+												<li>Dançabilidade: ${dataDaMusica.danceability}</li>
+												<li>Energia: ${dataDaMusica.energy}</li>
+												<li>Duração: ${dataDaMusica.tempo}</li>
+												<li>Força: ${dataDaMusica.loudness}</li>
+												<li>Fala: ${dataDaMusica.speechiness}</li>
+												<li>Instrumental: ${dataDaMusica.instrumentalness}</li>
+												<li>Ao vivo: ${dataDaMusica.liveness}</li>
+												<li>Acústica: ${dataDaMusica.acousticness}</li>
+											</ul>
+										</div>
+										<button class="open-button" onclick="abreForm('${data[i].id}');listaPlaylists();">+ Adicionar a uma Playlist</button>
+									</div></br>`;
+								mainContainer.innerHTML += div;
+	
+							})
+							.catch(function (err) {
+										console.log("Erro ao pegar características da música: " + err);
+							});
+	
+						// console.log('Name: ' + data[i].name + ' ;');
+						// console.log('Id: ' + data[i].id + ' ;');
+					}
+				}
+				else
+				{
+					let card = `<h3>Nada por aqui, amigão! Nenhuma música encontrada para estes filtros.</h3>`;
+					mainContainer.innerHTML += card;
 				}
 			}
 
@@ -327,6 +423,7 @@
 					mainContainer.innerHTML += div;
 				}
 			}
+
 
 			function abreForm(uriDaMusica) {
 				document.getElementById("popupAdicionarMusica").style.display = "block";
@@ -417,18 +514,18 @@
 
 						mainContainer.innerHTML =
 						`<tr>
-							<th><button class="botao-sort" onclick="ordenador(0)">Nome</button></th>
-							<th><button class="botao-sort" onclick="ordenador(1)">Artista</button></th>
-							<th><button class="botao-sort" onclick="ordenador(2)">Dançável</button></th>
-							<th><button class="botao-sort" onclick="ordenador(3)">Energia</button></th>
-							<th><button class="botao-sort" onclick="ordenador(4)">Andamento</button></th>
-							<th><button class="botao-sort" onclick="ordenador(5)">Força</button></th>
-							<th><button class="botao-sort" onclick="ordenador(6)">Fala</button></th>
-							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
-							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
-							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
-							<th><button class="botao-sort" onclick="ordenador(10)">Ano</button></th>
-							<th><button class="botao-sort" onclick="ordenador(11)">Duração (min)</button></th>
+							<th><button class="botao-sort" onclick="ordenador_alfabetico(0)">Nome</button></th>
+							<th><button class="botao-sort" onclick="ordenador_alfabetico(1)">Artista</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(2)">Dançável</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(3)">Energia</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(4)">Andamento</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(5)">Força</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(6)">Fala</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(7)">Instrumental</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(8)">Ao Vivo</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(9)">Acústica</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(10)">Ano</button></th>
+							<th><button class="botao-sort" onclick="ordenador_tempo(11)">Duração (min)</button></th>
 							<th></th>
 							<th></th>
 							<th></th>
@@ -485,19 +582,18 @@
 
 						mainContainer.innerHTML =
 						`<tr>
-							<th><button class="botao-sort" onclick="ordenador(0)">Nome</button></th>
-							<th><button class="botao-sort" onclick="ordenador(1)">Artista</button></th>
-							<th><button class="botao-sort" onclick="ordenador(2)">Dançável</button></th>
-							<th><button class="botao-sort" onclick="ordenador(3)">Energia</button></th>
-							<th><button class="botao-sort" onclick="ordenador(4)">Andamento</button></th>
-							<th><button class="botao-sort" onclick="ordenador(5)">Força</button></th>
-							<th><button class="botao-sort" onclick="ordenador(6)">Fala</button></th>
-							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
-							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
-							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
-							<th><button class="botao-sort" onclick="ordenador(10)">Ano</button></th>
-							<th><button class="botao-sort" onclick="ordenador(11)">Duração (min)</button></th>
-							<th></th>
+							<th><button class="botao-sort" onclick="ordenador_alfabetico(0)">Nome</button></th>
+							<th><button class="botao-sort" onclick="ordenador_alfabetico(1)">Artista</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(2)">Dançável</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(3)">Energia</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(4)">Andamento</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(5)">Força</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(6)">Fala</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(7)">Instrumental</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(8)">Ao Vivo</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(9)">Acústica</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(10)">Ano</button></th>
+							<th><button class="botao-sort" onclick="ordenador_tempo(11)">Duração (min)</button></th>
 							<th></th>
 							<th></th>
 						</tr>`;
@@ -526,7 +622,7 @@
 											<td>${dataDaMusica.acousticness}</td>
 											<td>${new Date(dataDasMusicasNaPlaylist[i].track.album.releaseDate).getFullYear()}</td>
 											<td>${converteFormatoDoTempo(dataDasMusicasNaPlaylist[i].track.durationMs)}</td>
-											<td><audio controls="controls"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><br><button class="remove-button" onclick="removeMusica('${dataDasMusicasNaPlaylist[i].track.uri}', '${idDaPlaylist}', 'item-playlist-${i}')">Remover</button><td>
+											<td><audio controls="controls" class="size_audio"><source src=${dataDasMusicasNaPlaylist[i].track.previewUrl}/></audio><br><td>
 											</tr>
 										</table>`;
 									mainContainer.innerHTML += card;
@@ -565,16 +661,16 @@
 
 						mainContainer.innerHTML =
 						`<tr>
-							<th><button class="botao-sort" onclick="ordenador(0)">Nome</button></th>
-							<th><button class="botao-sort" onclick="ordenador(1)">Artista</button></th>
-							<th><button class="botao-sort" onclick="ordenador(2)">Dançável</button></th>
-							<th><button class="botao-sort" onclick="ordenador(3)">Energia</button></th>
-							<th><button class="botao-sort" onclick="ordenador(4)">Andamento</button></th>
-							<th><button class="botao-sort" onclick="ordenador(5)">Força</button></th>
-							<th><button class="botao-sort" onclick="ordenador(6)">Fala</button></th>
-							<th><button class="botao-sort" onclick="ordenador(7)">Instrumental</button></th>
-							<th><button class="botao-sort" onclick="ordenador(8)">Ao Vivo</button></th>
-							<th><button class="botao-sort" onclick="ordenador(9)">Acústica</button></th>
+							<th><button class="botao-sort" onclick="ordenador_alfabetico(0)">Nome</button></th>
+							<th><button class="botao-sort" onclick="ordenador_alfabetico(1)">Artista</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(2)">Dançável</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(3)">Energia</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(4)">Andamento</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(5)">Força</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(6)">Fala</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(7)">Instrumental</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(8)">Ao Vivo</button></th>
+							<th><button class="botao-sort" onclick="ordenador_numerico(9)">Acústica</button></th>
 							<th></th>
 						</tr>`;
 
@@ -658,7 +754,54 @@
 				elem.scrollIntoView();
 			}
 
-			function ordenador(n) {
+			function ordenador_alfabetico(n) {
+  				var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  				table = document.getElementById("itens-de-playlist");
+  				switching = true;
+  				dir = "asc";
+
+  				while (switching) {
+
+    				switching = false;
+ 						rows = table.rows;
+
+    				for (i = 1; i < (rows.length - 1); i++) {
+     					shouldSwitch = false;
+							x = rows[i].getElementsByTagName("TD")[n];
+							y = rows[i + 1].getElementsByTagName("TD")[n];
+
+      					if (dir == "asc") {
+
+        					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          						shouldSwitch= true;
+          						break;
+        					}
+      					} 
+								else if (dir == "desc") {
+
+        					if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          						shouldSwitch = true;
+          						break;
+        					}
+      					}
+    				}
+
+    				if (shouldSwitch) {
+      					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      					switching = true;
+    					switchcount ++;
+
+    				} else {
+      					if (switchcount == 0 && dir == "asc") {
+        					dir = "desc";
+        					switching = true;
+
+      						}
+    					}
+  					}
+				}
+				
+				function ordenador_numerico(n) {
   				var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   				table = document.getElementById("itens-de-playlist");
   				switching = true;
@@ -670,20 +813,20 @@
  					rows = table.rows;
 
     				for (i = 1; i < (rows.length - 1); i++) {
-
      					shouldSwitch = false;
-      					x = rows[i].getElementsByTagName("TD")[n];
-      					y = rows[i + 1].getElementsByTagName("TD")[n];
-
+							x = rows[i].getElementsByTagName("TD")[n];
+							y = rows[i + 1].getElementsByTagName("TD")[n];
+							console.log(x.innerHTML.length);
       					if (dir == "asc") {
-        					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
 
+        					if (Number(x.innerHTML) > Number(y.innerHTML)) {
           						shouldSwitch= true;
           						break;
         					}
-      					} else if (dir == "desc") {
-        					if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+      					} 
+						else if (dir == "desc") {
 
+        					if (Number(x.innerHTML) < Number(y.innerHTML)) {
           						shouldSwitch = true;
           						break;
         					}
@@ -691,15 +834,12 @@
     				}
 
     				if (shouldSwitch) {
-
       					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       					switching = true;
     					switchcount ++;
 
     				} else {
-
       					if (switchcount == 0 && dir == "asc") {
-
         					dir = "desc";
         					switching = true;
 
@@ -708,6 +848,62 @@
   					}
 				}
 
+				function ordenador_tempo(n) {
+  				var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  				table = document.getElementById("itens-de-playlist");
+  				switching = true;
+  				dir = "asc";
+
+  				while (switching) {
+
+    				switching = false;
+ 						rows = table.rows;
+
+    				for (i = 1; i < (rows.length - 1); i++) {
+     					shouldSwitch = false;
+							x = rows[i].getElementsByTagName("TD")[n];
+							y = rows[i + 1].getElementsByTagName("TD")[n];
+
+      					if (dir == "asc") {
+								/*	if( x.innerHTML.length > y.innerHTML.length ){
+										shouldSwitch= true;
+										break;	
+									}
+        					else */
+									if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+										shouldSwitch= true;
+										break;
+									}
+							 	}
+								
+								else if (dir == "desc") {
+								/*	if( x.innerHTML.length < y.innerHTML.length ){
+										shouldSwitch = true;
+          					break;
+									}
+        					else */
+									if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+										shouldSwitch = true;
+										break;
+									}
+      					}
+    				}
+
+    				if (shouldSwitch) {
+      					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      					switching = true;
+    					switchcount ++;
+
+    				} else {
+      					if (switchcount == 0 && dir == "asc") {
+        					dir = "desc";
+        					switching = true;
+
+      						}
+    					}
+  					}
+				}
+				
 			// Muda a cor e display dos botões conforme o número de cliques
 			let contadorDeCliquesArtista = 0;
 			let contadorDeCliquesAlbum = 0;
