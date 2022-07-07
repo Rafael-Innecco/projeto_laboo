@@ -196,6 +196,15 @@ public class ServicoDePlaylist extends ServicoBase{
 		}
 	}
 	
+	
+	/**
+	 * Itera pelas musicas de uma playlist e separa as que se encixam na especificação de acusticidade
+	 * @param musicas
+	 * @param minimoAcustico
+	 * @param maximoAcustico
+	 * @return Array com músicas que satisfazem as condições
+	 * @throws ServerException
+	 */
 	public PlaylistTrack[] filtraMusicasPorAcustiscidade(PlaylistTrack[] musicas, float minimoAcustico, float maximoAcustico) throws ServerException
 	{		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
@@ -215,6 +224,14 @@ public class ServicoDePlaylist extends ServicoBase{
     	return musicasFiltradas.toArray(musicas);
 	}
 	
+	/**
+	 * Itera pelas musicas de uma playlist e separa as que se encixam na especificação
+	 * @param musicas
+	 * @param minimoAoVivo
+	 * @param maximoAoVivo
+	 * @return Array com músicas que satisfazem as condições
+	 * @throws ServerException
+	 */
 	public PlaylistTrack[] filtraMusicasPorAoVivo(PlaylistTrack[] musicas, float minimoAoVivo, float maximoAoVivo) throws ServerException
 	{		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
@@ -234,7 +251,14 @@ public class ServicoDePlaylist extends ServicoBase{
     	return musicasFiltradas.toArray(musicas);
 	}
 	
-	
+	/**
+	 * Itera pelas musicas de uma playlist e separa as que se encixam na especificação de instrumentalidade
+	 * @param musicas
+	 * @param minimoInstrumental
+	 * @param maximoInstrumental
+	 * @return Array com músicas que satisfazem as condições
+	 * @throws ServerException
+	 */
 	public PlaylistTrack[] filtraMusicasPorInstrumental(PlaylistTrack[] musicas, float minimoInstrumental, float maximoInstrumental) throws ServerException
 	{		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
@@ -254,6 +278,14 @@ public class ServicoDePlaylist extends ServicoBase{
     	return musicasFiltradas.toArray(musicas);
 	}
 	
+	/**
+	 * Itera pelas musicas de uma playlist e separa as que se encixam na especificação do parâmetro "fala"
+	 * @param musicas
+	 * @param minimoFala
+	 * @param maximoFala
+	 * @return Array com músicas que satisfazem as condições
+	 * @throws ServerException
+	 */
 	public PlaylistTrack[] filtraMusicasPorFala(PlaylistTrack[] musicas, float minimoFala, float maximoFala) throws ServerException
 	{		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
@@ -273,6 +305,14 @@ public class ServicoDePlaylist extends ServicoBase{
     	return musicasFiltradas.toArray(musicas);
 	}
 	
+	/**
+	 * Itera pelas musicas de uma playlist e separa as que se encixam na especificação de força
+	 * @param musicas
+	 * @param minimoForca
+	 * @param maximoForca
+	 * @return Array com músicas que satisfazem as condições
+	 * @throws ServerException
+	 */
 	public PlaylistTrack[] filtraMusicasPorForca(PlaylistTrack[] musicas, float minimoForca, float maximoForca) throws ServerException
 	{		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
@@ -292,6 +332,14 @@ public class ServicoDePlaylist extends ServicoBase{
     	return musicasFiltradas.toArray(musicas);
 	}
 	
+	/**
+	 * Itera pelas musicas de uma playlist e separa as que se encixam na especificação de andamento
+	 * @param musicas
+	 * @param minimoAndamento
+	 * @param maximoAndamento
+	 * @return Array com músicas que satisfazem as condições
+	 * @throws ServerException
+	 */
 	public PlaylistTrack[] filtraMusicasPorAndamento(PlaylistTrack[] musicas, float minimoAndamento, float maximoAndamento) throws ServerException
 	{		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
@@ -311,6 +359,14 @@ public class ServicoDePlaylist extends ServicoBase{
     	return musicasFiltradas.toArray(musicas);
 	}
 	
+	/**
+	 * Itera pelas musicas de uma playlist e separa as que se encixam na especificação de energia
+	 * @param musicas
+	 * @param minimoEnergia
+	 * @param maximoEnergia
+	 * @return Array com músicas que satisfazem as condições
+	 * @throws ServerException
+	 */
 	public PlaylistTrack[] filtraMusicasPorEnergia(PlaylistTrack[] musicas, float minimoEnergia, float maximoEnergia) throws ServerException
 	{		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
@@ -330,6 +386,14 @@ public class ServicoDePlaylist extends ServicoBase{
     	return musicasFiltradas.toArray(musicas);
 	}
 	
+	/**
+	 * Itera pelas musicas de uma playlist e separa as que se encixam na especificação de dançabilidade
+	 * @param musicas
+	 * @param minimoDancavel
+	 * @param maximoDancavel
+	 * @return Array com músicas que satisfazem as condições
+	 * @throws ServerException
+	 */
 	public PlaylistTrack[] filtraMusicasPorDancavel(PlaylistTrack[] musicas, float minimoDancavel, float maximoDancavel) throws ServerException
 	{		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));

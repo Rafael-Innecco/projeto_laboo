@@ -146,6 +146,15 @@ public class ControladorDeBusca{
 		}
 	}
 	
+	/**
+	 * Método que faz a requisição da busca de músicas com filtros de tonalidade, modo e compasso
+	 * @param nomeBuscado
+	 * @param tonalidade
+	 * @param modo
+	 * @param formulaDeCompasso
+	 * @return
+	 * @throws ServerException
+	 */
 	@RequestMapping("/busca-musica-por-filtro")
 	public ResponseEntity<Track[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-musica-criterio", required = true) String nomeBuscado,
 			@RequestParam(value = "tonalidade", required = false) Integer tonalidade,
@@ -164,16 +173,23 @@ public class ControladorDeBusca{
 		{
 			System.out.println("Erro na busca");
 			throw e;
-		}		
+		}
 	}
 	
+	/**
+	 * Método que faz a requisição de busca por músicas que se encontram nas playlists do usuário e se encaixam nos parâmetros
+	 * @param nomeBuscado
+	 * @param bitmask
+	 * @param valoresDeFiltragem
+	 * @return
+	 * @throws ServerException
+	 */
 	@RequestMapping("/busca-musica-em-playlists-por-filtro")
 	public ResponseEntity<PlaylistTrack[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-musica-criterio", required = false, defaultValue="") String nomeBuscado,
-			@RequestParam(value = "bitmask", required = true) int bitmask,
 			@RequestParam(value = "valores-de-filtragem", required = true) String valoresDeFiltragem) throws ServerException
 	{
 		try {
-			return new ResponseEntity<>(servicoDeBusca.buscaMusicaEmPlaylistsPorFiltro(nomeBuscado, bitmask, valoresDeFiltragem), HttpStatus.CREATED);
+			return new ResponseEntity<>(servicoDeBusca.buscaMusicaEmPlaylistsPorFiltro(nomeBuscado, valoresDeFiltragem), HttpStatus.CREATED);
 		} catch (ServerException e)
 		{
 			System.out.println("Erro na busca por músicas em playlists por filtro");
