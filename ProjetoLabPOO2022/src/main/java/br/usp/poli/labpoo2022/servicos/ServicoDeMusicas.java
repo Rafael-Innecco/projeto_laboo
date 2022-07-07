@@ -1,13 +1,21 @@
 package br.usp.poli.labpoo2022.servicos;
 
 import java.io.IOException;
+import java.rmi.ServerException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import se.michaelthelin.spotify.enums.Modality;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
+import se.michaelthelin.spotify.model_objects.miscellaneous.AudioAnalysis;
 import se.michaelthelin.spotify.model_objects.specification.AudioFeatures;
+import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.requests.data.tracks.GetAudioAnalysisForTrackRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForSeveralTracksRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetAudioFeaturesForTrackRequest;
 
@@ -27,11 +35,12 @@ public class ServicoDeMusicas extends ServicoBase{
         final GetAudioFeaturesForTrackRequest requisicaoDeCaracteristicasDeMusica = servicoDeAutorizacao.getSpotifyApi()
             .getAudioFeaturesForTrack(idDaMusica)
             .build();
-
         try {
 			
             final AudioFeatures audioFeatures = requisicaoDeCaracteristicasDeMusica.execute();
-
+            
+            System.out.println("Características: modo = " + audioFeatures.getMode() + " tonalidade = " + audioFeatures.getKey() + " compasso = " + audioFeatures.getTimeSignature());
+            
             return audioFeatures;
 
 		} catch (ParseException | SpotifyWebApiException | IOException e) {
@@ -59,4 +68,89 @@ public class ServicoDeMusicas extends ServicoBase{
     		throw e;
     	}
     }
+    
+    public AudioAnalysis requisitaAnaliseDeMusica(String id) throws ServerException
+	{
+		final GetAudioAnalysisForTrackRequest requisicaoDeAnaliseDeAudio = servicoDeAutorizacao.getSpotifyApi()
+			    .getAudioAnalysisForTrack(id)
+			    .build();
+		
+		try {
+		      final AudioAnalysis analiseDaMusica = requisicaoDeAnaliseDeAudio.execute();
+
+		      System.out.println("Sucesso na requisicao: " + analiseDaMusica.getTrack().getMode());
+		      
+		      return analiseDaMusica;
+		    } catch (IOException | SpotifyWebApiException | ParseException e) {
+		    	throw new ServerException(e.getMessage());
+		    }
+	}
+    
+    public Track[] filtraMusicasPorTom(Track[] musicas, Integer tonalidade) throws ServerException
+	{
+    	if (tonalidade == null)
+    		return musicas;
+    	
+    	List<Track> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			
+				return this.requisitaCaracteristicasDeMusica(musica.getId()).getKey().compareTo(tonalidade) != 0;
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por tom: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+    	
+    	return musicasFiltradas.toArray(new Track[musicasFiltradas.size()]);	
+	}
+	
+	public Track[] filtraMusicasPorModo(Track[] musicas, Modality modo) throws ServerException
+	{
+		if(modo == null)
+			return musicas;
+		
+		List<Track> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			if(musica != null)
+    				return this.requisitaCaracteristicasDeMusica(musica.getId()).getMode() != modo;
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por modo: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(new Track[musicasFiltradas.size()]);	
+	}
+	
+	public Track[] filtraMusicasPorCompasso(Track[] musicas, Integer formulaDeCompasso) throws ServerException
+	{
+		if(formulaDeCompasso == null)
+			return musicas;
+		
+		List<Track> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			
+				return this.requisitaCaracteristicasDeMusica(musica.getId()).getTimeSignature().compareTo(formulaDeCompasso) != 0;
+				
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por fórmula de compasso: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(new Track [musicasFiltradas.size()]);
+	}
+
 }

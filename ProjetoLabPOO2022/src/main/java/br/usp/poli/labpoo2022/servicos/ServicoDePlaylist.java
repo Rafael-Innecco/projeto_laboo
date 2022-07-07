@@ -2,6 +2,9 @@ package br.usp.poli.labpoo2022.servicos;
 
 import java.io.IOException;
 import java.rmi.ServerException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,6 +40,9 @@ public class ServicoDePlaylist extends ServicoBase{
 	
 	@Autowired
 	private ServicoDoUsuarioAtual usuarioAtual;
+	
+	@Autowired
+	private ServicoDeMusicas servicoDeMusicas;
 	
 	/**
 	 * Cria uma playlist vazia.
@@ -94,7 +100,7 @@ public class ServicoDePlaylist extends ServicoBase{
 	/**
 	 * Adiciona música à playlist selecionada.
 	 * 
-	 * @param playlistSelecionada Playlist selecionada pelo usuário.
+	 * @param idDaplaylistSelecionada Playlist selecionada pelo usuário.
 	 * @param uri URI da música selecionada
 	 * @return booleano verdadeiro se o item foi adicionado com sucesso e falso, caso contrário
 	 * @throws ServerException
@@ -143,7 +149,7 @@ public class ServicoDePlaylist extends ServicoBase{
 	/**
 	 * Lista os itens de uma playlist do usuário atual.
 	 * 
-	 * @param idDaPlaylist ID da playlist cujos itens serão listados.
+	 * @param idDaPlaylistSelecionada ID da playlist cujos itens serão listados.
 	 * @return Array de músicas de playlists
 	 */
 	public PlaylistTrack[] listaItensDePlaylist(String idDaPlaylistSelecionada) throws ServerException
@@ -188,5 +194,158 @@ public class ServicoDePlaylist extends ServicoBase{
 		} catch (IOException | SpotifyWebApiException | ParseException e) {
 		  throw new ServerException(e.getMessage());
 		}
+	}
+	
+	public PlaylistTrack[] filtraMusicasPorAcustiscidade(PlaylistTrack[] musicas, float minimoAcustico, float maximoAcustico) throws ServerException
+	{		
+		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float acustiscidade = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getAcousticness();
+				return  !(acustiscidade >= minimoAcustico && acustiscidade <= maximoAcustico);
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por acustiscidade: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
+	}
+	
+	public PlaylistTrack[] filtraMusicasPorAoVivo(PlaylistTrack[] musicas, float minimoAoVivo, float maximoAoVivo) throws ServerException
+	{		
+		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float aoVivo = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getLiveness();
+				return  !(aoVivo >= minimoAoVivo && aoVivo <= maximoAoVivo);
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por porcentagem de 'Ao vivo': " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
+	}
+	
+	
+	public PlaylistTrack[] filtraMusicasPorInstrumental(PlaylistTrack[] musicas, float minimoInstrumental, float maximoInstrumental) throws ServerException
+	{		
+		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float instrumental = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getInstrumentalness();
+				return  !(instrumental >= minimoInstrumental && instrumental <= maximoInstrumental);
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por porcentagem de instrumentalidade: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
+	}
+	
+	public PlaylistTrack[] filtraMusicasPorFala(PlaylistTrack[] musicas, float minimoFala, float maximoFala) throws ServerException
+	{		
+		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float fala = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getSpeechiness();
+				return  !(fala >= minimoFala && fala <= maximoFala);
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por porcentagem de nível de fala: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
+	}
+	
+	public PlaylistTrack[] filtraMusicasPorForca(PlaylistTrack[] musicas, float minimoForca, float maximoForca) throws ServerException
+	{		
+		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float forca = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getLoudness();
+				return  !(forca >= minimoForca && forca <= maximoForca);
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por porcentagem de força: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
+	}
+	
+	public PlaylistTrack[] filtraMusicasPorAndamento(PlaylistTrack[] musicas, float minimoAndamento, float maximoAndamento) throws ServerException
+	{		
+		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float andamento = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getTempo();
+				return  !(andamento >= minimoAndamento && andamento <= maximoAndamento);
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por porcentagem de andamento: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
+	}
+	
+	public PlaylistTrack[] filtraMusicasPorEnergia(PlaylistTrack[] musicas, float minimoEnergia, float maximoEnergia) throws ServerException
+	{		
+		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float energia = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getEnergy();
+				return !(energia >= minimoEnergia && energia <= maximoEnergia);
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por porcentagem de energia: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
+	}
+	
+	public PlaylistTrack[] filtraMusicasPorDancavel(PlaylistTrack[] musicas, float minimoDancavel, float maximoDancavel) throws ServerException
+	{		
+		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
+    	
+    	musicasFiltradas.removeIf(musica -> {
+    		try {
+    			float dancavel = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getDanceability();
+				return  !(dancavel >= minimoDancavel && dancavel <= maximoDancavel);
+				
+    		} catch (Exception e) {
+				System.out.println("Falha na filtragem por porcentagem de dançável: " + e.getMessage());
+    		}
+    		
+    		return true;
+    	});
+		
+    	return musicasFiltradas.toArray(musicas);
 	}
 }

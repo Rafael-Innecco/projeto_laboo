@@ -31,6 +31,9 @@ body {
    padding: 0.4rem 0.8rem 0.4rem 0.8rem;
    border-radius: 1.6rem;
    cursor: pointer;
+
+   margin-top: 0.8rem;
+   margin-bottom: 0.8rem;
 }
 
 /* .botao-param-de-busca:focus {
@@ -262,7 +265,7 @@ form {
    flex-direction: row;
    justify-content: center;
    align-items: center;
-   padding: 2.4rem;
+   padding: 0.8rem;
    gap: 3.2rem;
    cursor: pointer;
    width: 100%;
@@ -274,7 +277,7 @@ form {
    justify-content: center;
    align-items: flex-start;
    padding: 1rem;
-   
+   margin-bottom: 0.4rem;
 
    height: 2.4rem;
    background: #1E2732;
@@ -379,7 +382,7 @@ select { background-color: red}
 /* Full-width input fields */
 .form-container input[type=text], .form-container input[type=password] {
   border: none;
-  background: #654040;
+  background: #654051;
 }
 
 /* When the inputs get focus, do something */
@@ -471,28 +474,28 @@ table {
 
 th {
   background-color: #000000;
-  font-size: 14px;
+  font-size: 9px;
   color: white;
-  text-align: left;
-  padding: 7px;
+  text-align: center;
+  padding: 5px;
 }
 
 td {
-  text-align: left;
-  padding: 7px;
-  font-size: 12px;
-  background-color: #transparent
+  text-align: center;
+  padding: 5px;
+  font-size: 9px;
+  background-color: transparent
 }
 
 .botao-sort{  
   background-color: #000000;
   border: none;
   color: white;
-  padding: 2px 8px;
+  padding: 1px 8px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 9px;
   margin: 2px 1px;
   cursor: pointer;}
 
@@ -531,6 +534,53 @@ td {
   	padding: 10px;
 							 }
 
+ .flex-container-filtro {
+ 	width: 90vw;
+  	display: grid;
+	grid-auto-flow: column;
+   
+					   }
+					  
+ .flex-container-filtro > div {
+ 	text-align: center;
+ 	background-color: #000080;
+  	box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  	border-radius: 8px;
+  	width: 210px;
+  	margin: 30px;
+  	padding: 10px;
+							 }
+
+ .compasso_visual {
+ 	background-color: DodgerBlue;
+ 	font-family: 'Open Sans';
+   	font-style: normal;
+ 	color: white;
+ }
 .empty {
 	width: 192px;
 }
+
+audio{    
+    width: 200px;
+    height: 25px;
+    }
+    
+   .flex-container-resultado {
+ 	width: 90vw;
+	overflow-x: scroll;
+    overflow-y: hidden;
+  	display: grid;
+	grid-auto-flow: column;
+    grid-template-columns: auto;
+
+					   }
+
+ .flex-container-resultado > div {
+ 	background-color: #4169E1;
+  	box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  	border-radius: 10px;
+  	width: 200px;
+  	margin: 30px;
+  	padding: 30px;
+							 }

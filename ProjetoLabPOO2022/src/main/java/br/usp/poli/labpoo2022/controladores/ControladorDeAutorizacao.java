@@ -29,7 +29,6 @@ public class ControladorDeAutorizacao {
 	/**
 	 * Cria pedido de permissão de acesso à funcionalidades da conta do usuário.
 	 * 
-	 * @return URI de redirecionamento do usuário.
 	 */
 	@GetMapping("login")
 	@ResponseBody

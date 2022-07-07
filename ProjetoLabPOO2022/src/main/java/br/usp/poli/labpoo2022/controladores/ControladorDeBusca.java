@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import se.michaelthelin.spotify.model_objects.specification.AlbumSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 
 /**
@@ -32,7 +33,7 @@ public class ControladorDeBusca{
 	
 	@Autowired
     private ServicoDeBusca servicoDeBusca;
-	
+
 	/**
 	 * Método que requisita a busca por uma música a partir de uma string (Preferencialmente o nome da música) para o serviço responsável
 	 * @param nomeBuscado parâmetro da busca
@@ -47,7 +48,7 @@ public class ControladorDeBusca{
 		try {
 			// O próximo bloco efetivamente executa a busca e manuseia o resultado para um formato de dados conveniente
 
-			return new ResponseEntity<>(servicoDeBusca.buscaMusicaPadrao(nomeBuscado), HttpStatus.CREATED);
+			return new ResponseEntity<>(servicoDeBusca.buscaMusicaPadrao(nomeBuscado, 0), HttpStatus.CREATED);
 		} 
 		catch (IOException e) {
 			System.out.println("Erro na busca por musica: " + e.getMessage());
@@ -141,7 +142,42 @@ public class ControladorDeBusca{
 		} catch (ServerException e)
 		{
 			System.out.println("Erro na busca");
-			throw new ServerException(e.getMessage());
+			throw e;
+		}
+	}
+	
+	@RequestMapping("/busca-musica-por-filtro")
+	public ResponseEntity<Track[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-musica-criterio", required = true) String nomeBuscado,
+			@RequestParam(value = "tonalidade", required = false) Integer tonalidade,
+			@RequestParam(value = "modo", required = false) Integer modo,
+			@RequestParam(value = "formula-de-compasso", required = false) Integer formulaDeCompasso) throws ServerException
+	{
+		Track[] resultadoDaBusca;
+
+		try {
+			resultadoDaBusca = servicoDeBusca.buscaMusicaPorFiltro(nomeBuscado, tonalidade, modo, formulaDeCompasso);
+			
+			System.out.println("Busca filtrada concluída!");
+			System.out.println(resultadoDaBusca);
+			return new ResponseEntity<>(resultadoDaBusca, HttpStatus.CREATED);
+		} catch (ServerException e)
+		{
+			System.out.println("Erro na busca");
+			throw e;
+		}		
+	}
+	
+	@RequestMapping("/busca-musica-em-playlists-por-filtro")
+	public ResponseEntity<PlaylistTrack[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-musica-criterio", required = false, defaultValue="") String nomeBuscado,
+			@RequestParam(value = "bitmask", required = true) int bitmask,
+			@RequestParam(value = "valores-de-filtragem", required = true) String valoresDeFiltragem) throws ServerException
+	{
+		try {
+			return new ResponseEntity<>(servicoDeBusca.buscaMusicaEmPlaylistsPorFiltro(nomeBuscado, bitmask, valoresDeFiltragem), HttpStatus.CREATED);
+		} catch (ServerException e)
+		{
+			System.out.println("Erro na busca por músicas em playlists por filtro");
+			throw e;
 		}
 	}
 }
