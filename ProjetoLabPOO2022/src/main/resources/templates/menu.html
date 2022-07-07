@@ -364,14 +364,17 @@
 			}
 			
 			function getQuerystring() {
-			    let output
+			    let output = "";
 			    if(window.location.search){
 			    var queryParams = window.location.search.substring(1);
 			    var listQueries = queryParams.split("&");
+			    let i = 0;
 			        for(var query in listQueries) {
 			        if (listQueries.hasOwnProperty(query)) {
 			            var queryPair = listQueries[query].split('=');
-			            output += decodeURIComponent(queryPair[1] + "," || "0,");
+			            if(i != 0)	
+			            	output += decodeURIComponent(queryPair[1] + "," || "0,");
+			        	i = i + 1;
 			        }
 			    }
 			    }
