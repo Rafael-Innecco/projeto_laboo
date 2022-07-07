@@ -179,7 +179,6 @@ public class ControladorDeBusca{
 	/**
 	 * Método que faz a requisição de busca por músicas que se encontram nas playlists do usuário e se encaixam nos parâmetros
 	 * @param nomeBuscado
-	 * @param bitmask
 	 * @param valoresDeFiltragem
 	 * @return
 	 * @throws ServerException

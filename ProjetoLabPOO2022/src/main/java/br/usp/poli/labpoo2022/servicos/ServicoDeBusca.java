@@ -238,15 +238,15 @@ public class ServicoDeBusca extends ServicoBase {
 		String[] maximosEMinimos = valoresDeFiltragem.split(",");
 		int index = 0;
 		
-		musicas = servicoDePlaylist.filtraMusicasPorAcustiscidade(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
-		musicas = servicoDePlaylist.filtraMusicasPorAoVivo(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
-		musicas = servicoDePlaylist.filtraMusicasPorInstrumental(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
-		musicas = servicoDePlaylist.filtraMusicasPorFala(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
-		musicas = servicoDePlaylist.filtraMusicasPorForca(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
-		musicas = servicoDePlaylist.filtraMusicasPorAndamento(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
-		musicas = servicoDePlaylist.filtraMusicasPorEnergia(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
 		musicas = servicoDePlaylist.filtraMusicasPorDancavel(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
-		
+		musicas = servicoDePlaylist.filtraMusicasPorEnergia(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		musicas = servicoDePlaylist.filtraMusicasPorAndamento(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		musicas = servicoDePlaylist.filtraMusicasPorForca(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		musicas = servicoDePlaylist.filtraMusicasPorFala(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		musicas = servicoDePlaylist.filtraMusicasPorInstrumental(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		musicas = servicoDePlaylist.filtraMusicasPorAoVivo(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+		musicas = servicoDePlaylist.filtraMusicasPorAcustiscidade(musicas, Float.valueOf(maximosEMinimos[index++]).floatValue(), Float.valueOf(maximosEMinimos[index++]).floatValue());
+				
 		return musicas;
 	}
 }

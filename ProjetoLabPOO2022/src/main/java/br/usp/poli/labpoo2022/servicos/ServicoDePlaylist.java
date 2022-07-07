@@ -265,7 +265,7 @@ public class ServicoDePlaylist extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			float instrumental = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getInstrumentalness();
+    			float instrumental = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getInstrumentalness();
 				return  !(instrumental >= minimoInstrumental && instrumental <= maximoInstrumental);
 				
     		} catch (Exception e) {
@@ -292,7 +292,7 @@ public class ServicoDePlaylist extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			float fala = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getSpeechiness();
+    			float fala = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getSpeechiness();
 				return  !(fala >= minimoFala && fala <= maximoFala);
 				
     		} catch (Exception e) {
@@ -319,7 +319,7 @@ public class ServicoDePlaylist extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			float forca = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getLoudness();
+    			float forca = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getLoudness();
 				return  !(forca >= minimoForca && forca <= maximoForca);
 				
     		} catch (Exception e) {
@@ -400,7 +400,7 @@ public class ServicoDePlaylist extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			float dancavel = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.builder().build().getTrack().getId()).getDanceability();
+    			float dancavel = servicoDeMusicas.requisitaCaracteristicasDeMusica(musica.getTrack().getId()).getDanceability();
 				return  !(dancavel >= minimoDancavel && dancavel <= maximoDancavel);
 				
     		} catch (Exception e) {
