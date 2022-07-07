@@ -186,6 +186,7 @@ public class ServicoDeBusca extends ServicoBase {
 		
 		while (resultadoFiltrado.size() < maximoPossivelDeMusicasBuscadas && (System.currentTimeMillis() - tempoDeComeco)*0.001 <= 15) {
 			resultadoIntermediario = this.buscaMusicaPadrao(nomeBuscado, n * 25);
+			System.out.println("Antes: " + resultadoIntermediario.length);
 			
 			resultadoIntermediario = servicoDeMusicas.filtraMusicasPorTom(resultadoIntermediario, tonalidade);
 			resultadoIntermediario = servicoDeMusicas.filtraMusicasPorCompasso(resultadoIntermediario, formulaDeCompasso);
@@ -196,6 +197,9 @@ public class ServicoDeBusca extends ServicoBase {
 					resultadoFiltrado.add(musica);
 			
 			n += 1;
+			System.out.println("Depois: " + resultadoIntermediario.length);
+			System.out.println(nomeBuscado);
+			System.out.println(n);
 		}
 
 		return resultadoFiltrado.toArray(new Track[resultadoFiltrado.size()]);
