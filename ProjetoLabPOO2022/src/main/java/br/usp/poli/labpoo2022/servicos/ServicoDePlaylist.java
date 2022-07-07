@@ -206,7 +206,10 @@ public class ServicoDePlaylist extends ServicoBase{
 	 * @throws ServerException
 	 */
 	public PlaylistTrack[] filtraMusicasPorAcustiscidade(PlaylistTrack[] musicas, float minimoAcustico, float maximoAcustico) throws ServerException
-	{		
+	{	
+		if(musicas == null)
+			return null;
+		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
     	
     	musicasFiltradas.removeIf(musica -> {
@@ -233,7 +236,10 @@ public class ServicoDePlaylist extends ServicoBase{
 	 * @throws ServerException
 	 */
 	public PlaylistTrack[] filtraMusicasPorAoVivo(PlaylistTrack[] musicas, float minimoAoVivo, float maximoAoVivo) throws ServerException
-	{		
+	{	
+		if(musicas == null)
+			return null;
+		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
     	
     	musicasFiltradas.removeIf(musica -> {
@@ -261,6 +267,9 @@ public class ServicoDePlaylist extends ServicoBase{
 	 */
 	public PlaylistTrack[] filtraMusicasPorInstrumental(PlaylistTrack[] musicas, float minimoInstrumental, float maximoInstrumental) throws ServerException
 	{		
+		if(musicas == null)
+			return null;
+		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
     	
     	musicasFiltradas.removeIf(musica -> {
@@ -288,6 +297,9 @@ public class ServicoDePlaylist extends ServicoBase{
 	 */
 	public PlaylistTrack[] filtraMusicasPorFala(PlaylistTrack[] musicas, float minimoFala, float maximoFala) throws ServerException
 	{		
+		if(musicas == null)
+			return null;
+		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
     	
     	musicasFiltradas.removeIf(musica -> {
@@ -315,6 +327,9 @@ public class ServicoDePlaylist extends ServicoBase{
 	 */
 	public PlaylistTrack[] filtraMusicasPorForca(PlaylistTrack[] musicas, float minimoForca, float maximoForca) throws ServerException
 	{		
+		if(musicas == null)
+			return null;
+		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
     	
     	musicasFiltradas.removeIf(musica -> {
@@ -342,6 +357,9 @@ public class ServicoDePlaylist extends ServicoBase{
 	 */
 	public PlaylistTrack[] filtraMusicasPorAndamento(PlaylistTrack[] musicas, float minimoAndamento, float maximoAndamento) throws ServerException
 	{		
+		if(musicas == null)
+			return null;
+		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
     	
     	musicasFiltradas.removeIf(musica -> {
@@ -369,6 +387,9 @@ public class ServicoDePlaylist extends ServicoBase{
 	 */
 	public PlaylistTrack[] filtraMusicasPorEnergia(PlaylistTrack[] musicas, float minimoEnergia, float maximoEnergia) throws ServerException
 	{		
+		if(musicas == null)
+			return null;
+		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
     	
     	musicasFiltradas.removeIf(musica -> {
@@ -396,6 +417,9 @@ public class ServicoDePlaylist extends ServicoBase{
 	 */
 	public PlaylistTrack[] filtraMusicasPorDancavel(PlaylistTrack[] musicas, float minimoDancavel, float maximoDancavel) throws ServerException
 	{		
+		if(musicas == null)
+			return null;
+		
 		List<PlaylistTrack> musicasFiltradas = new ArrayList<>(Arrays.asList(musicas));
     	
     	musicasFiltradas.removeIf(musica -> {

@@ -115,7 +115,7 @@ public class ServicoDeMusicas extends ServicoBase{
     	
     	musicasFiltradas.removeIf(musica -> {
     		try {
-    			if(musica != null)
+    			if(musica != null || musicas == null)
     				return this.requisitaCaracteristicasDeMusica(musica.getId()).getMode() != modo;
 				
     		} catch (Exception e) {
