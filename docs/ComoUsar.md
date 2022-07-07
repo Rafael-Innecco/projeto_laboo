@@ -3,6 +3,7 @@
 * Para começar, basta realizar um busca:
     * A caixa "Pesquisar música" permite a busca simples por uma música;
     * As opções "Artista" e "Álbum" podem ser selecionadas para disponibilizar caixas de busca especiais ("Critério: artista" e "Critério: álbum" respectivamente) que permitem a busca por músicas pertencentes a artistas e álbuns específicos;
+    * A opção "Filtro" abre um menu para que a busca realizadda seja filtrada por modo, compasso e tonalidade, basta preencher todos os campos e apertar o botão de busca. (IMPORTANTE: Algumas combinações de características musicais são mais raras que outras, e podem resultar em demora na resposta da busca, caso não sejam encontrados resultados em um tempo determinado pelo grupo, a busca será abortada);
     * A caixa "Pesquisar Álbum" permite a busca por um álbum;
     * A caixa "Pesquisar Playlist" permite a busca por playlists (Tanto públicas quanto pertencentes ao usuário);
 * Veja a lista dos resultados da sua busca logo abaixo;
@@ -11,6 +12,7 @@
 * Pronto! Essa track vai fazer parte da sua playlist agora;
 * Você pode conferir o conteúdo de uma playlist clicando em "Listar músicas", na playlist desejada;
 * Também é possível remover uma música da sua playlist clicando em "Listar músicas" e, depois, em "Remover";
+* Para realizar uma busca filtrada nas playlists pertencentes ao usuário, você deve configurar os máximos e mínimos dos parâmetros presentes e, caso queira, preencher a caixa de texto, depois, é só clicar no botão "Buscar" imediatamente abaixo;
 * Se quiser criar uma playlist, digite um nome para a playlist na seção "Nova Playlist", e clique no botão "criar";
 * Para deletar uma playlist completa, vá até o começo da página e aperte o botão "Remover" na playlist que deve ser removida.
 * Caso tenha feito uma busca por um álbum ou playlist, procure nos resultados da busca pelo que queria e clique em "Listar Músicas" para uma visão detalhada das músicas do conjunto selecionado;
