@@ -175,6 +175,15 @@ public class ServicoDeBusca extends ServicoBase {
 		}
 	}
 	
+	/**
+	 * Realiza uma busca por músicas que se encaixam nas especificações de tonalidade, modo e formulaDeCompasso
+	 * @param nomeBuscado
+	 * @param tonalidade
+	 * @param modo
+	 * @param formulaDeCompasso
+	 * @return
+	 * @throws ServerException
+	 */
 	public Track[] buscaMusicaPorFiltro(String nomeBuscado, Integer tonalidade, Integer modo, Integer formulaDeCompasso) throws ServerException
 	{
 		int n = 0;
@@ -206,8 +215,9 @@ public class ServicoDeBusca extends ServicoBase {
 	
 	}
 	/**
-	 * Dançável, energia, andamento, força, fala, instrumental, ao vivo, acústica,
+	 * Busca músicas que se encaixam nos filtros especificaddos nas playlists do usuário
 	 * @param nomeBuscado
+	 * @param valoresDeFiltragem
 	 * @return
 	 * @throws ServerException 
 	 */
