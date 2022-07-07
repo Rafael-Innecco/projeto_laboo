@@ -164,16 +164,15 @@ public class ControladorDeBusca{
 		{
 			System.out.println("Erro na busca");
 			throw e;
-		}		
+		}
 	}
 	
 	@RequestMapping("/busca-musica-em-playlists-por-filtro")
 	public ResponseEntity<PlaylistTrack[]> buscaMusicaPorFiltro(@RequestParam(value = "nome-musica-criterio", required = false, defaultValue="") String nomeBuscado,
-			@RequestParam(value = "bitmask", required = true) int bitmask,
 			@RequestParam(value = "valores-de-filtragem", required = true) String valoresDeFiltragem) throws ServerException
 	{
 		try {
-			return new ResponseEntity<>(servicoDeBusca.buscaMusicaEmPlaylistsPorFiltro(nomeBuscado, bitmask, valoresDeFiltragem), HttpStatus.CREATED);
+			return new ResponseEntity<>(servicoDeBusca.buscaMusicaEmPlaylistsPorFiltro(nomeBuscado, valoresDeFiltragem), HttpStatus.CREATED);
 		} catch (ServerException e)
 		{
 			System.out.println("Erro na busca por músicas em playlists por filtro");

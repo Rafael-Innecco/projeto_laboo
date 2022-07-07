@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="./menu.css">
 	</head>
 
-	<body onload="busca(); listaPlaylists('sim')">
+	<body onload="busca(); listaPlaylists('sim'); buscaEmPlaylist()">
 		<div class="nav-bar-container">
 			<h2 id="projeto-text">Projetão LabOO - 2022</h2>
 			<a href="http://localhost:8080/"><button class="logout-button">
@@ -272,21 +272,21 @@
 			function busca() {
 				// condition ? expressionIfTrue : expressionIfFalse;
 
-				let queryParamMusica = getQueryVariable("nome-busca-musica") == '' ? '' : 'nome-musica-criterio=' + getQueryVariable("nome-busca-musica");
+				let queryParamMusica = getQueryVariable("nome-busca-musica") == false ? '' : 'nome-musica-criterio=' + getQueryVariable("nome-busca-musica");
 
-				let queryParamAlbumCriteria = getQueryVariable("nome-busca-album") == '' ? '' : '&nome-album-criterio=' + getQueryVariable("nome-busca-album");
+				let queryParamAlbumCriteria = getQueryVariable("nome-busca-album") == false ? '' : '&nome-album-criterio=' + getQueryVariable("nome-busca-album");
 
-				let queryParamArtistaCriteria = getQueryVariable("nome-busca-artista") == '' ? '' : '&nome-artista-criterio=' + getQueryVariable("nome-busca-artista");
+				let queryParamArtistaCriteria = getQueryVariable("nome-busca-artista") == false ? '' : '&nome-artista-criterio=' + getQueryVariable("nome-busca-artista");
 
-				let queryParamAlbum = getQueryVariable("nome-album") == '' ? '' : '&nome-album=' + getQueryVariable("nome-album");
+				let queryParamAlbum = getQueryVariable("nome-album") == false ? '' : '&nome-album=' + getQueryVariable("nome-album");
 
-				let queryParamPlaylist = getQueryVariable("nome-playlist") == '' ? '' : '&nome-playlist=' + getQueryVariable("nome-playlist");
+				let queryParamPlaylist = getQueryVariable("nome-playlist") == false ? '' : '&nome-playlist=' + getQueryVariable("nome-playlist");
 
-				let queryParamTonalidade = getQueryVariable("tonalidade") == '' ? '' : '&tonalidade=' + getQueryVariable("tonalidade");
+				let queryParamTonalidade = getQueryVariable("tonalidade") == false ? '' : '&tonalidade=' + getQueryVariable("tonalidade");
 
-				let queryParamModo = getQueryVariable("modo") == '' ? '' : '&modo=' + getQueryVariable("modo");
+				let queryParamModo = getQueryVariable("modo") == false ? '' : '&modo=' + getQueryVariable("modo");
 
-				let queryParamCompasso = getQueryVariable("formula-de-compasso") == '' ? '' : '&formula-de-compasso=' + getQueryVariable("formula-de-compasso");
+				let queryParamCompasso = getQueryVariable("formula-de-compasso") == false ? '' : '&formula-de-compasso=' + getQueryVariable("formula-de-compasso");
 
 				console.log("Buscando...");
 
@@ -335,6 +335,48 @@
 						.catch(function (err) {
 							console.log('Erro na busca por filtros: ' + err);
 						});
+			}
+			
+			function buscaEmPlaylist() {
+				// condition ? expressionIfTrue : expressionIfFalse;
+
+				let buscaEmPlaylistsConfirmer = getQueryVariable("FalaMax");
+				
+				let stringBuscada = getQueryVariable("stringBusca") == false ? '' : "nome-musica-criterio=" + getQueryVariable("stringBusca");
+
+				let queryParam = getQuerystring();
+				
+				console.log("Buscando...");
+				
+				if(buscaEmPlaylistsConfirmer)
+				{
+					fetch('/menu/busca-musica-em-playlists-por-filtro?' + stringBuscada + "&valores-de-filtragem=" + queryParam)
+					.then(function (response) {
+						return response.json();
+					})
+					.then(function (data) {
+						appendData_busca(data, "resultadosDeBusca");
+					})
+					.catch(function (err) {
+						console.log('error: ' + err);
+					});
+				}
+			}
+			
+			function getQuerystring() {
+			    let output
+			    if(window.location.search){
+			    var queryParams = window.location.search.substring(1);
+			    var listQueries = queryParams.split("&");
+			        for(var query in listQueries) {
+			        if (listQueries.hasOwnProperty(query)) {
+			            var queryPair = listQueries[query].split('=');
+			            output += decodeURIComponent(queryPair[1] + "," || "0,");
+			        }
+			    }
+			    }
+			    console.log(output);
+			    return output;
 			}
 
 			function appendData_busca(data, elementId) {
